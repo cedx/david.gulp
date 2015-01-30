@@ -70,7 +70,7 @@ gulp.task('lint:doc', function(callback) {
 });
 
 gulp.task('lint:js', function() {
-  return gulp.src('*.js')
+  return gulp.src([ '*.js', 'lib/*.js' ])
     .pipe(plugins.jshint(pkg.jshintConfig))
     .pipe(plugins.jshint.reporter('default', { verbose: true }));
 });
@@ -86,6 +86,7 @@ gulp.task('lint:js', function() {
 function _exec(command, callback) {
   child.exec(command, function(err, stdout) {
     console.log(stdout.trim());
+    if(err) console.error(err);
     callback();
   });
 }
