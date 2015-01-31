@@ -6,10 +6,9 @@
 
 // Module dependencies.
 var child=require('child_process');
+var david=require('./index');
 var del=require('del');
-var fs=require('fs');
 var gulp=require('gulp');
-var path=require('path');
 var plugins=require('gulp-load-plugins')();
 var pkg=require('./package.json');
 var util=require('util');
@@ -34,8 +33,10 @@ var config={
  * Checks the package dependencies.
  * @method check
  */
-gulp.task('check', function(callback) {
-  _exec('david', callback);
+gulp.task('check', function() {
+  return gulp.src('package.json')
+    .pipe(david())
+    .pipe(david.reporter);
 });
 
 /**
