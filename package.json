@@ -5,7 +5,7 @@
   "homepage": "https://github.com/cedx/david.gulp",
   "license": "MIT",
   "main": "./index",
-  "name": "david-gulp",
+  "name": "gulp-david",
   "version": "0.1.0",
   "dependencies": {
     "chalk": "^0.5.1",

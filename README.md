@@ -1,5 +1,5 @@
 # David.gulp
-[![Version](http://img.shields.io/npm/v/gulp-david.svg?style=flat)](https://www.npmjs.com/package/gulp-david) [![Dependencies](http://img.shields.io/david/cedx/david.gulp.svg?style=flat)](https://david-dm.org/cedx/david.gulp) [![Downloads](http://img.shields.io/npm/dm/gulp-david.svg?style=flat)](https://www.npmjs.com/package/gulp-david) [![License](http://img.shields.io/npm/l/gulp-david.svg?style=flat)](https://github.com/cedx/david.gulp/blob/master/LICENSE.txt)
+[![Release](http://img.shields.io/npm/v/gulp-david.svg?style=flat)](https://www.npmjs.com/package/gulp-david) [![License](http://img.shields.io/npm/l/gulp-david.svg?style=flat)](https://github.com/cedx/david.gulp/blob/master/LICENSE.txt) [![Downloads](http://img.shields.io/npm/dm/gulp-david.svg?style=flat)](https://www.npmjs.com/package/gulp-david) [![Dependencies](http://img.shields.io/david/cedx/david.gulp.svg?style=flat)](https://david-dm.org/cedx/david.gulp)
 
 Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plugin for [Gulp.js](http://gulpjs.com), the streaming build system.
 
@@ -7,13 +7,15 @@ Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://da
 If you haven't used [Gulp.js](http://gulpjs.com) before, be sure to check out the [related documentation](https://github.com/gulpjs/gulp/blob/master/docs/README.md), as it explains how to create a `gulpfile.js` as well as install and use plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-$ npm install david-gulp --save-dev
+$ npm install gulp-david --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your `gulpfile.js` with these [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) statements:
 
 ```javascript
-var david = require('david-gulp');
+var gulp = require('gulp');
+var david = require('gulp-david');
+
 gulp.task('checkDependencies', function() {
   return gulp.src('package.json')
     .pipe(david());
@@ -27,8 +29,8 @@ The plugin can be customized using these settings:
 - `errorDepType: Boolean = false` : If dependency version is invalid (not a string), emit an error.
 - `errorSCM: Boolean = false` : If dependency version is a source control URL, emit an error.
 - `registry: String = null` : The NPM registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if `null`.
-- `update: Boolean = false` : Update dependencies in the file contents to latest versions.
 - `unstable: Boolean = false` : Use unstable dependencies.
+- `update: Boolean = false` : Update dependencies in the file contents to latest versions.
 
 ## Results
 The plugin adds the following properties to the `file` object:
@@ -42,7 +44,7 @@ file.david = {
 ```
 
 ## Reporters
-The plugin provides a builtin reporter printing to the standard ouput the list of packages that need to be updated.
+The plugin provides a builtin reporter printing to the standard ouput the list of outdated packages:
 
 ```javascript
 return gulp.src('package.json')
@@ -51,7 +53,7 @@ return gulp.src('package.json')
 ```
 
 ## Updating Dependencies
-This plugin let you update dependencies in the manifest file to latest versions and save them back:
+The plugin lets you update dependencies in the manifest file to latest versions and save them back to the file system:
 
 ```javascript
 return gulp.src('package.json')
@@ -60,4 +62,4 @@ return gulp.src('package.json')
 ```
 
 ## License
-[David.gulp](https://www.npmjs.com/package/david-gulp) is distributed under the MIT License.
+[David.gulp](https://www.npmjs.com/package/gulp-david) is distributed under the MIT License.
