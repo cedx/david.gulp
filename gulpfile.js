@@ -48,6 +48,24 @@ gulp.task('clean', function(callback) {
 });
 
 /**
+ * Creates a distribution file for this program.
+ * @method dist
+ */
+gulp.task('dist', [ 'default' ], function() {
+  var sources=[
+    '*.js',
+    '*.json',
+    '*.md',
+    '*.txt',
+    'lib/*.js'
+  ];
+
+  return gulp.src(sources, { base: '.' })
+    .pipe(plugins.zip(config.output))
+    .pipe(gulp.dest('var'));
+});
+
+/**
  * Builds the documentation.
  * @method doc
  */
