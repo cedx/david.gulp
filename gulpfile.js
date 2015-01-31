@@ -30,6 +30,12 @@ var config={
 };
 
 /**
+ * Runs the default tasks.
+ * @method default
+ */
+gulp.task('default', [ 'dist' ]);
+
+/**
  * Checks the package dependencies.
  * @method check
  */
@@ -51,7 +57,7 @@ gulp.task('clean', function(callback) {
  * Creates a distribution file for this program.
  * @method dist
  */
-gulp.task('dist', [ 'default' ], function() {
+gulp.task('dist', function() {
   var sources=[
     '*.js',
     '*.json',
