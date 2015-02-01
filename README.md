@@ -1,5 +1,5 @@
 # David.gulp
-[![Release](http://img.shields.io/npm/v/gulp-david.svg?style=flat)](https://www.npmjs.com/package/gulp-david) [![License](http://img.shields.io/npm/l/gulp-david.svg?style=flat)](https://github.com/cedx/david.gulp/blob/master/LICENSE.txt) [![Downloads](http://img.shields.io/npm/dm/gulp-david.svg?style=flat)](https://www.npmjs.com/package/gulp-david) [![Dependencies](http://img.shields.io/david/cedx/david.gulp.svg?style=flat)](https://david-dm.org/cedx/david.gulp)
+[![Release](http://img.shields.io/npm/v/gulp-david.svg?style=flat)](https://www.npmjs.com/package/gulp-david) [![License](http://img.shields.io/npm/l/gulp-david.svg?style=flat)](https://github.com/cedx/david.gulp/blob/master/LICENSE.txt) [![Downloads](http://img.shields.io/npm/dm/gulp-david.svg?style=flat)](https://www.npmjs.com/package/gulp-david) [![Dependencies](http://img.shields.io/david/cedx/david.gulp.svg?style=flat)](https://david-dm.org/cedx/david.gulp) [![Build](http://img.shields.io/travis/cedx/david.gulp.svg?style=flat)](https://travis-ci.org/cedx/david.gulp)
 
 Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plugin for [Gulp.js](http://gulpjs.com), the streaming build system.
 
