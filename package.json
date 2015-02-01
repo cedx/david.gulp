@@ -18,6 +18,7 @@
     "gulp": "^3.8.10",
     "gulp-jshint": "^1.9.0",
     "gulp-load-plugins": "^0.8.0",
+    "gulp-mocha": "^2.0.0",
     "gulp-zip": "^2.0.2",
     "vinyl": "^0.4.6"
   },
@@ -52,6 +53,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/cedx/david.gulp.git"
+  },
+  "scripts": {
+    "test": "gulp test"
   },
   "yuidoc": {
     "logo": "http://dev.belin.io/david.gulp/favicon.ico",

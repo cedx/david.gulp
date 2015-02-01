@@ -100,6 +100,15 @@ gulp.task('lint:js', function() {
 });
 
 /**
+ * Runs the unit tests.
+ * @method test
+ */
+gulp.task('test', function() {
+  return gulp.src([ 'test/*.js' ], { read: false })
+    .pipe(plugins.mocha());
+});
+
+/**
  * Runs a command and prints its output.
  * @method _exec
  * @param {String} command The command to run, with space-separated arguments.
