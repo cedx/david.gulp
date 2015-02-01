@@ -61,5 +61,8 @@ return gulp.src('package.json')
   .pipe(gulp.dest('.'));
 ```
 
+A full sample is located in the `example` folder:
+[Sample Gulp Task](https://github.com/cedx/david.gulp/blob/master/example/gulpfile.js)
+
 ## License
 [David.gulp](https://www.npmjs.com/package/gulp-david) is distributed under the MIT License.

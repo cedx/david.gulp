@@ -15,10 +15,9 @@ var util=require('util');
 
 /**
  * Provides tasks for [Gulp.js](http://gulpjs.com) build system.
- * @class MiniFramework.Gulpfile
+ * @class cli.Gulpfile
  * @static
  */
-process.chdir(__dirname);
 
 /**
  * The task settings.
@@ -95,7 +94,7 @@ gulp.task('lint:doc', function(callback) {
 });
 
 gulp.task('lint:js', function() {
-  return gulp.src([ '*.js', 'lib/*.js' ])
+  return gulp.src([ '*.js', 'example/*.js', 'lib/*.js' ])
     .pipe(plugins.jshint(pkg.jshintConfig))
     .pipe(plugins.jshint.reporter('default', { verbose: true }));
 });
