@@ -9,6 +9,8 @@ var assert=require('assert');
 var Checker=require('../lib/checker');
 var File=require('vinyl');
 var gulp=require('gulp');
+var pkg=require('../package.json');
+var Promise=(Promise || require('promise'));
 var stream=require('stream');
 
 /**
@@ -25,9 +27,10 @@ var CheckerTest={
   run: function() {
     var self=this;
     describe('Checker', function() {
+      this.timeout(10000);
+      describe('parseManifest()', self.testParseManifest);
       describe('getDependencies()', self.testGetDependencies);
       describe('getUpdatedDependencies()', self.testGetUpdatedDependencies);
-      describe('parseManifest()', self.testParseManifest);
       describe('_transform()', self.testTransform);
     });
   },
@@ -37,6 +40,25 @@ var CheckerTest={
    * @method testGetDependencies
    */
   testGetDependencies: function() {
+    it('should return a Promise object', function() {
+      assert(new Checker().getDependencies() instanceof Promise);
+    });
+
+    it('should return an object with 3 dependency properties', function() {
+      return new Checker().getDependencies({ name: 'gulp-david' }).then(function(deps) {
+        assert('dependencies' in deps);
+        assert('devDependencies' in deps);
+        assert('optionalDependencies' in deps);
+      });
+    });
+
+    it('should have some non-empty dependency properties for the current manifest', function() {
+      return new Checker().getDependencies(pkg).then(function(deps) {
+        assert(Object.keys(deps.dependencies).length>0);
+        assert(Object.keys(deps.devDependencies).length>0);
+        assert(Object.keys(deps.optionalDependencies).length==0);
+      });
+    });
   },
 
   /**
@@ -44,6 +66,23 @@ var CheckerTest={
    * @method testGetUpdatedDependencies
    */
   testGetUpdatedDependencies: function() {
+    it('should return a Promise object', function() {
+      assert(new Checker().getUpdatedDependencies() instanceof Promise);
+    });
+
+    it('should return an object with 3 dependency properties', function() {
+      return new Checker().getUpdatedDependencies({ name: 'gulp-david' }).then(function(deps) {
+        assert('dependencies' in deps);
+        assert('devDependencies' in deps);
+        assert('optionalDependencies' in deps);
+      });
+    });
+
+    it('should have some empty dependency properties for the current manifest', function() {
+      return new Checker().getUpdatedDependencies(pkg).then(function(deps) {
+        assert(Object.keys(deps.optionalDependencies).length==0);
+      });
+    });
   },
 
   /**
