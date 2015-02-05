@@ -62,7 +62,9 @@ gulp.task('dist', function() {
     '*.json',
     '*.md',
     '*.txt',
-    'lib/*.js'
+    'example/*.js',
+    'lib/*.js',
+    'test/*.js'
   ];
 
   return gulp.src(sources, { base: '.' })
