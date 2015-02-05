@@ -8,7 +8,6 @@
 var assert=require('assert');
 var Checker=require('../lib/checker');
 var File=require('vinyl');
-var gulp=require('gulp');
 var pkg=require('../package.json');
 var Promise=(Promise || require('promise'));
 var stream=require('stream');
@@ -56,7 +55,7 @@ var CheckerTest={
       return new Checker().getDependencies(pkg).then(function(deps) {
         assert(Object.keys(deps.dependencies).length>0);
         assert(Object.keys(deps.devDependencies).length>0);
-        assert(Object.keys(deps.optionalDependencies).length==0);
+        assert(!Object.keys(deps.optionalDependencies).length);
       });
     });
   },
@@ -80,7 +79,7 @@ var CheckerTest={
 
     it('should have some empty dependency properties for the current manifest', function() {
       return new Checker().getUpdatedDependencies(pkg).then(function(deps) {
-        assert(Object.keys(deps.optionalDependencies).length==0);
+        assert(!Object.keys(deps.optionalDependencies).length);
       });
     });
   },
@@ -121,6 +120,14 @@ var CheckerTest={
    * @method testTransform
    */
   testTransform: function() {
+    it('should add a "david" property to the file object', function(done) {
+      var src=new File({ contents: new Buffer('{ "name": "gulp-david" }') });
+      new Checker()._transform(src, 'utf8', function(err, dest) {
+        assert.ifError(err);
+        assert('david' in dest);
+        done();
+      });
+    });
   }
 };
 

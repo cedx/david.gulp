@@ -94,7 +94,7 @@ gulp.task('lint:doc', function(callback) {
 });
 
 gulp.task('lint:js', function() {
-  return gulp.src([ '*.js', 'example/*.js', 'lib/*.js' ])
+  return gulp.src([ '*.js', 'example/*.js', 'lib/*.js', 'test/*.js' ])
     .pipe(plugins.jshint(pkg.jshintConfig))
     .pipe(plugins.jshint.reporter('default', { verbose: true }));
 });

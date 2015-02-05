@@ -6,7 +6,7 @@
 
 // Module dependencies.
 var assert=require('assert');
-var gulp=require('gulp');
+var File=require('vinyl');
 var Reporter=require('../lib/reporter');
 
 /**
@@ -32,6 +32,12 @@ var ReporterTest={
    * @method testTransform
    */
   testTransform: function() {
+    it('should emit an error if "david" property is not found on the file object', function(done) {
+      new Reporter()._transform(new File(), 'utf8', function(err) {
+        assert(err instanceof Error);
+        done();
+      });
+    });
   }
 };
 
