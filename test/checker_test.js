@@ -9,7 +9,6 @@ var assert=require('assert');
 var Checker=require('../lib/checker');
 var File=require('vinyl');
 var pkg=require('../package.json');
-var Promise=(Promise || require('promise'));
 var stream=require('stream');
 
 /**
