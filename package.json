@@ -6,19 +6,19 @@
   "license": "MIT",
   "main": "./index",
   "name": "gulp-david",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "dependencies": {
-    "chalk": "^0.5.1",
-    "david": "^6.1.4"
+    "chalk": "^1.0.0",
+    "david": "^6.1.5"
   },
   "devDependencies": {
     "del": "^1.1.1",
     "docgen-js": "^0.0.1",
     "gulp": "^3.8.11",
     "gulp-jshint": "^1.9.2",
-    "gulp-load-plugins": "^0.8.0",
+    "gulp-load-plugins": "^0.8.1",
     "gulp-mocha": "^2.0.0",
-    "gulp-zip": "^2.0.2",
+    "gulp-zip": "^2.0.3",
     "vinyl": "^0.4.6"
   },
   "engines": {
