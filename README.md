@@ -25,6 +25,7 @@ gulp.task('checkDependencies', function() {
 
 ## Options
 The plugin can be customized using these settings:
+
 - `error404: Boolean = false` : If dependency not found, emit an error.
 - `errorDepType: Boolean = false` : If dependency version is invalid (not a string), emit an error.
 - `errorSCM: Boolean = false` : If dependency version is a source control URL, emit an error.
