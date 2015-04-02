@@ -1,5 +1,5 @@
 # David.gulp
-[![Release](http://img.shields.io/npm/v/gulp-david.svg)](https://www.npmjs.com/package/gulp-david) [![License](http://img.shields.io/npm/l/gulp-david.svg)](https://github.com/cedx/david.gulp/blob/master/LICENSE.txt) [![Downloads](http://img.shields.io/npm/dm/gulp-david.svg)](https://www.npmjs.com/package/gulp-david) [![Dependencies](http://img.shields.io/david/cedx/david.gulp.svg)](https://david-dm.org/cedx/david.gulp) [![Build](http://img.shields.io/travis/cedx/david.gulp.svg)](https://travis-ci.org/cedx/david.gulp)
+[![Release](http://img.shields.io/npm/v/gulp-david.svg)](https://www.npmjs.com/package/gulp-david) [![License](http://img.shields.io/npm/l/gulp-david.svg)](https://bitbucket.org/cedx/david.gulp/src/master/LICENSE.txt) [![Downloads](http://img.shields.io/npm/dm/gulp-david.svg)](https://www.npmjs.com/package/gulp-david) [![Dependencies](http://img.shields.io/david/cedx/david.gulp.svg)](https://david-dm.org/cedx/david.gulp) [![Build](https://img.shields.io/codeship/c3486a30-bb57-0132-cf24-5ea58638974e.svg)](https://travis-ci.org/cedx/david.gulp)
 
 Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plugin for [Gulp.js](http://gulpjs.com), the streaming build system.
 
@@ -63,7 +63,7 @@ return gulp.src('package.json')
 ```
 
 A full sample is located in the `example` folder:
-[Sample Gulp Tasks](https://github.com/cedx/david.gulp/blob/master/example/gulpfile.js)
+[Sample Gulp Tasks](https://bitbucket.org/cedx/david.gulp/src/master/example/gulpfile.js)
 
 ## License
 [David.gulp](https://www.npmjs.com/package/gulp-david) is distributed under the MIT License.
