@@ -1,8 +1,8 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
-  "bugs": "https://bitbucket.org/cedx/david.gulp/issues",
+  "bugs": "http://dev.belin.io/david.gulp/issues",
   "description": "David plugin for Gulp.js, the streaming build system.",
-  "homepage": "https://bitbucket.org/cedx/david.gulp",
+  "homepage": "http://dev.belin.io/david.gulp",
   "license": "MIT",
   "main": "./index",
   "name": "gulp-david",
@@ -53,13 +53,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/cedx/david.gulp.git"
+    "url": "http://dev.belin.io/david.gulp.git"
   },
   "scripts": {
     "test": "gulp test"
   },
   "yuidoc": {
-    "logo": "http://dev.belin.io/david.gulp/favicon.ico",
+    "logo": "http://api.belin.io/david.gulp/favicon.ico",
     "name": "David.gulp",
     "url": "https://www.npmjs.com/package/gulp-david",
     "options": {
