@@ -53,7 +53,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://dev.belin.io/david.gulp.git"
+    "url": "https://bitbucket.org/cedx/david.gulp.git"
   },
   "scripts": {
     "test": "gulp test"
