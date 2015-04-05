@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://www.npmjs.com/package/gulp-david) package.
 
+#### Version 0.2.2
+- Upgraded the package dependencies.
+
 #### Version 0.2.1
 - Upgraded the package dependencies.
 

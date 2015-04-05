@@ -58,10 +58,10 @@ gulp.task('clean', function(callback) {
  */
 gulp.task('dist', function() {
   var sources=[
-    '*.js',
     '*.json',
     '*.md',
     '*.txt',
+    'index.js',
     'example/*.js',
     'lib/*.js',
     'test/*.js'
@@ -120,7 +120,8 @@ gulp.task('test', function() {
  */
 function _exec(command, callback) {
   child.exec(command, function(err, stdout) {
-    console.log(stdout.trim());
+    var output=stdout.trim();
+    if(output.length) console.log(output);
     if(err) console.error(err);
     callback();
   });

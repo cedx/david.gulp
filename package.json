@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "./index",
   "name": "gulp-david",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "dependencies": {
     "chalk": "^1.0.0",
     "david": "^6.1.5"
@@ -40,7 +40,8 @@
     "unused": true,
     "globals": {
       "describe": false,
-      "it": false
+      "it": false,
+      "Promise": false
     }
   },
   "keywords": [
