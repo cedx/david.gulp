@@ -76,13 +76,15 @@ gulp.task('dist', function() {
  * Builds the documentation.
  * @method doc
  */
-gulp.task('doc', [ 'doc:assets' ], function(callback) {
-  _exec('docgen', callback);
-});
+gulp.task('doc', [ 'doc:assets' ]);
 
-gulp.task('doc:assets', function() {
+gulp.task('doc:assets', [ 'doc:build' ], function() {
   return gulp.src([ 'www/apple-touch-icon.png', 'www/favicon.ico' ])
     .pipe(gulp.dest('doc/api/assets'));
+});
+
+gulp.task('doc:build', function(callback) {
+  _exec('docgen', callback);
 });
 
 /**
