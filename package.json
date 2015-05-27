@@ -1,23 +1,23 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
-  "bugs": "http://dev.belin.io/david.gulp/issues",
+  "bugs": "https://bitbucket.org/cedx/david.gulp/issues",
   "description": "David plugin for Gulp.js, the streaming build system.",
-  "homepage": "http://dev.belin.io/david.gulp",
+  "homepage": "https://bitbucket.org/cedx/david.gulp",
   "license": "MIT",
   "main": "./index",
   "name": "gulp-david",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "dependencies": {
     "chalk": "^1.0.0",
-    "david": "^6.1.5"
+    "david": "^6.1.6"
   },
   "devDependencies": {
-    "del": "^1.1.1",
+    "del": "^1.2.0",
     "docgen-js": "^0.0.1",
     "gulp": "^3.8.11",
-    "gulp-jshint": "^1.10.0",
-    "gulp-load-plugins": "^0.9.0",
-    "gulp-mocha": "^2.0.1",
+    "gulp-jshint": "^1.11.0",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-mocha": "^2.1.0",
     "gulp-zip": "^3.0.2",
     "vinyl": "^0.4.6"
   },
