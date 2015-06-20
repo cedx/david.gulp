@@ -6,6 +6,7 @@
   "license": "MIT",
   "main": "./index",
   "name": "gulp-david",
+  "repository": "bitbucket:cedx/david.gulp",
   "version": "0.2.3",
   "dependencies": {
     "chalk": "^1.0.0",
@@ -51,10 +52,6 @@
     "gulpplugin",
     "npm"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/cedx/david.gulp.git"
-  },
   "scripts": {
     "test": "gulp test"
   },
