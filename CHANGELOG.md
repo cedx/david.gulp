@@ -1,5 +1,5 @@
 # Changelog
-This file contains highlights of what changes on each version of the [David.gulp](https://www.npmjs.com/package/gulp-david) package.
+This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
 #### Version 0.3.0
 - Raised the required [Node.js](http://nodejs.org) version.

@@ -57,7 +57,7 @@
   "yuidoc": {
     "logo": "http://www.belin.io/david.gulp/favicon.ico",
     "name": "David.gulp",
-    "url": "https://www.npmjs.com/package/gulp-david",
+    "url": "https://github.com/cedx/david.gulp",
     "options": {
       "linkNatives": true,
       "outdir": "doc/api",
