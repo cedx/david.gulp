@@ -7,7 +7,7 @@
     "plugins/markdown"
   ],
   "source": {
-    "include": ["lib"],
+    "include": ["lib", "package.json", "README.md"],
     "includePattern": ".+\\.js$"
   },
   "tags": {
