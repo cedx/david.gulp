@@ -1,0 +1,16 @@
+{
+  "opts": {
+    "destination": "doc/api",
+    "recurse": true
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "source": {
+    "include": ["lib"],
+    "includePattern": ".+\\.js$"
+  },
+  "tags": {
+    "dictionaries": ["jsdoc"]
+  }
+}

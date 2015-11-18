@@ -26,8 +26,9 @@ gulp.task('updateManifest', function() {
 // Upgrades the packages to latest versions.
 gulp.task('upgradePackages', [ 'updateManifest' ], function(callback) {
   exec('npm update', function(err, stdout) {
-    console.log(stdout.trim());
-    if(err) callback(err);
-    else callback();
+    var output=stdout.trim();
+    if(output.length) console.log(output);
+    if(err) console.error(err);
+    callback();
   });
 });

@@ -79,25 +79,19 @@ gulp.task('dist', function() {
 gulp.task('doc', [ 'doc:assets' ]);
 
 gulp.task('doc:assets', [ 'doc:build' ], function() {
-  return gulp.src([ 'www/apple-touch-icon.png', 'www/favicon.ico' ])
-    .pipe(gulp.dest('doc/api/assets'));
+  return gulp.src([ 'web/apple-touch-icon.png', 'web/favicon.ico' ])
+    .pipe(gulp.dest('doc/api'));
 });
 
 gulp.task('doc:build', function(callback) {
-  _exec('docgen', callback);
+  _exec('jsdoc --configure doc/conf.json', callback);
 });
 
 /**
  * Performs static analysis of source code.
  * @method lint
  */
-gulp.task('lint', [ 'lint:doc', 'lint:js' ]);
-
-gulp.task('lint:doc', function(callback) {
-  _exec('docgen --lint', callback);
-});
-
-gulp.task('lint:js', function() {
+gulp.task('lint', function() {
   return gulp.src([ '*.js', 'example/*.js', 'lib/*.js', 'test/*.js' ])
     .pipe(plugins.jshint(pkg.jshintConfig))
     .pipe(plugins.jshint.reporter('default', { verbose: true }));

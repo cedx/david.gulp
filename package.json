@@ -41,7 +41,8 @@
     "unused": true,
     "globals": {
       "describe": false,
-      "it": false
+      "it": false,
+      "Promise": false
     }
   },
   "keywords": [
@@ -53,17 +54,5 @@
   ],
   "scripts": {
     "test": "gulp test"
-  },
-  "yuidoc": {
-    "logo": "http://www.belin.io/david.gulp/favicon.ico",
-    "name": "David.gulp",
-    "url": "https://github.com/cedx/david.gulp",
-    "options": {
-      "linkNatives": true,
-      "outdir": "doc/api",
-      "paths": [ "lib" ],
-      "tabtospace": 2,
-      "theme": "default"
-    }
   }
 }

@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
 #### Version 0.3.0
+- Changed the documentation system for [JSDoc](http://usejsdoc.org).
 - Raised the required [Node.js](http://nodejs.org) version.
 - Upgraded the package dependencies.
 
