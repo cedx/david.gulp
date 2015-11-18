@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://www.npmjs.com/package/gulp-david) package.
 
+#### Version 0.3.0
+- Raised the required [Node.js](http://nodejs.org) version.
+- Upgraded the package dependencies.
+
 #### Version 0.2.3
 - Upgraded the package dependencies.
 
