@@ -38,19 +38,15 @@ gulp.task('default', [ 'dist' ]);
  * Checks the package dependencies.
  * @method check
  */
-gulp.task('check', function() {
-  return gulp.src('package.json')
-    .pipe(david())
-    .pipe(david.reporter);
-});
+gulp.task('check', () => gulp.src('package.json')
+  .pipe(david())
+  .pipe(david.reporter));
 
 /**
  * Deletes all generated files and reset any saved state.
  * @method clean
  */
-gulp.task('clean', function(callback) {
-  del('var/'+config.output, callback);
-});
+gulp.task('clean', callback => del('var/'+config.output, callback));
 
 /**
  * Creates a distribution file for this program.
@@ -78,33 +74,25 @@ gulp.task('dist', function() {
  */
 gulp.task('doc', [ 'doc:assets' ]);
 
-gulp.task('doc:assets', [ 'doc:build' ], function() {
-  return gulp.src([ 'web/apple-touch-icon.png', 'web/favicon.ico' ])
-    .pipe(gulp.dest('doc/api'));
-});
+gulp.task('doc:assets', [ 'doc:build' ], () => gulp.src([ 'web/apple-touch-icon.png', 'web/favicon.ico' ])
+  .pipe(gulp.dest('doc/api')));
 
-gulp.task('doc:build', function(callback) {
-  _exec('jsdoc --configure doc/conf.json', callback);
-});
+gulp.task('doc:build', callback => _exec('jsdoc --configure doc/conf.json', callback));
 
 /**
  * Performs static analysis of source code.
  * @method lint
  */
-gulp.task('lint', function() {
-  return gulp.src([ '*.js', 'example/*.js', 'lib/*.js', 'test/*.js' ])
-    .pipe(plugins.jshint(pkg.jshintConfig))
-    .pipe(plugins.jshint.reporter('default', { verbose: true }));
-});
+gulp.task('lint', () => gulp.src([ '*.js', 'example/*.js', 'lib/*.js', 'test/*.js' ])
+  .pipe(plugins.jshint(pkg.jshintConfig))
+  .pipe(plugins.jshint.reporter('default', { verbose: true })));
 
 /**
  * Runs the unit tests.
  * @method test
  */
-gulp.task('test', function() {
-  return gulp.src([ 'test/*.js' ], { read: false })
-    .pipe(plugins.mocha());
-});
+gulp.task('test', () => gulp.src([ 'test/*.js' ], { read: false })
+  .pipe(plugins.mocha()));
 
 /**
  * Runs a command and prints its output.
