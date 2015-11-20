@@ -5,23 +5,23 @@
 'use strict';
 
 // Module dependencies.
-var assert=require('assert');
-var File=require('vinyl');
-var Reporter=require('../lib/reporter');
+const assert=require('assert');
+const File=require('vinyl');
+const Reporter=require('../lib/reporter');
 
 /**
  * Tests the features of the `david.Reporter` class.
  * @class david.tests.ReporterTest
  * @static
  */
-var ReporterTest={
+const ReporterTest={
 
   /**
    * Runs the unit tests.
    * @method run
    */
   run: function() {
-    var self=this;
+    let self=this;
     describe('Reporter', function() {
       describe('_transform()', self.testTransform);
     });

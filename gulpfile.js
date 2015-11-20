@@ -5,13 +5,13 @@
 'use strict';
 
 // Module dependencies.
-var child=require('child_process');
-var david=require('./index');
-var del=require('del');
-var gulp=require('gulp');
-var plugins=require('gulp-load-plugins')();
-var pkg=require('./package.json');
-var util=require('util');
+const child=require('child_process');
+const david=require('./index');
+const del=require('del');
+const gulp=require('gulp');
+const plugins=require('gulp-load-plugins')();
+const pkg=require('./package.json');
+const util=require('util');
 
 /**
  * Provides tasks for [Gulp.js](http://gulpjs.com) build system.
@@ -24,8 +24,8 @@ var util=require('util');
  * @property config
  * @type Object
  */
-var config={
-  output: util.format('%s-%s.zip', pkg.yuidoc.name.toLowerCase(), pkg.version)
+const config={
+  output: util.format('%s-%s.zip', pkg.name, pkg.version)
 };
 
 /**
@@ -57,7 +57,7 @@ gulp.task('clean', function(callback) {
  * @method dist
  */
 gulp.task('dist', function() {
-  var sources=[
+  let sources=[
     '*.json',
     '*.md',
     '*.txt',
@@ -116,7 +116,7 @@ gulp.task('test', function() {
  */
 function _exec(command, callback) {
   child.exec(command, function(err, stdout) {
-    var output=stdout.trim();
+    let output=stdout.trim();
     if(output.length) console.log(output);
     if(err) console.error(err);
     callback();

@@ -5,25 +5,25 @@
 'use strict';
 
 // Module dependencies.
-var assert=require('assert');
-var Checker=require('../lib/checker');
-var File=require('vinyl');
-var pkg=require('../package.json');
-var stream=require('stream');
+const assert=require('assert');
+const Checker=require('../lib/checker');
+const File=require('vinyl');
+const pkg=require('../package.json');
+const stream=require('stream');
 
 /**
  * Tests the features of the `david.Checker` class.
  * @class david.tests.CheckerTest
  * @static
  */
-var CheckerTest={
+const CheckerTest={
 
   /**
    * Runs the unit tests.
    * @method run
    */
   run: function() {
-    var self=this;
+    let self=this;
     describe('Checker', function() {
       this.timeout(10000);
       describe('parseManifest()', self.testParseManifest);
@@ -96,20 +96,20 @@ var CheckerTest={
 
     it('should throw an error if file is a stream', function() {
       assert.throws(function() {
-        var file=new File({ contents: new stream.Readable() });
+        let file=new File({ contents: new stream.Readable() });
         new Checker().parseManifest(file);
       });
     });
 
     it('should throw an error if manifest is invalid', function() {
       assert.throws(function() {
-        var file=new File({ contents: new Buffer('FooBar') });
+        let file=new File({ contents: new Buffer('FooBar') });
         new Checker().parseManifest(file);
       });
     });
 
     it('should return an object if manifest is valid', function() {
-      var file=new File({ contents: new Buffer('{ "name": "gulp-david" }') });
+      let file=new File({ contents: new Buffer('{ "name": "gulp-david" }') });
       assert.deepEqual(new Checker().parseManifest(file), { name: 'gulp-david' });
     });
   },
@@ -120,7 +120,7 @@ var CheckerTest={
    */
   testTransform: function() {
     it('should add a "david" property to the file object', function(done) {
-      var src=new File({ contents: new Buffer('{ "name": "gulp-david" }') });
+      let src=new File({ contents: new Buffer('{ "name": "gulp-david" }') });
       new Checker()._transform(src, 'utf8', function(err, dest) {
         assert.ifError(err);
         assert('david' in dest);
