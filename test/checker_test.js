@@ -16,13 +16,13 @@ const stream=require('stream');
  * @class david.tests.CheckerTest
  * @static
  */
-const CheckerTest={
+class CheckerTest {
 
   /**
    * Runs the unit tests.
    * @method run
    */
-  run: function() {
+  run() {
     let self=this;
     describe('Checker', function() {
       this.timeout(10000);
@@ -31,104 +31,102 @@ const CheckerTest={
       describe('getUpdatedDependencies()', self.testGetUpdatedDependencies);
       describe('_transform()', self.testTransform);
     });
-  },
+  }
 
   /**
    * Tests the `getDependencies` method.
    * @method testGetDependencies
    */
-  testGetDependencies: function() {
-    it('should return a Promise object', function() {
-      assert(new Checker().getDependencies() instanceof Promise);
-    });
+  testGetDependencies() {
+    it('should return a Promise object', () =>
+      assert(new Checker().getDependencies({}) instanceof Promise)
+    );
 
-    it('should return an object with 3 dependency properties', function() {
-      return new Checker().getDependencies({ name: 'gulp-david' }).then(function(deps) {
+    it('should return an object with 3 dependency properties', () =>
+      new Checker().getDependencies({ name: 'gulp-david' }).then(deps => {
         assert('dependencies' in deps);
         assert('devDependencies' in deps);
         assert('optionalDependencies' in deps);
-      });
-    });
+      })
+    );
 
-    it('should have some non-empty dependency properties for the current manifest', function() {
-      return new Checker().getDependencies(pkg).then(function(deps) {
+    it('should have some non-empty dependency properties for the current manifest', () =>
+      new Checker().getDependencies(pkg).then(deps => {
         assert(Object.keys(deps.dependencies).length>0);
         assert(Object.keys(deps.devDependencies).length>0);
         assert(!Object.keys(deps.optionalDependencies).length);
-      });
-    });
-  },
+      })
+    );
+  }
 
   /**
    * Tests the `getUpdatedDependencies` method.
    * @method testGetUpdatedDependencies
    */
-  testGetUpdatedDependencies: function() {
-    it('should return a Promise object', function() {
-      assert(new Checker().getUpdatedDependencies() instanceof Promise);
-    });
+  testGetUpdatedDependencies() {
+    it('should return a Promise object', () =>
+      assert(new Checker().getUpdatedDependencies({}) instanceof Promise)
+    );
 
-    it('should return an object with 3 dependency properties', function() {
-      return new Checker().getUpdatedDependencies({ name: 'gulp-david' }).then(function(deps) {
+    it('should return an object with 3 dependency properties', () =>
+      new Checker().getUpdatedDependencies({ name: 'gulp-david' }).then(deps => {
         assert('dependencies' in deps);
         assert('devDependencies' in deps);
         assert('optionalDependencies' in deps);
-      });
-    });
+      })
+    );
 
-    it('should have some empty dependency properties for the current manifest', function() {
-      return new Checker().getUpdatedDependencies(pkg).then(function(deps) {
+    it('should have some empty dependency properties for the current manifest', () =>
+      new Checker().getUpdatedDependencies(pkg).then(deps => {
         assert(!Object.keys(deps.optionalDependencies).length);
-      });
-    });
-  },
+      })
+    );
+  }
 
   /**
    * Tests the `parseManifest` method.
    * @method testParseManifest
    */
-  testParseManifest: function() {
-    it('should throw an error if file is null', function() {
-      assert.throws(function() {
-        new Checker().parseManifest(new File());
-      });
-    });
+  testParseManifest() {
+    it('should throw an error if file is null', () =>
+      assert.throws(() => new Checker().parseManifest(new File()))
+    );
 
-    it('should throw an error if file is a stream', function() {
-      assert.throws(function() {
+    it('should throw an error if file is a stream', () =>
+      assert.throws(() => {
         let file=new File({ contents: new stream.Readable() });
         new Checker().parseManifest(file);
-      });
-    });
+      })
+    );
 
-    it('should throw an error if manifest is invalid', function() {
-      assert.throws(function() {
+    it('should throw an error if manifest is invalid', () =>
+      assert.throws(() => {
         let file=new File({ contents: new Buffer('FooBar') });
         new Checker().parseManifest(file);
-      });
-    });
+      })
+    );
 
-    it('should return an object if manifest is valid', function() {
+    it('should return an object if manifest is valid', () => {
       let file=new File({ contents: new Buffer('{ "name": "gulp-david" }') });
       assert.deepEqual(new Checker().parseManifest(file), { name: 'gulp-david' });
     });
-  },
+  }
 
   /**
    * Tests the `_transform` method.
    * @method testTransform
    */
-  testTransform: function() {
-    it('should add a "david" property to the file object', function(done) {
+  testTransform() {
+    it('should add a "david" property to the file object', done => {
       let src=new File({ contents: new Buffer('{ "name": "gulp-david" }') });
-      new Checker()._transform(src, 'utf8', function(err, dest) {
+      new Checker()._transform(src, 'utf8', (err, dest) => {
         assert.ifError(err);
         assert('david' in dest);
         done();
       });
     });
   }
-};
+}
 
 // Run all tests.
-CheckerTest.run();
+new CheckerTest().run();

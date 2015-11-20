@@ -9,26 +9,26 @@ const david = require('gulp-david');
 gulp.task('default', [ 'upgradePackages' ]);
 
 // Checks the package dependencies.
-gulp.task('checkDependencies', function() {
-  return gulp.src('package.json')
+gulp.task('checkDependencies', () =>
+  gulp.src('package.json')
     .pipe(david({ error404: true, errorDepType: true }))
-    .pipe(david.reporter);
-});
+    .pipe(david.reporter)
+);
 
 // Updates the package manifest.
-gulp.task('updateManifest', function() {
-  return gulp.src('package.json')
+gulp.task('updateManifest', () =>
+  gulp.src('package.json')
     .pipe(david({ update: true }))
     .pipe(david.reporter)
-    .pipe(gulp.dest('.'));
-});
+    .pipe(gulp.dest('.'))
+);
 
 // Upgrades the packages to latest versions.
-gulp.task('upgradePackages', [ 'updateManifest' ], function(callback) {
-  exec('npm update', function(err, stdout) {
+gulp.task('upgradePackages', [ 'updateManifest' ], callback =>
+  exec('npm update', (err, stdout) => {
     let output=stdout.trim();
     if(output.length) console.log(output);
     if(err) console.error(err);
     callback();
-  });
-});
+  })
+);

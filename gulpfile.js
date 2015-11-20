@@ -11,7 +11,6 @@ const del=require('del');
 const gulp=require('gulp');
 const plugins=require('gulp-load-plugins')();
 const pkg=require('./package.json');
-const util=require('util');
 
 /**
  * Provides tasks for [Gulp.js](http://gulpjs.com) build system.
@@ -25,7 +24,16 @@ const util=require('util');
  * @type Object
  */
 const config={
-  output: util.format('%s-%s.zip', pkg.name, pkg.version)
+  output: `${pkg.name}-${pkg.version}.zip`,
+  sources: [
+    '*.json',
+    '*.md',
+    '*.txt',
+    'index.js',
+    'example/*.js',
+    'lib/*.js',
+    'test/*.js'
+  ]
 };
 
 /**
@@ -52,21 +60,9 @@ gulp.task('clean', callback => del('var/'+config.output, callback));
  * Creates a distribution file for this program.
  * @method dist
  */
-gulp.task('dist', function() {
-  let sources=[
-    '*.json',
-    '*.md',
-    '*.txt',
-    'index.js',
-    'example/*.js',
-    'lib/*.js',
-    'test/*.js'
-  ];
-
-  return gulp.src(sources, { base: '.' })
-    .pipe(plugins.zip(config.output))
-    .pipe(gulp.dest('var'));
-});
+gulp.task('dist', () => gulp.src(config.sources, { base: '.' })
+  .pipe(plugins.zip(config.output))
+  .pipe(gulp.dest('var')));
 
 /**
  * Builds the documentation.
@@ -103,7 +99,7 @@ gulp.task('test', () => gulp.src([ 'test/*.js' ], { read: false })
  * @private
  */
 function _exec(command, callback) {
-  child.exec(command, function(err, stdout) {
+  child.exec(command, (err, stdout) => {
     let output=stdout.trim();
     if(output.length) console.log(output);
     if(err) console.error(err);

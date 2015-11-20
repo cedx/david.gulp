@@ -13,13 +13,10 @@ $ npm install gulp-david --save-dev
 Once the plugin has been installed, it may be enabled inside your `gulpfile.js` with these [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) statements:
 
 ```javascript
-var gulp = require('gulp');
-var david = require('gulp-david');
+const gulp = require('gulp');
+const david = require('gulp-david');
 
-gulp.task('checkDependencies', function() {
-  return gulp.src('package.json')
-    .pipe(david());
-});
+gulp.task('checkDependencies', () => gulp.src('package.json').pipe(david()));
 
 ```
 
