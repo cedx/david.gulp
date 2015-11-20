@@ -2,8 +2,10 @@
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
 #### Version 0.3.0
+- Breaking change: using block-scoped binding constructs (`const` and `let`).
+- Breaking change: raised the required [Node.js](http://nodejs.org) version.
+- Added support for [Travis CI](https://travis-ci.org) continuous integration.
 - Changed the documentation system for [JSDoc](http://usejsdoc.org).
-- Raised the required [Node.js](http://nodejs.org) version.
 - Upgraded the package dependencies.
 
 #### Version 0.2.3
@@ -16,8 +18,8 @@ This file contains highlights of what changes on each version of the [David.gulp
 - Upgraded the package dependencies.
 
 #### Version 0.2.0
-- Raised the required [Node.js](http://nodejs.org) version.
-- Removed the dependency on [`promise`](https://www.npmjs.com/package/promise) module.
+- Breaking change: raised the required [Node.js](http://nodejs.org) version.
+- Breaking change: removed the dependency on [`promise`](https://www.npmjs.com/package/promise) module.
 - Upgraded the package dependencies.
 
 #### Version 0.1.1
