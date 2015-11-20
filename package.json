@@ -26,24 +26,22 @@
     "node": ">=4.2.0"
   },
   "jshintConfig": {
-    "camelcase": true,
+    "esversion": 6,
     "freeze": true,
-    "indent": 2,
+    "futurehostile": true,
     "latedef": "nofunc",
     "loopfunc": true,
-    "newcap": true,
+    "mocha": true,
+    "nocomma": true,
     "node": true,
+    "nonbsp": true,
     "nonew": true,
-    "quotmark": "single",
+    "singleGroups": true,
     "strict": true,
     "trailing": true,
     "undef": true,
     "unused": true,
-    "globals": {
-      "describe": false,
-      "it": false,
-      "Promise": false
-    }
+    "varstmt": true
   },
   "keywords": [
     "david",
