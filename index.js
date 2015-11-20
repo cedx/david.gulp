@@ -5,8 +5,8 @@
 'use strict';
 
 // Module dependencies.
-var Checker=require('./lib/checker');
-var Reporter=require('./lib/reporter');
+const Checker=require('./lib/checker');
+const Reporter=require('./lib/reporter');
 
 // Public interface.
 module.exports=function(options) { return new Checker(options); };

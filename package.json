@@ -26,7 +26,7 @@
     "node": ">=4.2.0"
   },
   "jshintConfig": {
-    "esversion": 6,
+    "esnext": true,
     "freeze": true,
     "futurehostile": true,
     "latedef": "nofunc",
@@ -36,7 +36,6 @@
     "node": true,
     "nonbsp": true,
     "nonew": true,
-    "singleGroups": true,
     "strict": true,
     "trailing": true,
     "undef": true,

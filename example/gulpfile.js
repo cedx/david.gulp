@@ -1,9 +1,9 @@
 'use strict';
 
 // Module dependencies.
-var exec = require('child_process').exec;
-var gulp = require('gulp');
-var david = require('gulp-david');
+const exec = require('child_process').exec;
+const gulp = require('gulp');
+const david = require('gulp-david');
 
 // Runs the default tasks.
 gulp.task('default', [ 'upgradePackages' ]);
@@ -26,7 +26,7 @@ gulp.task('updateManifest', function() {
 // Upgrades the packages to latest versions.
 gulp.task('upgradePackages', [ 'updateManifest' ], function(callback) {
   exec('npm update', function(err, stdout) {
-    var output=stdout.trim();
+    let output=stdout.trim();
     if(output.length) console.log(output);
     if(err) console.error(err);
     callback();
