@@ -5,13 +5,12 @@
 'use strict';
 
 // Module dependencies.
-var child=require('child_process');
-var david=require('./index');
-var del=require('del');
-var gulp=require('gulp');
-var plugins=require('gulp-load-plugins')();
-var pkg=require('./package.json');
-var util=require('util');
+const child=require('child_process');
+const david=require('./index');
+const del=require('del');
+const gulp=require('gulp');
+const plugins=require('gulp-load-plugins')();
+const pkg=require('./package.json');
 
 /**
  * Provides tasks for [Gulp.js](http://gulpjs.com) build system.
@@ -24,8 +23,17 @@ var util=require('util');
  * @property config
  * @type Object
  */
-var config={
-  output: util.format('%s-%s.zip', pkg.yuidoc.name.toLowerCase(), pkg.version)
+const config={
+  output: `${pkg.name}-${pkg.version}.zip`,
+  sources: [
+    '*.json',
+    '*.md',
+    '*.txt',
+    'index.js',
+    'example/*.js',
+    'lib/*.js',
+    'test/*.js'
+  ]
 };
 
 /**
@@ -38,39 +46,23 @@ gulp.task('default', [ 'dist' ]);
  * Checks the package dependencies.
  * @method check
  */
-gulp.task('check', function() {
-  return gulp.src('package.json')
-    .pipe(david())
-    .pipe(david.reporter);
-});
+gulp.task('check', () => gulp.src('package.json')
+  .pipe(david())
+  .pipe(david.reporter));
 
 /**
  * Deletes all generated files and reset any saved state.
  * @method clean
  */
-gulp.task('clean', function(callback) {
-  del('var/'+config.output, callback);
-});
+gulp.task('clean', callback => del('var/'+config.output, callback));
 
 /**
  * Creates a distribution file for this program.
  * @method dist
  */
-gulp.task('dist', function() {
-  var sources=[
-    '*.json',
-    '*.md',
-    '*.txt',
-    'index.js',
-    'example/*.js',
-    'lib/*.js',
-    'test/*.js'
-  ];
-
-  return gulp.src(sources, { base: '.' })
-    .pipe(plugins.zip(config.output))
-    .pipe(gulp.dest('var'));
-});
+gulp.task('dist', () => gulp.src(config.sources, { base: '.' })
+  .pipe(plugins.zip(config.output))
+  .pipe(gulp.dest('var')));
 
 /**
  * Builds the documentation.
@@ -78,39 +70,25 @@ gulp.task('dist', function() {
  */
 gulp.task('doc', [ 'doc:assets' ]);
 
-gulp.task('doc:assets', [ 'doc:build' ], function() {
-  return gulp.src([ 'www/apple-touch-icon.png', 'www/favicon.ico' ])
-    .pipe(gulp.dest('doc/api/assets'));
-});
+gulp.task('doc:assets', [ 'doc:build' ], () => gulp.src([ 'web/apple-touch-icon.png', 'web/favicon.ico' ])
+  .pipe(gulp.dest('doc/api')));
 
-gulp.task('doc:build', function(callback) {
-  _exec('docgen', callback);
-});
+gulp.task('doc:build', callback => _exec('jsdoc --configure doc/conf.json', callback));
 
 /**
  * Performs static analysis of source code.
  * @method lint
  */
-gulp.task('lint', [ 'lint:doc', 'lint:js' ]);
-
-gulp.task('lint:doc', function(callback) {
-  _exec('docgen --lint', callback);
-});
-
-gulp.task('lint:js', function() {
-  return gulp.src([ '*.js', 'example/*.js', 'lib/*.js', 'test/*.js' ])
-    .pipe(plugins.jshint(pkg.jshintConfig))
-    .pipe(plugins.jshint.reporter('default', { verbose: true }));
-});
+gulp.task('lint', () => gulp.src([ '*.js', 'example/*.js', 'lib/*.js', 'test/*.js' ])
+  .pipe(plugins.jshint(pkg.jshintConfig))
+  .pipe(plugins.jshint.reporter('default', { verbose: true })));
 
 /**
  * Runs the unit tests.
  * @method test
  */
-gulp.task('test', function() {
-  return gulp.src([ 'test/*.js' ], { read: false })
-    .pipe(plugins.mocha());
-});
+gulp.task('test', () => gulp.src([ 'test/*.js' ], { read: false })
+  .pipe(plugins.mocha()));
 
 /**
  * Runs a command and prints its output.
@@ -121,8 +99,8 @@ gulp.task('test', function() {
  * @private
  */
 function _exec(command, callback) {
-  child.exec(command, function(err, stdout) {
-    var output=stdout.trim();
+  child.exec(command, (err, stdout) => {
+    let output=stdout.trim();
     if(output.length) console.log(output);
     if(err) console.error(err);
     callback();

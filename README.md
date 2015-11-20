@@ -1,5 +1,5 @@
 # David.gulp
-[![Release](http://img.shields.io/npm/v/gulp-david.svg)](https://www.npmjs.com/package/gulp-david) [![License](http://img.shields.io/npm/l/gulp-david.svg)](https://bitbucket.org/cedx/david.gulp/src/master/LICENSE.txt) [![Downloads](http://img.shields.io/npm/dm/gulp-david.svg)](https://www.npmjs.com/package/gulp-david) [![Dependencies](http://img.shields.io/david/cedx/david.gulp.svg)](https://david-dm.org/cedx/david.gulp) ![Build](https://img.shields.io/codeship/c3486a30-bb57-0132-cf24-5ea58638974e.svg)
+![Release](http://img.shields.io/npm/v/gulp-david.svg) ![License](http://img.shields.io/npm/l/gulp-david.svg) ![Downloads](http://img.shields.io/npm/dm/gulp-david.svg) ![Dependencies](http://img.shields.io/david/cedx/david.gulp.svg) ![Build](http://img.shields.io/travis/cedx/david.gulp.svg)
 
 Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plugin for [Gulp.js](http://gulpjs.com), the streaming build system.
 
@@ -13,13 +13,10 @@ $ npm install gulp-david --save-dev
 Once the plugin has been installed, it may be enabled inside your `gulpfile.js` with these [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) statements:
 
 ```javascript
-var gulp = require('gulp');
-var david = require('gulp-david');
+const gulp = require('gulp');
+const david = require('gulp-david');
 
-gulp.task('checkDependencies', function() {
-  return gulp.src('package.json')
-    .pipe(david());
-});
+gulp.task('checkDependencies', () => gulp.src('package.json').pipe(david()));
 
 ```
 
@@ -62,8 +59,8 @@ return gulp.src('package.json')
   .pipe(gulp.dest('.'));
 ```
 
-A full sample is located in the `example` folder:
-[Sample Gulp Tasks](https://bitbucket.org/cedx/david.gulp/src/master/example/gulpfile.js)
+A full sample is located in the `example` folder:  
+[Sample Gulp Tasks](https://github.com/cedx/david.gulp/blob/master/example/gulpfile.js)
 
 ## License
-[David.gulp](https://www.npmjs.com/package/gulp-david) is distributed under the MIT License.
+[David.gulp](https://github.com/cedx/david.gulp) is distributed under the MIT License.

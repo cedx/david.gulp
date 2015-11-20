@@ -1,49 +1,46 @@
 {
   "author": "Cédric Belin <cedric@belin.io>",
-  "bugs": "https://bitbucket.org/cedx/david.gulp/issues",
+  "bugs": "https://github.com/cedx/david.gulp/issues",
   "description": "David plugin for Gulp.js, the streaming build system.",
-  "homepage": "https://bitbucket.org/cedx/david.gulp",
+  "homepage": "https://github.com/cedx/david.gulp",
   "license": "MIT",
   "main": "./index",
   "name": "gulp-david",
-  "repository": "bitbucket:cedx/david.gulp",
-  "version": "0.2.3",
+  "repository": "cedx/david.gulp",
+  "version": "0.3.0",
   "dependencies": {
-    "chalk": "^1.0.0",
-    "david": "^6.1.6"
+    "chalk": "^1.1.1",
+    "david": "^7.0.0"
   },
   "devDependencies": {
-    "del": "^1.2.0",
-    "docgen-js": "^0.0.1",
+    "del": "^2.1.0",
+    "jsdoc": "^3.4.0",
     "gulp": "^3.9.0",
-    "gulp-jshint": "^1.11.0",
-    "gulp-load-plugins": "^0.10.0",
-    "gulp-mocha": "^2.1.1",
+    "gulp-jshint": "^1.12.0",
+    "gulp-load-plugins": "^1.1.0",
+    "gulp-mocha": "^2.2.0",
     "gulp-zip": "^3.0.2",
-    "vinyl": "^0.5.0"
+    "vinyl": "^1.1.0"
   },
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=4.2.0"
   },
   "jshintConfig": {
-    "camelcase": true,
+    "esnext": true,
     "freeze": true,
-    "indent": 2,
+    "futurehostile": true,
     "latedef": "nofunc",
     "loopfunc": true,
-    "newcap": true,
+    "mocha": true,
+    "nocomma": true,
     "node": true,
+    "nonbsp": true,
     "nonew": true,
-    "quotmark": "single",
     "strict": true,
     "trailing": true,
     "undef": true,
     "unused": true,
-    "globals": {
-      "describe": false,
-      "it": false,
-      "Promise": false
-    }
+    "varstmt": true
   },
   "keywords": [
     "david",
@@ -54,17 +51,5 @@
   ],
   "scripts": {
     "test": "gulp test"
-  },
-  "yuidoc": {
-    "logo": "http://api.belin.io/david.gulp/favicon.ico",
-    "name": "David.gulp",
-    "url": "https://www.npmjs.com/package/gulp-david",
-    "options": {
-      "linkNatives": true,
-      "outdir": "doc/api",
-      "paths": [ "lib" ],
-      "tabtospace": 2,
-      "theme": "default"
-    }
   }
 }
