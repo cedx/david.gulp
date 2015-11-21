@@ -4,7 +4,6 @@
 const exec = require('child_process').exec;
 const gulp = require('gulp');
 const david = require('gulp-david');
-const Transform = require('stream').Transform;
 
 // Runs the default tasks.
 gulp.task('default', ['upgradePackages']);
