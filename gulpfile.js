@@ -1,5 +1,5 @@
 /**
- * Build system.
+ * Provides tasks for [Gulp.js](http://gulpjs.com) build system.
  * @module gulpfile
  */
 'use strict';
@@ -8,20 +8,13 @@
 const child=require('child_process');
 const david=require('./index');
 const del=require('del');
+const fs=require('fs');
 const gulp=require('gulp');
 const plugins=require('gulp-load-plugins')();
 const pkg=require('./package.json');
 
 /**
- * Provides tasks for [Gulp.js](http://gulpjs.com) build system.
- * @class cli.Gulpfile
- * @static
- */
-
-/**
  * The task settings.
- * @property config
- * @type Object
  */
 const config={
   output: `${pkg.name}-${pkg.version}.zip`,
@@ -38,13 +31,11 @@ const config={
 
 /**
  * Runs the default tasks.
- * @method default
  */
-gulp.task('default', [ 'dist' ]);
+gulp.task('default', ['dist']);
 
 /**
  * Checks the package dependencies.
- * @method check
  */
 gulp.task('check', () => gulp.src('package.json')
   .pipe(david())
@@ -52,13 +43,11 @@ gulp.task('check', () => gulp.src('package.json')
 
 /**
  * Deletes all generated files and reset any saved state.
- * @method clean
  */
 gulp.task('clean', callback => del('var/'+config.output, callback));
 
 /**
  * Creates a distribution file for this program.
- * @method dist
  */
 gulp.task('dist', () => gulp.src(config.sources, { base: '.' })
   .pipe(plugins.zip(config.output))
@@ -66,36 +55,33 @@ gulp.task('dist', () => gulp.src(config.sources, { base: '.' })
 
 /**
  * Builds the documentation.
- * @method doc
  */
-gulp.task('doc', [ 'doc:assets' ]);
+gulp.task('doc', ['doc:assets']);
 
-gulp.task('doc:assets', [ 'doc:build' ], () => gulp.src([ 'web/apple-touch-icon.png', 'web/favicon.ico' ])
+gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.png', 'web/favicon.ico'])
   .pipe(gulp.dest('doc/api')));
 
 gulp.task('doc:build', callback => _exec('jsdoc --configure doc/conf.json', callback));
 
+gulp.task('doc:rename', ['doc:build'], callback => fs.rename('doc/gulp-david/0.3.0', 'doc/api', callback));
+
 /**
  * Performs static analysis of source code.
- * @method lint
  */
-gulp.task('lint', () => gulp.src([ '*.js', 'example/*.js', 'lib/*.js', 'test/*.js' ])
+gulp.task('lint', () => gulp.src(['*.js', 'example/*.js', 'lib/*.js', 'test/*.js'])
   .pipe(plugins.jshint(pkg.jshintConfig))
   .pipe(plugins.jshint.reporter('default', { verbose: true })));
 
 /**
  * Runs the unit tests.
- * @method test
  */
-gulp.task('test', () => gulp.src([ 'test/*.js' ], { read: false })
+gulp.task('test', () => gulp.src(['test/*.js'], { read: false })
   .pipe(plugins.mocha()));
 
 /**
  * Runs a command and prints its output.
- * @method _exec
- * @param {String} command The command to run, with space-separated arguments.
- * @param {Function} callback The function to invoke when the task is over.
- * @async
+ * @param {string} command The command to run, with space-separated arguments.
+ * @param {function} callback The function to invoke when the task is over.
  * @private
  */
 function _exec(command, callback) {

@@ -1,6 +1,6 @@
 /**
  * Unit tests of the `reporter` module.
- * @module test.reporter_test
+ * @module test/reporter_test
  */
 'use strict';
 
@@ -11,14 +11,11 @@ const Reporter=require('../lib/reporter');
 
 /**
  * Tests the features of the `david.Reporter` class.
- * @class david.tests.ReporterTest
- * @static
  */
 class ReporterTest {
 
   /**
    * Runs the unit tests.
-   * @method run
    */
   run() {
     let self=this;
@@ -29,7 +26,6 @@ class ReporterTest {
 
   /**
    * Tests the `_transform` method.
-   * @method testTransform
    */
   testTransform() {
     it('should emit an error if "david" property is not found on the file object', done => {

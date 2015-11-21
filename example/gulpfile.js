@@ -6,7 +6,7 @@ const gulp = require('gulp');
 const david = require('gulp-david');
 
 // Runs the default tasks.
-gulp.task('default', [ 'upgradePackages' ]);
+gulp.task('default', ['upgradePackages']);
 
 // Checks the package dependencies.
 gulp.task('checkDependencies', () =>
@@ -24,7 +24,7 @@ gulp.task('updateManifest', () =>
 );
 
 // Upgrades the packages to latest versions.
-gulp.task('upgradePackages', [ 'updateManifest' ], callback =>
+gulp.task('upgradePackages', ['updateManifest'], callback =>
   exec('npm update', (err, stdout) => {
     let output=stdout.trim();
     if(output.length) console.log(output);

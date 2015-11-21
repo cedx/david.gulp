@@ -1,6 +1,6 @@
 /**
  * Unit tests of the `checker` module.
- * @module test.checker_test
+ * @module test/checker_test
  */
 'use strict';
 
@@ -13,14 +13,11 @@ const stream=require('stream');
 
 /**
  * Tests the features of the `david.Checker` class.
- * @class david.tests.CheckerTest
- * @static
  */
 class CheckerTest {
 
   /**
    * Runs the unit tests.
-   * @method run
    */
   run() {
     let self=this;
@@ -35,7 +32,6 @@ class CheckerTest {
 
   /**
    * Tests the `getDependencies` method.
-   * @method testGetDependencies
    */
   testGetDependencies() {
     it('should return a Promise object', () =>
@@ -61,7 +57,6 @@ class CheckerTest {
 
   /**
    * Tests the `getUpdatedDependencies` method.
-   * @method testGetUpdatedDependencies
    */
   testGetUpdatedDependencies() {
     it('should return a Promise object', () =>
@@ -85,7 +80,6 @@ class CheckerTest {
 
   /**
    * Tests the `parseManifest` method.
-   * @method testParseManifest
    */
   testParseManifest() {
     it('should throw an error if file is null', () =>
@@ -114,7 +108,6 @@ class CheckerTest {
 
   /**
    * Tests the `_transform` method.
-   * @method testTransform
    */
   testTransform() {
     it('should add a "david" property to the file object', done => {
