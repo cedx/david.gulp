@@ -4,6 +4,7 @@ This file contains highlights of what changes on each version of the [David.gulp
 #### Version 0.3.0
 - Breaking change: using ES6 features, like arrow functions, block-scoped binding constructs, classes and template strings.
 - Breaking change: raised the required [Node.js](http://nodejs.org) version.
+- Added the `ignore` option to the checker.
 - Added support for [Travis CI](https://travis-ci.org) continuous integration.
 - Changed the documentation system for [JSDoc](http://usejsdoc.org).
 - Upgraded the package dependencies.
