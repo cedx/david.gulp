@@ -68,4 +68,4 @@ A full sample is located in the `example` folder:
 [Sample Gulp Tasks](https://github.com/cedx/david.gulp/blob/master/example/gulpfile.js)
 
 ## License
-[David.gulp](https://github.com/cedx/david.gulp) is distributed under the MIT License.
+[David.gulp](https://github.com/cedx/david.gulp) is distributed under the Apache License, version 2.0.
