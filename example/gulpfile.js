@@ -10,25 +10,13 @@ const Transform = require('stream').Transform;
 gulp.task('default', ['upgradePackages']);
 
 // Checks the package dependencies.
-// Throws an error if five or more of them are outdated.
-gulp.task('checkDependencies', () =>
-  gulp.src('package.json')
-    .pipe(david({ error404: true, errorDepType: true }))
-    .pipe(david.reporter)
-    .pipe(new Transform({
-      objectMode: true,
-      transform(file, encoding, callback) {
-        let dependencyCount = Object.keys(file.david)
-          .reduce((previousValue, depType) => previousValue + Object.keys(file.david[depType]).length, 0);
-
-        let threshold = 5;
-        callback(dependencyCount >= threshold ? new Error('Too many outdated dependencies.') : null, file);
-      }
-    }))
-);
+// Emits an error if five or more of them are outdated.
+gulp.task('checkDependencies', () => gulp.src('package.json')
+  .pipe(david({ error404: true, errorDepCount: 5, errorDepType: true }))
+  .pipe(david.reporter));
 
 // Updates the package manifest.
-gulp.task('updateManifest', ['checkDependencies'], () =>
+gulp.task('updateManifest', () =>
   gulp.src('package.json')
     .pipe(david({ update: true }))
     .pipe(gulp.dest('.'))
