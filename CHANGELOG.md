@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
+#### Version 0.3.1
+- Added support for [SonarQube](http://www.sonarqube.org) code analyzer.
+
 #### Version 0.3.0
 - Breaking change: using ES6 features, like arrow functions, block-scoped binding constructs, classes and template strings.
 - Breaking change: raised the required [Node.js](http://nodejs.org) version.
