@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
+#### Version 0.3.2
+- Changed licensing for the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
 #### Version 0.3.1
 - Added support for [SonarQube](http://www.sonarqube.org) code analyzer.
 - Updated the sample `gulpfile.js`.
