@@ -7,7 +7,7 @@
   "main": "./index",
   "name": "gulp-david",
   "repository": "cedx/david.gulp",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": {
     "chalk": "^1.1.1",
     "david": "^7.0.0"
