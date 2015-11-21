@@ -10,9 +10,11 @@ gulp.task('default', ['upgradePackages']);
 
 // Checks the package dependencies.
 // Emits an error if five or more of them are outdated.
-gulp.task('checkDependencies', () => gulp.src('package.json')
-  .pipe(david({ error404: true, errorDepCount: 5, errorDepType: true }))
-  .pipe(david.reporter));
+gulp.task('checkDependencies', () =>
+  gulp.src('package.json')
+    .pipe(david({ error404: true, errorDepCount: 5, errorDepType: true }))
+    .pipe(david.reporter)
+);
 
 // Updates the package manifest.
 gulp.task('updateManifest', () =>
