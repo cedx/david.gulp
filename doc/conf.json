@@ -1,6 +1,7 @@
 {
   "opts": {
-    "destination": "doc/api",
+    "destination": "doc",
+    "private": true,
     "recurse": true
   },
   "plugins": [
@@ -12,5 +13,10 @@
   },
   "tags": {
     "dictionaries": ["jsdoc"]
+  },
+  "templates": {
+    "default": {
+      "outputSourceFiles": false
+    }
   }
 }

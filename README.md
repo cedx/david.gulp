@@ -26,7 +26,7 @@ The plugin can be customized using these settings:
 - `error404: Boolean = false` : If dependency not found, emit an error.
 - `errorDepType: Boolean = false` : If dependency version is invalid (not a string), emit an error.
 - `errorSCM: Boolean = false` : If dependency version is a source control URL, emit an error.
-- `registry: String = null` : The NPM registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if `null`.
+- `registry: String = null` : The [npm](https://www.npmjs.com) registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if `null`.
 - `unstable: Boolean = false` : Use unstable dependencies.
 - `update: Boolean = false` : Update dependencies in the file contents to latest versions.
 
