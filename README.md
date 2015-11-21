@@ -61,9 +61,10 @@ return gulp.src('package.json')
   .pipe(gulp.dest('.'));
 ```
 
-## Documentation
+## See Also
 - [API Reference](http://www.belin.io/david.gulp/api)
 - [Code Analysis](http://src.belin.io/dashboard/index/david.gulp)
+- [Continuous Integration](https://travis-ci.org/cedx/david.gulp)
 
 A full sample is located in the `example` folder:  
 [Sample Gulp Tasks](https://github.com/cedx/david.gulp/blob/master/example/gulpfile.js)
