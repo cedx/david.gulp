@@ -24,7 +24,7 @@ gulp.task('checkDependencies', () => gulp.src('package.json').pipe(david()));
 The plugin can be customized using these settings:
 
 - `error404: Boolean = false` : If dependency not found, emit an error.
-- `errorDepCount: Number = 0` : If greater than `0`, emit an error when the count of outdated dependencies exceeds the specified value.
+- `errorDepCount: Number = 0` : If greater than `0`, emit an error when the count of outdated dependencies equals or exceeds the specified value.
 - `errorDepType: Boolean = false` : If dependency version is invalid (not a string), emit an error.
 - `errorSCM: Boolean = false` : If dependency version is a source control URL, emit an error.
 - `ignore: Array = []`: Ignore the specified dependencies.
