@@ -61,7 +61,7 @@ gulp.task('doc', ['doc:assets']);
 gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.png', 'web/favicon.ico'])
   .pipe(gulp.dest('doc/api')));
 
-gulp.task('doc:build', callback => _exec('jsdoc --configure doc/conf.json', callback));
+gulp.task('doc:build', callback => _exec('jsdoc --configure doc/conf.json').then(callback, callback));
 
 gulp.task('doc:rename', ['doc:build'], callback => fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', callback));
 
@@ -81,14 +81,14 @@ gulp.task('test', () => gulp.src(['test/*.js'], { read: false })
 /**
  * Runs a command and prints its output.
  * @param {string} command The command to run, with space-separated arguments.
- * @param {function} callback The function to invoke when the task is over.
+ * @return {Promise} Completes when the command is finally terminated.
  * @private
  */
-function _exec(command, callback) {
-  child.exec(command, (err, stdout) => {
+function _exec(command) {
+  return new Promise((resolve, reject) => child.exec(command, (err, stdout) => {
     let output=stdout.trim();
     if(output.length) console.log(output);
-    if(err) console.error(err);
-    callback();
-  });
+    if(err) reject(err);
+    else resolve();
+  }));
 }
