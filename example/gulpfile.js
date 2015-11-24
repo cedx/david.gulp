@@ -28,7 +28,7 @@ gulp.task('upgradePackages', ['updateManifest'], callback =>
   exec('npm update', (err, stdout) => {
     let output=stdout.trim();
     if(output.length) console.log(output);
-    if(err) console.error(err);
-    callback();
+    if(err) callback(err);
+    else callback();
   })
 );
