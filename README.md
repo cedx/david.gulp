@@ -16,7 +16,9 @@ Once the plugin has been installed, it may be enabled inside your `gulpfile.js` 
 const gulp = require('gulp');
 const david = require('gulp-david');
 
-gulp.task('checkDependencies', () => gulp.src('package.json').pipe(david()));
+gulp.task('checkDependencies', () =>
+  gulp.src('package.json').pipe(david())
+);
 
 ```
 
