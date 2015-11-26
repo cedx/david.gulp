@@ -15,9 +15,11 @@ const pkg=require('./package.json');
 
 /**
  * The task settings.
+ * @var {object}
  */
 const config={
-  output: `${pkg.name}-${pkg.version}.zip`,
+  output:
+    `${pkg.name}-${pkg.version}.zip`,
   sources: [
     '*.json',
     '*.md',
@@ -42,14 +44,32 @@ gulp.task('check', () => gulp.src('package.json')
   .pipe(david.reporter));
 
 /**
+ * Generates the code coverage.
+ */
+gulp.task('cover', ['cover:instrument'], () => {
+  process.env.npm_package_config_mocha_sonar_reporter_outputfile='var/TEST-results.xml';
+  process.env.npm_package_config_mocha_sonar_reporter_testdir='test';
+
+  return gulp.src(['test/*.js'])
+    .pipe(plugins.mocha({reporter: 'mocha-sonar-reporter'}))
+    .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}));
+});
+
+gulp.task('cover:instrument', () => gulp.src(['lib/*.js'])
+  .pipe(plugins.istanbul())
+  .pipe(plugins.istanbul.hookRequire()));
+
+/**
  * Deletes all generated files and reset any saved state.
  */
-gulp.task('clean', callback => del('var/'+config.output, callback));
+gulp.task('clean', callback =>
+  del([`var/${config.output}`, 'var/*.info', 'var/*.xml'], callback)
+);
 
 /**
  * Creates a distribution file for this program.
  */
-gulp.task('dist', () => gulp.src(config.sources, { base: '.' })
+gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
   .pipe(plugins.zip(config.output))
   .pipe(gulp.dest('var')));
 
@@ -62,22 +82,24 @@ gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.pn
   .pipe(gulp.dest('doc/api')));
 
 gulp.task('doc:build', callback => {
-  _exec('jsdoc --configure doc/conf.json').then(callback, callback)
+  _exec('jsdoc --configure doc/conf.json').then(callback, callback);
 });
 
-gulp.task('doc:rename', ['doc:build'], callback => fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', callback));
+gulp.task('doc:rename', ['doc:build'], callback =>
+  fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', callback)
+);
 
 /**
  * Performs static analysis of source code.
  */
 gulp.task('lint', () => gulp.src(['*.js', 'example/*.js', 'lib/*.js', 'test/*.js'])
   .pipe(plugins.jshint(pkg.jshintConfig))
-  .pipe(plugins.jshint.reporter('default', { verbose: true })));
+  .pipe(plugins.jshint.reporter('default', {verbose: true})));
 
 /**
  * Runs the unit tests.
  */
-gulp.task('test', () => gulp.src(['test/*.js'], { read: false })
+gulp.task('test', () => gulp.src(['test/*.js'])
   .pipe(plugins.mocha()));
 
 /**

@@ -7,20 +7,22 @@
   "main": "./index",
   "name": "gulp-david",
   "repository": "cedx/david.gulp",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "dependencies": {
     "chalk": "^1.1.1",
     "david": "^7.0.0"
   },
   "devDependencies": {
     "del": "^2.1.0",
-    "jsdoc": "^3.4.0",
-    "jshint": "^2.8.0",
     "gulp": "^3.9.0",
+    "gulp-istanbul": "^0.10.3",
     "gulp-jshint": "^2.0.0",
     "gulp-load-plugins": "^1.1.0",
     "gulp-mocha": "^2.2.0",
     "gulp-zip": "^3.0.2",
+    "jsdoc": "^3.4.0",
+    "jshint": "^2.8.0",
+    "mocha-sonar-reporter": "^0.1.4",
     "vinyl": "^1.1.0"
   },
   "engines": {

@@ -1,8 +1,11 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
+#### Version 0.3.4
+- Added support for code coverage.
+
 #### Version 0.3.3
-- Implemented [GitHub request #3](https://github.com/cedx/david.gulp/issues/3): added an `errorDepCount` option to the checker.
+- Implemented the [request #3](https://github.com/cedx/david.gulp/issues/3): added an `errorDepCount` option to the checker.
 
 #### Version 0.3.2
 - Changed licensing for the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
