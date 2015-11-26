@@ -44,13 +44,20 @@ gulp.task('check', () => gulp.src('package.json')
   .pipe(david.reporter));
 
 /**
+ * Deletes all generated files and reset any saved state.
+ */
+gulp.task('clean', callback =>
+  del([`var/${config.output}`, 'var/*.info', 'var/*.xml'], callback)
+);
+
+/**
  * Generates the code coverage.
  */
 gulp.task('cover', ['cover:instrument'], () => {
   process.env.npm_package_config_mocha_sonar_reporter_outputfile='var/TEST-results.xml';
   process.env.npm_package_config_mocha_sonar_reporter_testdir='test';
 
-  return gulp.src(['test/*.js'])
+  return gulp.src(['test/*.js'], {read: false})
     .pipe(plugins.mocha({reporter: 'mocha-sonar-reporter'}))
     .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}));
 });
@@ -58,13 +65,6 @@ gulp.task('cover', ['cover:instrument'], () => {
 gulp.task('cover:instrument', () => gulp.src(['lib/*.js'])
   .pipe(plugins.istanbul())
   .pipe(plugins.istanbul.hookRequire()));
-
-/**
- * Deletes all generated files and reset any saved state.
- */
-gulp.task('clean', callback =>
-  del([`var/${config.output}`, 'var/*.info', 'var/*.xml'], callback)
-);
 
 /**
  * Creates a distribution file for this program.
@@ -99,7 +99,7 @@ gulp.task('lint', () => gulp.src(['*.js', 'example/*.js', 'lib/*.js', 'test/*.js
 /**
  * Runs the unit tests.
  */
-gulp.task('test', () => gulp.src(['test/*.js'])
+gulp.task('test', () => gulp.src(['test/*.js'], {read: false})
   .pipe(plugins.mocha()));
 
 /**
