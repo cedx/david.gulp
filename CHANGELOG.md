@@ -2,7 +2,8 @@
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
 #### Version 0.4.0
-- Implemented the 
+- Implemented the [request #6](https://github.com/cedx/david.gulp/issues/6): merge the reporting feature into the main transformer.
+- Breaking change: the report transformer is replaced by a logger.
 - Upgraded the package dependencies.
 
 #### Version 0.3.4
