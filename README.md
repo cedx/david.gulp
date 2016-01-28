@@ -16,8 +16,9 @@ Once the plugin has been installed, it may be enabled inside your `gulpfile.js` 
 const gulp = require('gulp');
 const david = require('gulp-david');
 
-gulp.task('checkDependencies', () =>
-  gulp.src('package.json').pipe(david())
+gulp.task('checkDependencies', () => gulp.src('package.json')
+  .pipe(david())
+  .on('error', err => console.error(err))
 );
 
 ```
@@ -31,6 +32,7 @@ The plugin can be customized using these settings:
 - `errorSCM: Boolean = false` : If dependency version is a source control URL, emit an error.
 - `ignore: Array = []`: Ignore the specified dependencies.
 - `registry: String = null` : The [npm](https://www.npmjs.com) registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if `null`.
+- `reporter: Boolean|Object = true`: Whether a report should be printed to the standard output.
 - `unstable: Boolean = false` : Use unstable dependencies.
 - `update: Boolean = false` : Update dependencies in the file contents to latest versions.
 
@@ -46,13 +48,16 @@ file.david = {
 ```
 
 ## Reporters
-The plugin provides a builtin reporter printing to the standard ouput the list of outdated packages:
+By default, the plugin prints to the standard output the list of outdated packages.
+You can disable this output by setting the `reporter` option to `false`.
 
 ```javascript
 return gulp.src('package.json')
-  .pipe(david())
-  .pipe(david.reporter);
+  .pipe(david({ reporter: false }));
 ```
+
+You can also replace this reporter by your own implementation.
+Look at the source of the [built-in reporter](https://github.com/cedx/david.gulp/blob/master/lib/reporter.js) for a code sample.
 
 ## Updating Dependencies
 The plugin lets you update dependencies in the manifest file to latest versions and save them back to the file system:
