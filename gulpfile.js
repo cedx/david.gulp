@@ -41,7 +41,8 @@ gulp.task('default', ['dist']);
  */
 gulp.task('check', () => gulp.src('package.json')
   .pipe(david())
-  .pipe(david.reporter));
+  .on('error', err => console.error(err))
+);
 
 /**
  * Deletes all generated files and reset any saved state.
