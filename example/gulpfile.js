@@ -1,26 +1,24 @@
 'use strict';
 
 // Module dependencies.
+const david = require('gulp-david');
 const exec = require('child_process').exec;
 const gulp = require('gulp');
-const david = require('gulp-david');
 
 // Runs the default tasks.
 gulp.task('default', ['upgradePackages']);
 
 // Checks the package dependencies.
-// Emits an error if five or more of them are outdated.
-gulp.task('checkDependencies', () =>
-  gulp.src('package.json')
-    .pipe(david({ error404: true, errorDepCount: 5, errorDepType: true }))
-    .pipe(david.reporter)
+// Emits an error if some of them are outdated.
+gulp.task('checkDependencies', () => gulp.src('package.json')
+  .pipe(david({ error404: true, errorDepCount: 1, errorDepType: true }))
+  .on('error', err => console.error(err))
 );
 
 // Updates the package manifest.
-gulp.task('updateManifest', () =>
-  gulp.src('package.json')
-    .pipe(david({ update: true }))
-    .pipe(gulp.dest('.'))
+gulp.task('updateManifest', () => gulp.src('package.json')
+  .pipe(david({ update: true }))
+  .pipe(gulp.dest('.'))
 );
 
 // Upgrades the packages to latest versions.
