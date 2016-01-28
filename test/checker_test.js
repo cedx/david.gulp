@@ -23,11 +23,25 @@ class CheckerTest {
     let self=this;
     describe('Checker', function() {
       this.timeout(10000);
+      describe('constructor()', self.testConstructor);
       describe('parseManifest()', self.testParseManifest);
       describe('getDependencies()', self.testGetDependencies);
       describe('getUpdatedDependencies()', self.testGetUpdatedDependencies);
       describe('_transform()', self.testTransform);
     });
+  }
+
+  /**
+   * Tests the constructor.
+   */
+  testConstructor() {
+    it('should properly handle the options', () =>
+      assert.equal(new Checker({errorDepCount: 5, reporter: false})._options.errorDepCount, 5)
+    );
+
+    it('should have a reporter if property is not false', () =>
+      assert(typeof new Checker({reporter: {}})._options.reporter=='object')
+    );
   }
 
   /**
