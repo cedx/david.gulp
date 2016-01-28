@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
+#### Version 0.4.0
+- Implemented the 
+- Upgraded the package dependencies.
+
 #### Version 0.3.4
 - Added support for code coverage.
 
