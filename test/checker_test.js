@@ -35,11 +35,11 @@ class CheckerTest {
    */
   testGetDependencies() {
     it('should return a Promise object', () =>
-      assert(new Checker().getDependencies({}) instanceof Promise)
+      assert(new Checker({reporter: false}).getDependencies({}) instanceof Promise)
     );
 
     it('should return an object with 3 dependency properties', () =>
-      new Checker().getDependencies({ name: 'gulp-david' }).then(deps => {
+      new Checker({reporter: false}).getDependencies({name: 'gulp-david'}).then(deps => {
         assert('dependencies' in deps);
         assert('devDependencies' in deps);
         assert('optionalDependencies' in deps);
@@ -47,7 +47,7 @@ class CheckerTest {
     );
 
     it('should have some non-empty dependency properties for the current manifest', () =>
-      new Checker().getDependencies(pkg).then(deps => {
+      new Checker({reporter: false}).getDependencies(pkg).then(deps => {
         assert(Object.keys(deps.dependencies).length>0);
         assert(Object.keys(deps.devDependencies).length>0);
         assert(!Object.keys(deps.optionalDependencies).length);
@@ -60,11 +60,11 @@ class CheckerTest {
    */
   testGetUpdatedDependencies() {
     it('should return a Promise object', () =>
-      assert(new Checker().getUpdatedDependencies({}) instanceof Promise)
+      assert(new Checker({reporter: false}).getUpdatedDependencies({}) instanceof Promise)
     );
 
     it('should return an object with 3 dependency properties', () =>
-      new Checker().getUpdatedDependencies({ name: 'gulp-david' }).then(deps => {
+      new Checker({reporter: false}).getUpdatedDependencies({name: 'gulp-david'}).then(deps => {
         assert('dependencies' in deps);
         assert('devDependencies' in deps);
         assert('optionalDependencies' in deps);
@@ -72,7 +72,7 @@ class CheckerTest {
     );
 
     it('should have some empty dependency properties for the current manifest', () =>
-      new Checker().getUpdatedDependencies(pkg).then(deps => {
+      new Checker({reporter: false}).getUpdatedDependencies(pkg).then(deps => {
         assert(!Object.keys(deps.optionalDependencies).length);
       })
     );
@@ -83,26 +83,26 @@ class CheckerTest {
    */
   testParseManifest() {
     it('should throw an error if file is null', () =>
-      assert.throws(() => new Checker().parseManifest(new File()))
+      assert.throws(() => new Checker({reporter: false}).parseManifest(new File()))
     );
 
     it('should throw an error if file is a stream', () =>
       assert.throws(() => {
-        let file=new File({ contents: new stream.Readable() });
-        new Checker().parseManifest(file);
+        let file=new File({contents: new stream.Readable()});
+        new Checker({reporter: false}).parseManifest(file);
       })
     );
 
     it('should throw an error if manifest is invalid', () =>
       assert.throws(() => {
-        let file=new File({ contents: new Buffer('FooBar') });
-        new Checker().parseManifest(file);
+        let file=new File({contents: new Buffer('FooBar')});
+        new Checker({reporter: false}).parseManifest(file);
       })
     );
 
     it('should return an object if manifest is valid', () => {
-      let file=new File({ contents: new Buffer('{ "name": "gulp-david" }') });
-      assert.deepEqual(new Checker().parseManifest(file), { name: 'gulp-david' });
+      let file=new File({contents: new Buffer('{ "name": "gulp-david" }')});
+      assert.deepEqual(new Checker({reporter: false}).parseManifest(file), {name: 'gulp-david'});
     });
   }
 
@@ -111,8 +111,8 @@ class CheckerTest {
    */
   testTransform() {
     it('should add a "david" property to the file object', done => {
-      let src=new File({ contents: new Buffer('{ "name": "gulp-david" }') });
-      new Checker()._transform(src, 'utf8', (err, dest) => {
+      let src=new File({contents: new Buffer('{ "name": "gulp-david" }')});
+      new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
         assert.ifError(err);
         assert('david' in dest);
         done();

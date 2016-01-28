@@ -20,19 +20,16 @@ class ReporterTest {
   run() {
     let self=this;
     describe('Reporter', function() {
-      describe('_transform()', self.testTransform);
+      describe('log()', self.testLog);
     });
   }
 
   /**
-   * Tests the `_transform` method.
+   * Tests the `log` method.
    */
-  testTransform() {
-    it('should emit an error if "david" property is not found on the file object', done => {
-      new Reporter()._transform(new File(), 'utf8', err => {
-        assert(err instanceof Error);
-        done();
-      });
+  testLog() {
+    it('should throw an error if "david" property is not found on the file object', () => {
+      assert.throws(() => new Reporter().log(new File(), 'utf8'), Error);
     });
   }
 }
