@@ -5,9 +5,9 @@
 'use strict';
 
 // Module dependencies.
-const assert=require('assert');
-const File=require('vinyl');
-const Reporter=require('../lib/reporter');
+const assert = require('assert');
+const File = require('vinyl');
+const Reporter = require('../lib/reporter');
 
 /**
  * Tests the features of the `david.Reporter` class.
@@ -18,7 +18,7 @@ class ReporterTest {
    * Runs the unit tests.
    */
   run() {
-    let self=this;
+    let self = this;
     describe('Reporter', function() {
       describe('log()', self.testLog);
     });
@@ -29,7 +29,7 @@ class ReporterTest {
    */
   testLog() {
     it('should throw an error if "david" property is not found on the file object', () => {
-      assert.throws(() => new Reporter().log(new File(), 'utf8'), Error);
+      assert.throws(() => new Reporter().log(new File()), Error);
     });
   }
 }

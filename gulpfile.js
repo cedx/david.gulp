@@ -5,19 +5,19 @@
 'use strict';
 
 // Module dependencies.
-const child=require('child_process');
-const david=require('./index');
-const del=require('del');
-const fs=require('fs');
-const gulp=require('gulp');
-const plugins=require('gulp-load-plugins')();
-const pkg=require('./package.json');
+const child = require('child_process');
+const david = require('./index');
+const del = require('del');
+const fs = require('fs');
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
+const pkg = require('./package.json');
 
 /**
  * The task settings.
  * @var {object}
  */
-const config={
+const config = {
   output:
     `${pkg.name}-${pkg.version}.zip`,
   sources: [
@@ -55,8 +55,8 @@ gulp.task('clean', callback =>
  * Generates the code coverage.
  */
 gulp.task('cover', ['cover:instrument'], () => {
-  process.env.npm_package_config_mocha_sonar_reporter_outputfile='var/TEST-results.xml';
-  process.env.npm_package_config_mocha_sonar_reporter_testdir='test';
+  process.env.npm_package_config_mocha_sonar_reporter_outputfile = 'var/TEST-results.xml';
+  process.env.npm_package_config_mocha_sonar_reporter_testdir = 'test';
 
   return gulp.src(['test/*.js'], {read: false})
     .pipe(plugins.mocha({reporter: 'mocha-sonar-reporter'}))
@@ -111,7 +111,7 @@ gulp.task('test', () => gulp.src(['test/*.js'], {read: false})
  */
 function _exec(command) {
   return new Promise((resolve, reject) => child.exec(command, (err, stdout) => {
-    let output=stdout.trim();
+    let output = stdout.trim();
     if(output.length) console.log(output);
     if(err) reject(err);
     else resolve();
