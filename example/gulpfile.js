@@ -12,7 +12,10 @@ gulp.task('default', ['upgradePackages']);
 // Emits an error if some of them are outdated.
 gulp.task('checkDependencies', () => gulp.src('package.json')
   .pipe(david({ error404: true, errorDepCount: 1, errorDepType: true }))
-  .on('error', err => console.error(err))
+  .on('error', function(err) {
+    console.error(err);
+    this.emit('end');
+  })
 );
 
 // Updates the package manifest.

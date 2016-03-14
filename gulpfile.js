@@ -41,7 +41,10 @@ gulp.task('default', ['dist']);
  */
 gulp.task('check', () => gulp.src('package.json')
   .pipe(david())
-  .on('error', err => console.error(err))
+  .on('error', function(err) {
+    console.error(err);
+    this.emit('end');
+  })
 );
 
 /**
