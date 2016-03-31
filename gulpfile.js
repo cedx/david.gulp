@@ -24,7 +24,6 @@ const config = {
     '*.json',
     '*.md',
     '*.txt',
-    'index.js',
     'example/*.js',
     'lib/*.js',
     'test/*.js'
