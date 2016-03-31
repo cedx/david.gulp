@@ -6,7 +6,7 @@
 
 // Module dependencies.
 const child = require('child_process');
-const david = require('./index');
+const david = require('./lib');
 const del = require('del');
 const fs = require('fs');
 const gulp = require('gulp');

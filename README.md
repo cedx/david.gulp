@@ -17,8 +17,10 @@ const gulp = require('gulp');
 const david = require('gulp-david');
 
 gulp.task('checkDependencies', () => gulp.src('package.json')
-  .pipe(david())
-  .on('error', err => console.error(err))
+  .pipe(david()).on('error', function(err) {
+    console.error(err);
+    this.emit('end');
+  })
 );
 
 ```
@@ -35,6 +37,7 @@ The plugin can be customized using these settings:
 - `reporter: Boolean|Object = true`: Whether a report should be printed to the standard output.
 - `unstable: Boolean = false` : Use unstable dependencies.
 - `update: Boolean = false` : Update dependencies in the file contents to latest versions.
+- `updateOperator: String = '^'` : The operator to be used in version comparators when updating the dependencies.
 
 ## Results
 The plugin adds the following properties to the `file` object:
@@ -68,9 +71,22 @@ return gulp.src('package.json')
   .pipe(gulp.dest('.'));
 ```
 
+By default, the plugin will use the caret (`^`) operator to specifiy the version comparators in the manifest file.
+You can use a different operator by adjusting the `updateOperator` option:
+
+```javascript
+gulp.src('package.json').pipe(david({ update: true, updateOperator: '~' }));
+gulp.src('package.json').pipe(david({ update: true, updateOperator: '>=' }));
+```
+
+You can also disable the operator, in order to pin your dependencies, by specifying an empty or non-string value:
+
+```javascript
+gulp.src('package.json').pipe(david({ update: true, updateOperator: null }));
+```
+
 ## See Also
 - [API Reference](http://www.belin.io/david.gulp/api)
-- [Code Analysis](http://src.belin.io/dashboard/index/david.gulp)
 - [Continuous Integration](https://travis-ci.org/cedx/david.gulp)
 
 A full sample is located in the `example` folder:  

@@ -20,7 +20,7 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
 
 // Updates the package manifest.
 gulp.task('updateManifest', () => gulp.src('package.json')
-  .pipe(david({ update: true }))
+  .pipe(david({ update: true, updateOperator: '~' }))
   .pipe(gulp.dest('.'))
 );
 
