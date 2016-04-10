@@ -10,25 +10,9 @@ const david = require('./lib');
 const del = require('del');
 const fs = require('fs');
 const gulp = require('gulp');
+const path = require('path');
 const plugins = require('gulp-load-plugins')();
 const pkg = require('./package.json');
-
-/**
- * The task settings.
- * @var {object}
- */
-const config = {
-  output:
-    `${pkg.name}-${pkg.version}.zip`,
-  sources: [
-    '*.json',
-    '*.md',
-    '*.txt',
-    'example/*.js',
-    'lib/*.js',
-    'test/*.js'
-  ]
-};
 
 /**
  * Runs the default tasks.
@@ -39,8 +23,7 @@ gulp.task('default', ['dist']);
  * Checks the package dependencies.
  */
 gulp.task('check', () => gulp.src('package.json')
-  .pipe(david())
-  .on('error', function(err) {
+  .pipe(david()).on('error', function(err) {
     console.error(err);
     this.emit('end');
   })
@@ -49,9 +32,9 @@ gulp.task('check', () => gulp.src('package.json')
 /**
  * Deletes all generated files and reset any saved state.
  */
-gulp.task('clean', callback =>
-  del([`var/${config.output}`, 'var/*.info', 'var/*.xml'], callback)
-);
+gulp.task('clean', () => new Promise((resolve, reject) =>
+  del('var/**/*', err => err ? reject(err) : resolve())
+));
 
 /**
  * Generates the code coverage.
@@ -73,8 +56,8 @@ gulp.task('cover:instrument', () => gulp.src(['lib/*.js'])
 /**
  * Creates a distribution file for this program.
  */
-gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
-  .pipe(plugins.zip(config.output))
+gulp.task('dist', () => gulp.src(['*.json', '*.md', '*.txt', 'example/*.js', 'lib/*.js'], {base: '.'})
+  .pipe(plugins.zip(`${pkg.name}-${pkg.version}.zip`))
   .pipe(gulp.dest('var'))
 );
 
@@ -87,13 +70,17 @@ gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.pn
   .pipe(gulp.dest('doc/api'))
 );
 
-gulp.task('doc:build', () =>
-  _exec('jsdoc --configure doc/conf.json')
-);
+gulp.task('doc:build', () => {
+  let file = path.join('doc', 'conf.json');
+  return _exec(`jsdoc --configure "${file}"`);
+});
 
-gulp.task('doc:rename', ['doc:build'], callback =>
-  fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', callback)
-);
+gulp.task('doc:rename', ['doc:build'], () => new Promise((resolve, reject) =>
+  fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', err => {
+    if(err) reject(err);
+    else del(`doc/${pkg.name}`, err => err ? reject(err) : resolve());
+  })
+));
 
 /**
  * Performs static analysis of source code.

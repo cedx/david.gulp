@@ -34,10 +34,9 @@ The plugin can be customized using these settings:
 - `errorSCM: Boolean = false` : If dependency version is a source control URL, emit an error.
 - `ignore: Array = []`: Ignore the specified dependencies.
 - `registry: String = null` : The [npm](https://www.npmjs.com) registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if `null`.
-- `reporter: Boolean|Object = true`: Whether a report should be printed to the standard output.
+- `reporter: Boolean|Object = true`: Whether a report should be printed to the standard output. If it is an object, it will be used as reporter.
 - `unstable: Boolean = false` : Use unstable dependencies.
-- `update: Boolean = false` : Update dependencies in the file contents to latest versions.
-- `updateOperator: String = '^'` : The operator to be used in version comparators when updating the dependencies.
+- `update: Boolean|String = false` : Whether to update dependencies in the file contents to latest versions. If it is a string, it will be used as the operator in version comparators.
 
 ## Results
 The plugin adds the following properties to the `file` object:
@@ -62,6 +61,11 @@ return gulp.src('package.json')
 You can also replace this reporter by your own implementation.
 Look at the source of the [built-in reporter](https://github.com/cedx/david.gulp/blob/master/lib/reporter.js) for a code sample.
 
+```javascript
+return gulp.src('package.json')
+  .pipe(david({ reporter: new MyReporter() }));
+```
+
 ## Updating Dependencies
 The plugin lets you update dependencies in the manifest file to latest versions and save them back to the file system:
 
@@ -71,22 +75,23 @@ return gulp.src('package.json')
   .pipe(gulp.dest('.'));
 ```
 
-By default, the plugin will use the caret (`^`) operator to specifiy the version comparators in the manifest file.
-You can use a different operator by adjusting the `updateOperator` option:
+By default, the plugin will use the caret operator (e.g. `^`) to specifiy the version comparators in the manifest file.
+You can use a different operator by providing a string indicating the wanted one:
 
 ```javascript
-gulp.src('package.json').pipe(david({ update: true, updateOperator: '~' }));
-gulp.src('package.json').pipe(david({ update: true, updateOperator: '>=' }));
+gulp.src('package.json').pipe(david({ update: '~' }));
+gulp.src('package.json').pipe(david({ update: '>=' }));
 ```
 
-You can also disable the operator, in order to pin your dependencies, by specifying an empty or non-string value:
+In order to pin your dependencies, just use the equality operator:
 
 ```javascript
-gulp.src('package.json').pipe(david({ update: true, updateOperator: null }));
+gulp.src('package.json').pipe(david({ update: '=' }));
 ```
 
 ## See Also
 - [API Reference](http://www.belin.io/david.gulp/api)
+- [Code Analysis](http://src.belin.io/dashboard/index/david.gulp)
 - [Continuous Integration](https://travis-ci.org/cedx/david.gulp)
 
 A full sample is located in the `example` folder:  

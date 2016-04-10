@@ -3,4 +3,4 @@ sudo: false
 
 node_js:
 - 4.4
-- 5.9
+- 5.10

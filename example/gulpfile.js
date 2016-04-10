@@ -18,9 +18,9 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
   })
 );
 
-// Updates the package manifest.
+// Updates the package manifest using the tilde operator.
 gulp.task('updateManifest', () => gulp.src('package.json')
-  .pipe(david({ update: true, updateOperator: '~' }))
+  .pipe(david({ update: '~' }))
   .pipe(gulp.dest('.'))
 );
 
