@@ -10,19 +10,19 @@
   "version": "0.4.2",
   "dependencies": {
     "chalk": "^1.1.3",
-    "david": "^7.0.1"
+    "david": "^7.0.2"
   },
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-istanbul": "^0.10.3",
+    "gulp-istanbul": "^0.10.4",
     "gulp-jshint": "^2.0.0",
-    "gulp-load-plugins": "^1.2.0",
+    "gulp-load-plugins": "^1.2.2",
     "gulp-mocha": "^2.2.0",
     "gulp-zip": "^3.2.0",
     "jsdoc": "^3.4.0",
-    "jshint": "^2.9.1",
-    "mocha-sonar-reporter": "^0.1.4",
+    "jshint": "^2.9.2",
+    "mocha-sonar-reporter": "^0.1.5",
     "vinyl": "^1.1.1"
   },
   "engines": {
