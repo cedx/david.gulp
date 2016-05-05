@@ -71,8 +71,8 @@ gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.pn
 );
 
 gulp.task('doc:build', () => {
-  let file = path.join('doc', 'conf.json');
-  return _exec(`jsdoc --configure "${file}"`);
+  let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'jsdoc.cmd' : 'jsdoc');
+  return _exec(`${command} --configure doc/conf.json`);
 });
 
 gulp.task('doc:rename', ['doc:build'], () => new Promise((resolve, reject) =>
