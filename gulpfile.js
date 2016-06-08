@@ -15,6 +15,22 @@ const plugins = require('gulp-load-plugins')();
 const pkg = require('./package.json');
 
 /**
+ * The task settings.
+ * @var {object}
+ */
+const config = {
+  output:
+    `${pkg.name}-${pkg.version}.zip`,
+  sources: [
+    '*.json',
+    '*.md',
+    '*.txt',
+    'example/*.js',
+    'lib/*.js'
+  ]
+};
+
+/**
  * Runs the default tasks.
  */
 gulp.task('default', ['dist']);
@@ -56,10 +72,10 @@ gulp.task('cover:instrument', () => gulp.src(['lib/*.js'])
 /**
  * Creates a distribution file for this program.
  */
-gulp.task('dist', () => gulp.src(['*.json', '*.md', '*.txt', 'example/*.js', 'lib/*.js'], {base: '.'})
-  .pipe(plugins.zip(`${pkg.name}-${pkg.version}.zip`))
-  .pipe(gulp.dest('var'))
-);
+ gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
+   .pipe(plugins.zip(config.output))
+   .pipe(gulp.dest('var'))
+ );
 
 /**
  * Builds the documentation.
