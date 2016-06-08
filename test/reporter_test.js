@@ -18,9 +18,8 @@ class ReporterTest {
    * Runs the unit tests.
    */
   run() {
-    let self = this;
-    describe('Reporter', function() {
-      describe('log()', self.testLog);
+    describe('Reporter', () => {
+      describe('log()', this.testLog);
     });
   }
 

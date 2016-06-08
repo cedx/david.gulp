@@ -32,9 +32,9 @@ gulp.task('check', () => gulp.src('package.json')
 /**
  * Deletes all generated files and reset any saved state.
  */
-gulp.task('clean', () => new Promise((resolve, reject) =>
-  del('var/**/*', err => err ? reject(err) : resolve())
-));
+ gulp.task('clean', () =>
+   del([`var/${config.output}`, 'var/*.info', 'var/*.xml'])
+ );
 
 /**
  * Generates the code coverage.
@@ -78,7 +78,7 @@ gulp.task('doc:build', () => {
 gulp.task('doc:rename', ['doc:build'], () => new Promise((resolve, reject) =>
   fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', err => {
     if(err) reject(err);
-    else del(`doc/${pkg.name}`, err => err ? reject(err) : resolve());
+    else del(`doc/${pkg.name}`).then(resolve, reject);
   })
 ));
 
