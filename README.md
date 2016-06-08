@@ -90,7 +90,7 @@ gulp.src('package.json').pipe(david({ update: '=' }));
 ```
 
 ## See Also
-- [API Reference](http://www.belin.io/david.gulp/api)
+- [API Reference](http://dev.belin.io/david.gulp)
 - [Code Analysis](http://src.belin.io/dashboard/index/david.gulp)
 - [Continuous Integration](https://travis-ci.org/cedx/david.gulp)
 

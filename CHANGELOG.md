@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
+#### Version 0.4.3
+- Fixed some bugs.
+- Upgraded the package dependencies.
+
 #### Version 0.4.2
 - Implemented the [request #9](https://github.com/cedx/david.gulp/issues/9): allow other operators than the caret in manifest updates.
 - Upgraded the package dependencies.
