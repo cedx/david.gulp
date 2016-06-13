@@ -25,7 +25,7 @@
     "gulp-zip": "^3.2.0",
     "jsdoc": "^3.4.0",
     "jshint": "^2.9.2",
-    "mocha-sonar-reporter": "^0.1.5",
+    "mocha-lcov-reporter": "^1.2.0",
     "vinyl": "^1.1.1"
   },
   "engines": {

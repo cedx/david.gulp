@@ -19,8 +19,8 @@ const pkg = require('./package.json');
  * @var {object}
  */
 const config = {
-  output:
-    `${pkg.name}-${pkg.version}.zip`,
+  coverage: '31c8a09db21447dfbea700cf91915102',
+  output: `${pkg.name}-${pkg.version}.zip`,
   sources: [
     '*.json',
     '*.md',
@@ -55,19 +55,23 @@ gulp.task('clean', () =>
 /**
  * Generates the code coverage.
  */
-gulp.task('cover', ['cover:instrument'], () => {
-  process.env.npm_package_config_mocha_sonar_reporter_outputfile = 'var/TEST-results.xml';
-  process.env.npm_package_config_mocha_sonar_reporter_testdir = 'test';
-
-  return gulp.src(['test/*.js'], {read: false})
-    .pipe(plugins.mocha({reporter: 'mocha-sonar-reporter'}))
-    .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}));
-});
+gulp.task('cover', ['cover:test'], () => gulp.src(['path/to/my.lcov'], {read: false})
+  .pipe(plugins.codacy({token: config.coverage}))
+);
 
 gulp.task('cover:instrument', () => gulp.src(['lib/*.js'])
   .pipe(plugins.istanbul())
   .pipe(plugins.istanbul.hookRequire())
 );
+
+gulp.task('cover:test', ['cover:instrument'], () => {
+  process.env.npm_package_config_mocha_lcov_reporter_outputfile = 'var/TEST-results.xml';
+  process.env.npm_package_config_mocha_lcov_reporter_testdir = 'test';
+
+  return gulp.src(['test/*.js'], {read: false})
+    .pipe(plugins.mocha({reporter: 'mocha-lcov-reporter'}))
+    .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}));
+});
 
 /**
  * Creates a distribution file for this program.
