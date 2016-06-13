@@ -1,5 +1,5 @@
-# David.gulp
-![Release](http://img.shields.io/npm/v/gulp-david.svg) ![License](http://img.shields.io/npm/l/gulp-david.svg) ![Downloads](http://img.shields.io/npm/dm/gulp-david.svg) ![Dependencies](http://img.shields.io/david/cedx/david.gulp.svg) ![Build](http://img.shields.io/travis/cedx/david.gulp.svg)
+# Gulp-David
+![Release](https://img.shields.io/npm/v/gulp-david.svg) ![License](https://img.shields.io/npm/l/gulp-david.svg) ![Downloads](https://img.shields.io/npm/dm/gulp-david.svg) ![Dependencies](https://img.shields.io/david/cedx/gulp-david.svg) ![Code quality](https://img.shields.io/codacy/grade/e27821fb6289410b8f58338c7e0bc686.svg) ![Build](https://img.shields.io/travis/cedx/gulp-david.svg)
 
 Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plugin for [Gulp.js](http://gulpjs.com), the streaming build system.
 
@@ -7,7 +7,7 @@ Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://da
 If you haven't used [Gulp.js](http://gulpjs.com) before, be sure to check out the [related documentation](https://github.com/gulpjs/gulp/blob/master/docs/README.md), as it explains how to create a `gulpfile.js` as well as install and use plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-$ npm install gulp-david --save-dev
+$ npm install --save-dev gulp-david
 ```
 
 Once the plugin has been installed, it may be enabled inside your `gulpfile.js` with these [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) statements:
@@ -59,7 +59,7 @@ return gulp.src('package.json')
 ```
 
 You can also replace this reporter by your own implementation.
-Look at the source of the [built-in reporter](https://github.com/cedx/david.gulp/blob/master/lib/reporter.js) for a code sample.
+Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david/blob/master/lib/reporter.js) for a code sample.
 
 ```javascript
 return gulp.src('package.json')
@@ -90,12 +90,12 @@ gulp.src('package.json').pipe(david({ update: '=' }));
 ```
 
 ## See Also
-- [API Reference](http://dev.belin.io/david.gulp)
-- [Code Analysis](http://src.belin.io/dashboard/index/david.gulp)
-- [Continuous Integration](https://travis-ci.org/cedx/david.gulp)
+- [API Reference](http://dev.belin.io/gulp-david)
+- [Code Quality](https://www.codacy.com/app/cedx/gulp-david)
+- [Continuous Integration](https://travis-ci.org/cedx/gulp-david)
 
 A full sample is located in the `example` folder:  
-[Sample Gulp Tasks](https://github.com/cedx/david.gulp/blob/master/example/gulpfile.js)
+[Sample Gulp Tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
 
 ## License
-[David.gulp](https://github.com/cedx/david.gulp) is distributed under the Apache License, version 2.0.
+[Gulp-David](https://github.com/cedx/gulp-david) is distributed under the Apache License, version 2.0.

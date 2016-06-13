@@ -48,9 +48,9 @@ gulp.task('check', () => gulp.src('package.json')
 /**
  * Deletes all generated files and reset any saved state.
  */
- gulp.task('clean', () =>
-   del([`var/${config.output}`, 'var/*.info', 'var/*.xml'])
- );
+gulp.task('clean', () =>
+  del([`var/${config.output}`, 'var/*.info', 'var/*.xml'])
+);
 
 /**
  * Generates the code coverage.
@@ -72,10 +72,10 @@ gulp.task('cover:instrument', () => gulp.src(['lib/*.js'])
 /**
  * Creates a distribution file for this program.
  */
- gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
-   .pipe(plugins.zip(config.output))
-   .pipe(gulp.dest('var'))
- );
+gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
+  .pipe(plugins.zip(config.output))
+  .pipe(gulp.dest('var'))
+);
 
 /**
  * Builds the documentation.
