@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
+#### Version 1.0.0
+- First stable release.
+
 #### Version 0.4.3
 - Fixed some bugs.
 - Upgraded the package dependencies.
