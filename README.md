@@ -55,7 +55,7 @@ You can disable this output by setting the `reporter` option to `false`.
 
 ```javascript
 return gulp.src('package.json')
-  .pipe(david({ reporter: false }));
+  .pipe(david({reporter: false}));
 ```
 
 You can also replace this reporter by your own implementation.
@@ -63,7 +63,7 @@ Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david
 
 ```javascript
 return gulp.src('package.json')
-  .pipe(david({ reporter: new MyReporter() }));
+  .pipe(david({reporter: new MyReporter()}));
 ```
 
 ## Updating Dependencies
@@ -71,7 +71,7 @@ The plugin lets you update dependencies in the manifest file to latest versions 
 
 ```javascript
 return gulp.src('package.json')
-  .pipe(david({ update: true }))
+  .pipe(david({update: true}))
   .pipe(gulp.dest('.'));
 ```
 
@@ -79,14 +79,14 @@ By default, the plugin will use the caret operator (e.g. `^`) to specifiy the ve
 You can use a different operator by providing a string indicating the wanted one:
 
 ```javascript
-gulp.src('package.json').pipe(david({ update: '~' }));
-gulp.src('package.json').pipe(david({ update: '>=' }));
+gulp.src('package.json').pipe(david({update: '~'}));
+gulp.src('package.json').pipe(david({update: '>='}));
 ```
 
 In order to pin your dependencies, just use the equality operator:
 
 ```javascript
-gulp.src('package.json').pipe(david({ update: '=' }));
+gulp.src('package.json').pipe(david({update: '='}));
 ```
 
 ## See Also
