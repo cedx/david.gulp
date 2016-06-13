@@ -11,7 +11,7 @@ gulp.task('default', ['upgradePackages']);
 // Checks the package dependencies.
 // Emits an error if some of them are outdated.
 gulp.task('checkDependencies', () => gulp.src('package.json')
-  .pipe(david({ error404: true, errorDepCount: 1, errorDepType: true }))
+  .pipe(david({error404: true, errorDepCount: 1, errorDepType: true}))
   .on('error', function(err) {
     console.error(err);
     this.emit('end');
@@ -20,7 +20,7 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
 
 // Updates the package manifest using the tilde operator.
 gulp.task('updateManifest', () => gulp.src('package.json')
-  .pipe(david({ update: '~' }))
+  .pipe(david({update: '~'}))
   .pipe(gulp.dest('.'))
 );
 
