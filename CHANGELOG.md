@@ -3,6 +3,7 @@ This file contains highlights of what changes on each version of the [David.gulp
 
 #### Version 1.0.0
 - First stable release.
+- Replaced [SonarQube](http://www.sonarqube.org) code analyzer by [Codacy](https://www.codacy.com) service.
 
 #### Version 0.4.3
 - Fixed some bugs.
