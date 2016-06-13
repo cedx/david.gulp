@@ -21,13 +21,7 @@ const pkg = require('./package.json');
 const config = {
   coverage: '31c8a09db21447dfbea700cf91915102',
   output: `${pkg.name}-${pkg.version}.zip`,
-  sources: [
-    '*.json',
-    '*.md',
-    '*.txt',
-    'example/*.js',
-    'lib/*.js'
-  ]
+  sources: ['*.json', '*.md', '*.txt', 'example/*.js', 'lib/*.js']
 };
 
 /**
@@ -49,15 +43,16 @@ gulp.task('check', () => gulp.src('package.json')
  * Deletes all generated files and reset any saved state.
  */
 gulp.task('clean', () =>
-  del([`var/${config.output}`, 'var/*.info', 'var/*.xml'])
+  del([`var/${config.output}`, 'var/*.info'])
 );
 
 /**
  * Generates the code coverage.
  */
-gulp.task('cover', ['cover:test'], () => gulp.src(['path/to/my.lcov'], {read: false})
-  .pipe(plugins.codacy({token: config.coverage}))
-);
+gulp.task('cover', ['cover:test'], () => {
+  let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'codacy-coverage.cmd' : 'codacy-coverage');
+  return _exec(`${command} < var/lcov.info`, {env: {CODACY_PROJECT_TOKEN: config.coverage}});
+});
 
 gulp.task('cover:instrument', () => gulp.src(['lib/*.js'])
   .pipe(plugins.istanbul())
@@ -65,11 +60,8 @@ gulp.task('cover:instrument', () => gulp.src(['lib/*.js'])
 );
 
 gulp.task('cover:test', ['cover:instrument'], () => {
-  process.env.npm_package_config_mocha_lcov_reporter_outputfile = 'var/TEST-results.xml';
-  process.env.npm_package_config_mocha_lcov_reporter_testdir = 'test';
-
   return gulp.src(['test/*.js'], {read: false})
-    .pipe(plugins.mocha({reporter: 'mocha-lcov-reporter'}))
+    .pipe(plugins.mocha())
     .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}));
 });
 
@@ -120,11 +112,12 @@ gulp.task('test', () => gulp.src(['test/*.js'], {read: false})
 /**
  * Runs a command and prints its output.
  * @param {string} command The command to run, with space-separated arguments.
+ * @param {object} [options] The settings to customize how the process is spawned.
  * @return {Promise.<string>} The command output when it is finally terminated.
  * @private
  */
-function _exec(command) {
-  return new Promise((resolve, reject) => child.exec(command, {maxBuffer: 2 * 1024 * 1024}, (err, stdout) => {
+function _exec(command, options) {
+  return new Promise((resolve, reject) => child.exec(command, options, (err, stdout) => {
     if(err) reject(err);
     else resolve(stdout.trim());
   }));
