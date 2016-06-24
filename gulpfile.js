@@ -93,11 +93,10 @@ gulp.task('lint', () => gulp.src(['*.js', 'example/*.js', 'lib/*.js', 'test/*.js
 /**
  * Runs the unit tests.
  */
-gulp.task('test', ['test:coverage'], () => {
-  return gulp.src(['test/*.js'], {read: false})
-    .pipe(plugins.mocha())
-    .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}));
-});
+gulp.task('test', ['test:coverage'], () => gulp.src(['test/*.js'], {read: false})
+  .pipe(plugins.mocha())
+  .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}))
+);
 
 gulp.task('test:coverage', () => gulp.src(['lib/*.js'])
   .pipe(plugins.istanbul())
