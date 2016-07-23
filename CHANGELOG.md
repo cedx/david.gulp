@@ -1,6 +1,11 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
+#### Version 2.0.0
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Breaking change: using more ES6 features, like default parameters and destructuring assignment.
+- Turned the package into a [scoped one](https://docs.npmjs.com/getting-started/scoped-packages).
+
 #### Version 1.0.0
 - First stable release.
 - Replaced [SonarQube](http://www.sonarqube.org) code analyzer by [Codacy](https://www.codacy.com) service.

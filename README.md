@@ -1,5 +1,5 @@
 # Gulp-David
-![Release](https://img.shields.io/npm/v/gulp-david.svg) ![License](https://img.shields.io/npm/l/gulp-david.svg) ![Downloads](https://img.shields.io/npm/dm/gulp-david.svg) ![Dependencies](https://img.shields.io/david/cedx/gulp-david.svg) ![Code quality](https://img.shields.io/codacy/grade/1c110f507ebf4b91b2d8c33b7bb68ccf.svg) ![Build](https://img.shields.io/travis/cedx/gulp-david.svg)
+![Release](https://img.shields.io/npm/v/@cedx/gulp-david.svg) ![License](https://img.shields.io/npm/l/@cedx/gulp-david.svg) ![Downloads](https://img.shields.io/npm/dm/@cedx/gulp-david.svg) ![Dependencies](https://img.shields.io/david/cedx/gulp-david.svg) ![Code quality](https://img.shields.io/codacy/grade/1c110f507ebf4b91b2d8c33b7bb68ccf.svg) ![Build](https://img.shields.io/travis/cedx/gulp-david.svg)
 
 Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plugin for [Gulp.js](http://gulpjs.com), the streaming build system.
 
@@ -7,14 +7,14 @@ Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://da
 If you haven't used [Gulp.js](http://gulpjs.com) before, be sure to check out the [related documentation](https://github.com/gulpjs/gulp/blob/master/docs/README.md), as it explains how to create a `gulpfile.js` as well as install and use plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-$ npm install --save-dev gulp-david
+$ npm install --save-dev @cedx/gulp-david
 ```
 
 Once the plugin has been installed, it may be enabled inside your `gulpfile.js` with these [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) statements:
 
 ```javascript
 const gulp = require('gulp');
-const david = require('gulp-david');
+const david = require('@cedx/gulp-david');
 
 gulp.task('checkDependencies', () => gulp.src('package.json')
   .pipe(david()).on('error', function(err) {
@@ -90,7 +90,6 @@ gulp.src('package.json').pipe(david({update: '='}));
 ```
 
 ## See Also
-- [API Reference](http://dev.belin.io/gulp-david)
 - [Code Quality](https://www.codacy.com/app/cedx/gulp-david)
 - [Continuous Integration](https://travis-ci.org/cedx/gulp-david)
 
