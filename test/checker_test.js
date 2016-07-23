@@ -2,9 +2,6 @@
  * Unit tests of the `checker` module.
  * @module test/checker_test
  */
-'use strict';
-
-// Module dependencies.
 const assert = require('assert');
 const Checker = require('../lib/checker');
 const File = require('vinyl');
@@ -124,6 +121,15 @@ class CheckerTest {
    * Tests the `_transform` method.
    */
   testTransform() {
+    it('should return an error if manifest is invalid', done => {
+      let src = new File({contents: new Buffer('FooBar')});
+      new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
+        assert(err instanceof Error);
+        assert(typeof dest == 'undefined');
+        done();
+      });
+    });
+
     it('should add a "david" property to the file object', done => {
       let src = new File({contents: new Buffer('{"name": "gulp-david"}')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
