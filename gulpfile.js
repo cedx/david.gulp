@@ -4,7 +4,6 @@
  */
 'use strict';
 
-// Module dependencies.
 const child = require('child_process');
 const david = require('./lib');
 const del = require('del');
@@ -16,7 +15,7 @@ const pkg = require('./package.json');
 
 /**
  * The task settings.
- * @var {object}
+ * @type {object}
  */
 const config = {
   output: `${pkg.name}-${pkg.version}.zip`,
@@ -72,13 +71,13 @@ gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.pn
 
 gulp.task('doc:build', () => {
   let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'jsdoc.cmd' : 'jsdoc');
-  return _exec(`${command} --configure doc/conf.json`);
+  return del('doc/api').then(() => _exec(`${command} --configure doc/conf.json`));
 });
 
 gulp.task('doc:rename', ['doc:build'], () => new Promise((resolve, reject) =>
   fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', err => {
     if(err) reject(err);
-    else del(`doc/${pkg.name}`).then(resolve, reject);
+    else del('doc/@cedx').then(resolve, reject);
   })
 ));
 
@@ -107,10 +106,10 @@ gulp.task('test:coverage', () => gulp.src(['lib/*.js'])
  * Runs a command and prints its output.
  * @param {string} command The command to run, with space-separated arguments.
  * @param {object} [options] The settings to customize how the process is spawned.
- * @return {Promise.<string>} The command output when it is finally terminated.
+ * @returns {Promise.<string>} The command output when it is finally terminated.
  * @private
  */
-function _exec(command, options) {
+function _exec(command, options = {}) {
   return new Promise((resolve, reject) => child.exec(command, options, (err, stdout) => {
     if(err) reject(err);
     else resolve(stdout.trim());
