@@ -50,7 +50,7 @@ class CheckerTest {
     );
 
     it('should return an object with 3 dependency properties', () =>
-      new Checker({reporter: false}).getDependencies({name: 'gulp-david'}).then(deps => {
+      new Checker({reporter: false}).getDependencies({name: '@cedx/gulp-david'}).then(deps => {
         assert('dependencies' in deps);
         assert('devDependencies' in deps);
         assert('optionalDependencies' in deps);
@@ -75,7 +75,7 @@ class CheckerTest {
     );
 
     it('should return an object with 3 dependency properties', () =>
-      new Checker({reporter: false}).getUpdatedDependencies({name: 'gulp-david'}).then(deps => {
+      new Checker({reporter: false}).getUpdatedDependencies({name: '@cedx/gulp-david'}).then(deps => {
         assert('dependencies' in deps);
         assert('devDependencies' in deps);
         assert('optionalDependencies' in deps);
@@ -112,8 +112,8 @@ class CheckerTest {
     );
 
     it('should return an object if manifest is valid', () => {
-      let file = new File({contents: new Buffer('{"name": "gulp-david"}')});
-      assert.deepEqual(new Checker({reporter: false}).parseManifest(file), {name: 'gulp-david'});
+      let file = new File({contents: new Buffer('{"name": "@cedx/gulp-david"}')});
+      assert.deepEqual(new Checker({reporter: false}).parseManifest(file), {name: '@cedx/gulp-david'});
     });
   }
 
@@ -131,7 +131,7 @@ class CheckerTest {
     });
 
     it('should add a "david" property to the file object', done => {
-      let src = new File({contents: new Buffer('{"name": "gulp-david"}')});
+      let src = new File({contents: new Buffer('{"name": "@cedx/gulp-david"}')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
         assert.ifError(err);
         assert('david' in dest);
