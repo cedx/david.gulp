@@ -1,9 +1,11 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
+#### Version 2.0.1
+- Raised the required [Node.js](https://nodejs.org) version to reflect the latest breaking changes.
+
 #### Version 2.0.0
-- Breaking change: raised the required [Node.js](https://nodejs.org) version.
-- Breaking change: using more ES6 features, like default parameters and destructuring assignment.
+- Breaking change: using more ES2015 features, like default parameters and destructuring assignment.
 - Turned the package into a [scoped one](https://docs.npmjs.com/getting-started/scoped-packages).
 - Improved the code coverage.
 
@@ -38,7 +40,7 @@ This file contains highlights of what changes on each version of the [David.gulp
 - Updated the sample `gulpfile.js`.
 
 #### Version 0.3.0
-- Breaking change: using ES6 features, like arrow functions, block-scoped binding constructs, classes and template strings.
+- Breaking change: using ES2015 features, like arrow functions, block-scoped binding constructs, classes and template strings.
 - Breaking change: raised the required [Node.js](http://nodejs.org) version.
 - Added the `ignore` option to the checker.
 - Added support for [Travis CI](https://travis-ci.org) continuous integration.
