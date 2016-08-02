@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [David.gulp](https://github.com/cedx/david.gulp) package.
 
+#### Version 2.0.2
+- Upgraded the [David](https://david-dm.org) dependency to its latest version.
+
 #### Version 2.0.1
 - Raised the required [Node.js](https://nodejs.org) version to reflect the latest breaking changes.
 
