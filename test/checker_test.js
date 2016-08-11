@@ -106,13 +106,13 @@ class CheckerTest {
 
     it('should throw an error if manifest is invalid', () =>
       assert.throws(() => {
-        let file = new File({contents: new Buffer('FooBar')});
+        let file = new File({contents: Buffer.from('FooBar')});
         new Checker({reporter: false}).parseManifest(file);
       })
     );
 
     it('should return an object if manifest is valid', () => {
-      let file = new File({contents: new Buffer('{"name": "@cedx/gulp-david"}')});
+      let file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
       assert.deepEqual(new Checker({reporter: false}).parseManifest(file), {name: '@cedx/gulp-david'});
     });
   }
@@ -122,7 +122,7 @@ class CheckerTest {
    */
   testTransform() {
     it('should return an error if manifest is invalid', done => {
-      let src = new File({contents: new Buffer('FooBar')});
+      let src = new File({contents: Buffer.from('FooBar')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
         assert(err instanceof Error);
         assert(typeof dest == 'undefined');
@@ -131,7 +131,7 @@ class CheckerTest {
     });
 
     it('should add a "david" property to the file object', done => {
-      let src = new File({contents: new Buffer('{"name": "@cedx/gulp-david"}')});
+      let src = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
         assert.ifError(err);
         assert('david' in dest);

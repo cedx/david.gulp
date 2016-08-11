@@ -34,7 +34,7 @@ class ReporterTest {
    * Tests the `_report` method.
    */
   testReport() {
-    let file = new File({contents: new Buffer('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});
+    let file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});
     file.david = {};
 
     it('should output the file path', () => {
