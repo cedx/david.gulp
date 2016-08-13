@@ -39,13 +39,13 @@ class ReporterTest {
 
     it('should output the file path', () => {
       let output = new Reporter()._report(file);
-      assert(output.indexOf(file.path) >= 0);
+      assert(output.includes(file.path));
     });
 
     it('should output "All dependencies up to date." if there is no outdated dependencies', () => {
       let output = new Reporter()._report(file);
-      assert(output.indexOf(file.path) >= 0);
-      assert(output.indexOf('All dependencies up to date.') >= 0);
+      assert(output.includes(file.path));
+      assert(output.includes('All dependencies up to date.'));
     });
 
     it('should output the package names and versions if there is some outdated dependencies', () => {
@@ -56,11 +56,11 @@ class ReporterTest {
       };
 
       let output = new Reporter()._report(file);
-      assert(output.indexOf('dependencies') >= 0);
-      assert(output.indexOf('foobar') >= 0);
-      assert(output.indexOf('required:') >= 0);
-      assert(output.indexOf('stable:') >= 0);
-      assert(output.indexOf('latest:') >= 0);
+      assert(output.includes('dependencies'));
+      assert(output.includes('foobar'));
+      assert(output.includes('required:'));
+      assert(output.includes('stable:'));
+      assert(output.includes('latest:'));
     });
   }
 }
