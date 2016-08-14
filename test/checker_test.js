@@ -19,7 +19,7 @@ class CheckerTest {
   run() {
     let self = this;
     describe('Checker', function() {
-      this.timeout(10000);
+      this.timeout(15000);
       describe('constructor()', self.testConstructor);
       describe('parseManifest()', self.testParseManifest);
       describe('getDependencies()', self.testGetDependencies);
