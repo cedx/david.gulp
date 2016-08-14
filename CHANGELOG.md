@@ -1,6 +1,11 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://www.npmjs.com/package/@cedx/gulp-david) package.
 
+#### Version 2.0.3
+- Fixed the name of the [JSDoc](http://usejsdoc.org) configuration file.
+- Replaced some deprecated method calls of the `Buffer` class.
+- Upgraded the package dependencies.
+
 #### Version 2.0.2
 - Upgraded the [David](https://david-dm.org) dependency to its latest version.
 
