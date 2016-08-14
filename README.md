@@ -97,4 +97,4 @@ A full sample is located in the `example` folder:
 [Sample Gulp Tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
 
 ## License
-[Gulp-David](https://github.com/cedx/gulp-david) is distributed under the Apache License, version 2.0.
+[Gulp-David](https://www.npmjs.com/package/@cedx/gulp-david) is distributed under the Apache License, version 2.0.
