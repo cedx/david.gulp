@@ -28,7 +28,7 @@
     "vinyl": "^1.2.0"
   },
   "engines": {
-    "node": ">=6.3.0"
+    "node": ">=6.5.0"
   },
   "jshintConfig": {
     "esversion": 6,
