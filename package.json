@@ -6,7 +6,7 @@
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/gulp-david/issues",
   "license": "Apache-2.0",
-  "main": "./lib/index.js",
+  "main": "./lib",
   "repository": "cedx/gulp-david",
   "version": "3.0.0",
 
@@ -28,7 +28,7 @@
     "vinyl": "^1.2.0"
   },
   "engines": {
-    "node": ">=6.5.0"
+    "node": ">=6.6.0"
   },
   "jshintConfig": {
     "esversion": 6,
