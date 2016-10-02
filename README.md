@@ -33,7 +33,7 @@ The plugin can be customized using these settings:
 - `errorDepType: Boolean = false` : If dependency version is invalid (not a string), emit an error.
 - `errorSCM: Boolean = false` : If dependency version is a source control URL, emit an error.
 - `ignore: Array = []`: Ignore the specified dependencies.
-- `registry: String = null` : The [npm](https://www.npmjs.com) registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if `null`.
+- `registry: String = ""` : The [npm](https://www.npmjs.com) registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if empty.
 - `reporter: Boolean|Object = true`: Whether a report should be printed to the standard output. If it is an object, it will be used as reporter.
 - `unstable: Boolean = false` : Use unstable dependencies.
 - `update: Boolean|String = false` : Whether to update dependencies in the file contents to latest versions. If it is a string, it will be used as the operator in version comparators.
