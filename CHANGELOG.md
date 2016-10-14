@@ -3,6 +3,8 @@ This file contains highlights of what changes on each version of the [Gulp-David
 
 #### Version 3.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Added a build task for fixing the coding standards issues.
+- Replaced [JSHint](http://jshint.com) linter by [ESLint](http://eslint.org).
 - Updated the package dependencies.
 
 #### Version 2.0.4

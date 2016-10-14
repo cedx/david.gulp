@@ -63,30 +63,33 @@ gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
 /**
  * Builds the documentation.
  */
-gulp.task('doc', ['doc:assets']);
-
-gulp.task('doc:assets', ['doc:rename'], () => gulp.src(['web/apple-touch-icon.png', 'web/favicon.ico'])
-  .pipe(gulp.dest('doc/api'))
-);
+gulp.task('doc', ['doc:build'], () => new Promise((resolve, reject) =>
+  fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', err => {
+    if (err) reject(err);
+    else del('doc/@cedx').then(resolve, reject);
+  })
+));
 
 gulp.task('doc:build', () => {
   let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'jsdoc.cmd' : 'jsdoc');
   return del('doc/api').then(() => _exec(`${command} --configure doc/jsdoc.json`));
 });
 
-gulp.task('doc:rename', ['doc:build'], () => new Promise((resolve, reject) =>
-  fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', err => {
-    if(err) reject(err);
-    else del('doc/@cedx').then(resolve, reject);
-  })
-));
+/**
+ * Fixes the coding standards issues.
+ */
+gulp.task('fix', () => gulp.src(['*.js', 'lib/**/*.js', 'test/**/*.js'], {base: '.'})
+  .pipe(plugins.eslint({fix: true}))
+  .pipe(gulp.dest('.'))
+);
 
 /**
  * Performs static analysis of source code.
  */
-gulp.task('lint', () => gulp.src(['*.js', 'example/*.js', 'lib/*.js', 'test/*.js'])
-  .pipe(plugins.jshint(pkg.jshintConfig))
-  .pipe(plugins.jshint.reporter('default', {verbose: true}))
+gulp.task('lint', () => gulp.src(['*.js', 'lib/**/*.js', 'test/**/*.js'])
+  .pipe(plugins.eslint())
+  .pipe(plugins.eslint.format())
+  .pipe(plugins.eslint.failAfterError())
 );
 
 /**
@@ -111,7 +114,7 @@ gulp.task('test:coverage', () => gulp.src(['lib/*.js'])
  */
 function _exec(command, options = {}) {
   return new Promise((resolve, reject) => child.exec(command, options, (err, stdout) => {
-    if(err) reject(err);
+    if (err) reject(err);
     else resolve(stdout.trim());
   }));
 }
