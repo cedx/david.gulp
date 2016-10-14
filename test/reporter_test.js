@@ -1,5 +1,5 @@
 /**
- * Unit tests of the `reporter` module.
+ * Implementation of the `ReporterTest` class.
  * @module test/reporter_test
  */
 const assert = require('assert');

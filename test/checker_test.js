@@ -1,5 +1,5 @@
 /**
- * Unit tests of the `checker` module.
+ * Implementation of the `CheckerTest` class.
  * @module test/checker_test
  */
 const assert = require('assert');
