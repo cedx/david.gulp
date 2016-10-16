@@ -38,7 +38,7 @@ gulp.task('updateManifest', () => gulp.src('package.json')
 gulp.task('upgradePackages', ['updateManifest'], () => new Promise((resolve, reject) =>
   child.exec('npm update', (err, stdout) => {
     console.log(stdout.trim());
-    if(err) reject(err);
+    if (err) reject(err);
     else resolve();
   })
 ));
