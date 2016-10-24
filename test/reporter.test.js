@@ -1,39 +1,25 @@
-/**
- * Implementation of the `ReporterTest` class.
- * @module test/reporter_test
- */
-const assert = require('assert');
-const File = require('vinyl');
-const Reporter = require('../lib/reporter');
+import assert from 'assert';
+import File from 'vinyl';
+import {Reporter} from '../lib/reporter';
 
 /**
- * Tests the features of the `david.Reporter` class.
+ * @test {Reporter}
  */
-class ReporterTest {
+describe('Reporter', () => {
 
   /**
-   * Runs the unit tests.
+   * @test {Reporter#log}
    */
-  run() {
-    describe('Reporter', () => {
-      describe('log()', this.testLog);
-      describe('_report()', this.testReport);
-    });
-  }
-
-  /**
-   * Tests the `log` method.
-   */
-  testLog() {
+  describe('#log()', () => {
     it('should throw an error if "david" property is not found on the file object', () => {
       assert.throws(() => new Reporter().log(new File()), Error);
     });
-  }
+  });
 
   /**
-   * Tests the `_report` method.
+   * @test {Reporter#_report}
    */
-  testReport() {
+  describe('#_report()', () => {
     let file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});
     file.david = {};
 
@@ -62,8 +48,5 @@ class ReporterTest {
       assert(output.includes('stable:'));
       assert(output.includes('latest:'));
     });
-  }
-}
-
-// Run all tests.
-new ReporterTest().run();
+  });
+});
