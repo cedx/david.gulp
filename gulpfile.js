@@ -1,6 +1,5 @@
 /**
  * Provides tasks for [Gulp.js](http://gulpjs.com) build system.
- * @module gulpfile
  */
 'use strict';
 
@@ -15,7 +14,7 @@ const pkg = require('./package.json');
 
 /**
  * The task settings.
- * @constant {object}
+ * @type {object}
  */
 const config = {
   output: `${pkg.name}-${pkg.version}.zip`,
@@ -109,8 +108,7 @@ gulp.task('test:coverage', () => gulp.src(['lib/*.js'])
  * Runs a command and prints its output.
  * @param {string} command The command to run, with space-separated arguments.
  * @param {object} [options] The settings to customize how the process is spawned.
- * @returns {Promise.<string>} The command output when it is finally terminated.
- * @private
+ * @return {Promise<string>} The command output when it is finally terminated.
  */
 function _exec(command, options = {}) {
   return new Promise((resolve, reject) => child.exec(command, options, (err, stdout) => {
