@@ -1,37 +1,19 @@
-/**
- * Implementation of the `CheckerTest` class.
- * @module test/checker_test
- */
-const assert = require('assert');
-const Checker = require('../lib/checker');
-const File = require('vinyl');
-const pkg = require('../package.json');
-const stream = require('stream');
+import assert from 'assert';
+import {Checker} from '../lib/checker';
+import File from 'vinyl';
+import * as pkg from '../package.json';
+import stream from 'stream';
 
 /**
- * Tests the features of the `david.Checker` class.
+ * @test {Checker}
  */
-class CheckerTest {
+describe('Checker', function() {
+  this.timeout(15000);
 
   /**
-   * Runs the unit tests.
+   * @test {Checker#constructor}
    */
-  run() {
-    let self = this;
-    describe('Checker', function() {
-      this.timeout(15000);
-      describe('constructor()', self.testConstructor);
-      describe('parseManifest()', self.testParseManifest);
-      describe('getDependencies()', self.testGetDependencies);
-      describe('getUpdatedDependencies()', self.testGetUpdatedDependencies);
-      describe('_transform()', self.testTransform);
-    });
-  }
-
-  /**
-   * Tests the constructor.
-   */
-  testConstructor() {
+  describe('#constructor()', () => {
     it('should properly handle the options', () =>
       assert.equal(new Checker({errorDepCount: 5, reporter: false})._options.errorDepCount, 5)
     );
@@ -39,12 +21,12 @@ class CheckerTest {
     it('should have a reporter if property is not false', () =>
       assert(typeof new Checker({reporter: {}})._options.reporter == 'object')
     );
-  }
+  });
 
   /**
-   * Tests the `getDependencies` method.
+   * @test {Checker#getDependencies}
    */
-  testGetDependencies() {
+  describe('#getDependencies()', () => {
     it('should return a Promise object', () =>
       assert(new Checker({reporter: false}).getDependencies({}) instanceof Promise)
     );
@@ -64,12 +46,12 @@ class CheckerTest {
         assert(!Object.keys(deps.optionalDependencies).length);
       })
     );
-  }
+  });
 
   /**
-   * Tests the `getUpdatedDependencies` method.
+   * @test {Checker#getUpdatedDependencies}
    */
-  testGetUpdatedDependencies() {
+  describe('#getUpdatedDependencies()', () => {
     it('should return a Promise object', () =>
       assert(new Checker({reporter: false}).getUpdatedDependencies({}) instanceof Promise)
     );
@@ -87,12 +69,12 @@ class CheckerTest {
         assert(!Object.keys(deps.optionalDependencies).length);
       })
     );
-  }
+  });
 
   /**
-   * Tests the `parseManifest` method.
+   * @test {Checker#parseManifest}
    */
-  testParseManifest() {
+  describe('#parseManifest()', () => {
     it('should throw an error if file is null', () =>
       assert.throws(() => new Checker({reporter: false}).parseManifest(new File()))
     );
@@ -115,12 +97,12 @@ class CheckerTest {
       let file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
       assert.deepEqual(new Checker({reporter: false}).parseManifest(file), {name: '@cedx/gulp-david'});
     });
-  }
+  });
 
   /**
-   * Tests the `_transform` method.
+   * @test {Checker#_transform}
    */
-  testTransform() {
+  describe('#_transform()', () => {
     it('should return an error if manifest is invalid', done => {
       let src = new File({contents: Buffer.from('FooBar')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
@@ -138,8 +120,5 @@ class CheckerTest {
         done();
       });
     });
-  }
-}
-
-// Run all tests.
-new CheckerTest().run();
+  });
+});
