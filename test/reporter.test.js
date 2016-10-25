@@ -11,7 +11,7 @@ describe('Reporter', () => {
    * @test {Reporter#log}
    */
   describe('#log()', () => {
-    it('should throw an error if "david" property is not found on the file object', () => {
+    it('should throw an error if the "david" property is not found on the file object', () => {
       assert.throws(() => new Reporter().log(new File()), Error);
     });
   });
