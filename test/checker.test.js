@@ -1,6 +1,7 @@
 import assert from 'assert';
 import {Checker} from '../lib/checker';
 import File from 'vinyl';
+import {Observable} from 'rxjs';
 import * as pkg from '../package.json';
 import stream from 'stream';
 
@@ -27,8 +28,8 @@ describe('Checker', function() {
    * @test {Checker#getDependencies}
    */
   describe('#getDependencies()', () => {
-    it('should return a Promise object', () =>
-      assert(new Checker({reporter: false}).getDependencies({}) instanceof Promise)
+    it('should return an Observable object', () =>
+      assert(new Checker({reporter: false}).getDependencies({}) instanceof Observable)
     );
 
     it('should return an object with 3 dependency properties', () =>
@@ -52,8 +53,8 @@ describe('Checker', function() {
    * @test {Checker#getUpdatedDependencies}
    */
   describe('#getUpdatedDependencies()', () => {
-    it('should return a Promise object', () =>
-      assert(new Checker({reporter: false}).getUpdatedDependencies({}) instanceof Promise)
+    it('should return an Observable object', () =>
+      assert(new Checker({reporter: false}).getUpdatedDependencies({}) instanceof Observable)
     );
 
     it('should return an object with 3 dependency properties', () =>

@@ -1,8 +1,8 @@
-const david = require('david');
-const {Observable} = require('rxjs');
-const pkg = require('../package.json');
-const Reporter = require('./reporter');
-const {Transform} = require('stream');
+import david from 'david';
+import {Observable} from 'rxjs';
+import * as pkg from '../package.json';
+import {Reporter} from './reporter';
+import {Transform} from 'stream';
 
 /**
  * Checks whether the dependencies of a project are out of date.
@@ -21,18 +21,17 @@ export class Checker extends Transform {
      * @type {object}
      */
     this._options = {
-      error404: false,
-      errorDepCount: 0,
-      errorDepType: false,
-      errorSCM: false,
-      ignore: [],
-      registry: '',
-      reporter: true,
-      unstable: false,
-      update: false
+      error404: typeof options.error404 == 'boolean' ? options.error404 : false,
+      errorDepCount: typeof options.errorDepCount == 'number' ? options.errorDepCount : 0,
+      errorDepType: typeof options.errorDepType == 'boolean' ? options.errorDepType : false,
+      errorSCM: typeof options.errorSCM == 'boolean' ? options.errorSCM : false,
+      ignore: Array.isArray(options.ignore) ? options.ignore : [],
+      registry: typeof options.registry == 'string' ? options.registry : '',
+      reporter: typeof options.reporter != 'undefined' ? options.reporter : true,
+      unstable: typeof options.unstable == 'boolean' ? options.unstable : false,
+      update: typeof options.update != 'undefined' ? options.update : false
     };
 
-    Object.assign(this._options, options);
     if (typeof this._options.reporter == 'boolean' && this._options.reporter) this._options.reporter = new Reporter();
     if (typeof this._options.update == 'boolean' && this._options.update) this._options.update = '^';
   }
@@ -85,7 +84,7 @@ export class Checker extends Transform {
   _getDependencies(getter, manifest) {
     let options = {
       error: {E404: this._options.error404, EDEPTYPE: this._options.errorDepType, ESCM: this._options.errorSCM},
-      ignore: Array.isArray(this._options.ignore) ? this._options.ignore : [],
+      ignore: this._options.ignore,
       loose: true,
       stable: !this._options.unstable
     };
