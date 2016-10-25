@@ -1,6 +1,3 @@
-/**
- * Implementation of the `david.Checker` class.
- */
 const david = require('david');
 const {Observable} = require('rxjs');
 const pkg = require('../package.json');
