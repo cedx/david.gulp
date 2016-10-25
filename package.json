@@ -39,6 +39,7 @@
   ],
   "scripts": {
     "coverage": "codacy-coverage < var/lcov.info",
+    "prepublish": "gulp build",
     "test": "gulp test"
   }
 }
