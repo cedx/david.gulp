@@ -1,9 +1,6 @@
-/**
- * Implementation of the `david.Reporter` class.
- */
-const chalk = require('chalk');
-const os = require('os');
-const pkg = require('../package.json');
+import chalk from 'chalk';
+import os from 'os';
+import * as pkg from '../package.json';
 
 /**
  * Prints the checker results to the standard output.
@@ -14,6 +11,7 @@ export class Reporter {
    * Logs to the standard output the outdated dependencies provided by the specified file.
    * @param {File} file The file providing the outdated dependencies.
    * @throws {Error} The dependencies were not found in the file.
+   * @todo console.log(..... .toString(encoding))
    */
   log(file) {
     if (!('david' in file)) throw new Error(`[${pkg.name}] Dependencies not found.`);
@@ -23,7 +21,7 @@ export class Reporter {
   /**
    * Builds the output of the outdated dependencies provided by the specified file.
    * @param {File} file The file providing the outdated dependencies.
-   * @return {string} The output of the outdated dependencies.
+   * @return {string} The output of the outdated dependencies. // TODO Buffer !
    */
   _report(file) {
     let lines = [];

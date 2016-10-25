@@ -1,15 +1,11 @@
-/**
- * Provides tasks for [Gulp.js](http://gulpjs.com) build system.
- */
 'use strict';
 
 const child = require('child_process');
-const david = require('./lib');
+const david = require('./src');
 const del = require('del');
-const fs = require('fs');
 const gulp = require('gulp');
+const loadPlugins = require('gulp-load-plugins');
 const path = require('path');
-const plugins = require('gulp-load-plugins')();
 const pkg = require('./package.json');
 
 /**
@@ -18,13 +14,30 @@ const pkg = require('./package.json');
  */
 const config = {
   output: `${pkg.name}-${pkg.version}.zip`,
-  sources: ['*.json', '*.md', '*.txt', 'example/*.js', 'lib/*.js']
+  sources: ['*.json', '*.md', '*.txt', 'example/*.js', 'lib/**/*.js']
 };
+
+/**
+ * The task plugins.
+ * @type {object}
+ */
+const plugins = loadPlugins({
+  pattern: ['gulp-*', '@*/gulp-*'],
+  replaceString: /^gulp-/
+});
 
 /**
  * Runs the default tasks.
  */
-gulp.task('default', ['dist']);
+gulp.task('default', ['build']);
+
+/**
+ * Builds the sources.
+ */
+gulp.task('build', () => gulp.src('src/**/*.js')
+  .pipe(plugins.babel())
+  .pipe(gulp.dest('lib'))
+);
 
 /**
  * Checks the package dependencies.
@@ -62,22 +75,15 @@ gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
 /**
  * Builds the documentation.
  */
-gulp.task('doc', ['doc:build'], () => new Promise((resolve, reject) =>
-  fs.rename(`doc/${pkg.name}/${pkg.version}`, 'doc/api', err => {
-    if (err) reject(err);
-    else del('doc/@cedx').then(resolve, reject);
-  })
-));
-
-gulp.task('doc:build', () => {
-  let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'jsdoc.cmd' : 'jsdoc');
-  return del('doc/api').then(() => _exec(`${command} --configure doc/jsdoc.json`));
+gulp.task('doc', () => {
+  let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'esdoc.cmd' : 'esdoc');
+  return del('doc/api').then(() => _exec(`${command} -c doc/esdoc.json`));
 });
 
 /**
  * Fixes the coding standards issues.
  */
-gulp.task('fix', () => gulp.src(['*.js', 'example/*.js', 'lib/**/*.js', 'test/**/*.js'], {base: '.'})
+gulp.task('fix', () => gulp.src(['*.js', 'example/*.js', 'src/**/*.js', 'test/**/*.js'], {base: '.'})
   .pipe(plugins.eslint({fix: true}))
   .pipe(gulp.dest('.'))
 );
@@ -85,7 +91,7 @@ gulp.task('fix', () => gulp.src(['*.js', 'example/*.js', 'lib/**/*.js', 'test/**
 /**
  * Performs static analysis of source code.
  */
-gulp.task('lint', () => gulp.src(['*.js', 'example/*.js', 'lib/**/*.js', 'test/**/*.js'])
+gulp.task('lint', () => gulp.src(['*.js', 'example/*.js', 'src/**/*.js', 'test/**/*.js'])
   .pipe(plugins.eslint())
   .pipe(plugins.eslint.format())
   .pipe(plugins.eslint.failAfterError())
@@ -94,15 +100,21 @@ gulp.task('lint', () => gulp.src(['*.js', 'example/*.js', 'lib/**/*.js', 'test/*
 /**
  * Runs the unit tests.
  */
-gulp.task('test', ['test:coverage'], () => gulp.src(['test/*.js'], {read: false})
+gulp.task('test', ['test:instrument'], () => gulp.src(['test/**/*.js'], {read: false})
   .pipe(plugins.mocha())
   .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}))
 );
 
-gulp.task('test:coverage', () => gulp.src(['lib/*.js'])
-  .pipe(plugins.istanbul())
+gulp.task('test:instrument', ['test:setup'], () => gulp.src(['src/**/*.js'])
+  .pipe(plugins.istanbul({instrumenter: require('isparta').Instrumenter}))
   .pipe(plugins.istanbul.hookRequire())
 );
+
+gulp.task('test:setup', () => new Promise(resolve => {
+  process.env.BABEL_DISABLE_CACHE = process.platform == 'win32' ? '0' : '1';
+  require('babel-register');
+  resolve();
+}));
 
 /**
  * Runs a command and prints its output.

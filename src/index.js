@@ -1,5 +1,10 @@
+import {Checker} from './checker';
+
 /**
- * Package entry point.
+ * TODO
+ * @param {object} options The plug-in options.
+ * @returns {Checker} TODO
  */
-const Checker = require('./checker');
-module.exports = options => new Checker(options);
+export default function(options) {
+  return new Checker(options);
+}
