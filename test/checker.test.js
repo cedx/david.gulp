@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {Checker} from '../lib/checker';
+import {Checker} from '../src/checker';
 import File from 'vinyl';
 import {Observable} from 'rxjs';
 import * as pkg from '../package.json';
@@ -19,7 +19,7 @@ describe('Checker', function() {
       assert.equal(new Checker({errorDepCount: 5, reporter: false})._options.errorDepCount, 5)
     );
 
-    it('should have a reporter if property is not false', () =>
+    it('should have a reporter if the property is not false', () =>
       assert(typeof new Checker({reporter: {}})._options.reporter == 'object')
     );
   });
@@ -76,25 +76,25 @@ describe('Checker', function() {
    * @test {Checker#parseManifest}
    */
   describe('#parseManifest()', () => {
-    it('should throw an error if file is null', () =>
+    it('should throw an error if the file is null', () =>
       assert.throws(() => new Checker({reporter: false}).parseManifest(new File()))
     );
 
-    it('should throw an error if file is a stream', () =>
+    it('should throw an error if the file is a stream', () =>
       assert.throws(() => {
         let file = new File({contents: new stream.Readable()});
         new Checker({reporter: false}).parseManifest(file);
       })
     );
 
-    it('should throw an error if manifest is invalid', () =>
+    it('should throw an error if the manifest is invalid', () =>
       assert.throws(() => {
         let file = new File({contents: Buffer.from('FooBar')});
         new Checker({reporter: false}).parseManifest(file);
       })
     );
 
-    it('should return an object if manifest is valid', () => {
+    it('should return an object if the manifest is valid', () => {
       let file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
       assert.deepEqual(new Checker({reporter: false}).parseManifest(file), {name: '@cedx/gulp-david'});
     });
@@ -104,7 +104,7 @@ describe('Checker', function() {
    * @test {Checker#_transform}
    */
   describe('#_transform()', () => {
-    it('should return an error if manifest is invalid', done => {
+    it('should return an error if the manifest is invalid', done => {
       let src = new File({contents: Buffer.from('FooBar')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
         assert(err instanceof Error);
