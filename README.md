@@ -28,15 +28,15 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
 ## Options
 The plugin can be customized using these settings:
 
-- `error404: Boolean = false` : If dependency not found, emit an error.
-- `errorDepCount: Number = 0` : If greater than `0`, emit an error when the count of outdated dependencies equals or exceeds the specified value.
-- `errorDepType: Boolean = false` : If dependency version is invalid (not a string), emit an error.
-- `errorSCM: Boolean = false` : If dependency version is a source control URL, emit an error.
+- `error404: boolean = false` : If dependency not found, emit an error.
+- `errorDepCount: number = 0` : If greater than `0`, emit an error when the count of outdated dependencies equals or exceeds the specified value.
+- `errorDepType: boolean = false` : If dependency version is invalid (not a string), emit an error.
+- `errorSCM: boolean = false` : If dependency version is a source control URL, emit an error.
 - `ignore: Array = []`: Ignore the specified dependencies.
-- `registry: String = ""` : The [npm](https://www.npmjs.com) registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if empty.
-- `reporter: Boolean|Object = true`: Whether a report should be printed to the standard output. If it is an object, it will be used as reporter.
-- `unstable: Boolean = false` : Use unstable dependencies.
-- `update: Boolean|String = false` : Whether to update dependencies in the file contents to latest versions. If it is a string, it will be used as the operator in version comparators.
+- `registry: string = ""` : The [npm](https://www.npmjs.com) registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if empty.
+- `reporter: boolean|object = true`: Whether a report should be printed to the standard output. If it is an object, it will be used as reporter.
+- `unstable: boolean = false` : Use unstable dependencies.
+- `update: boolean|string = false` : Whether to update dependencies in the file contents to latest versions. If it is a string, it will be used as the operator in version comparators.
 
 ## Results
 The plugin adds the following properties to the `file` object:
@@ -89,12 +89,14 @@ In order to pin your dependencies, just use the equality operator:
 gulp.src('package.json').pipe(david({update: '='}));
 ```
 
+## Examples
+You can find a more detailled sample in the `example` folder:  
+[Sample Gulp Tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
+
 ## See Also
+- [API Reference](http://dev.belin.io/gulp-david)
 - [Code Quality](https://www.codacy.com/app/cedx/gulp-david)
 - [Continuous Integration](https://travis-ci.org/cedx/gulp-david)
-
-A full sample is located in the `example` folder:  
-[Sample Gulp Tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
 
 ## License
 [Gulp-David](https://www.npmjs.com/package/@cedx/gulp-david) is distributed under the Apache License, version 2.0.
