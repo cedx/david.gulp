@@ -97,21 +97,18 @@ export class Checker extends Transform {
     let getDeps = Observable.bindNodeCallback(getter);
     return Observable
       .from([
-        {dev: false, optional: false},
-        {dev: true, optional: false},
-        {dev: false, optional: true}
+        {opts: Object.assign({}, options, {dev: false, optional: false}), type: 'dependencies'},
+        {opts: Object.assign({}, options, {dev: true, optional: false}), type: 'devDependencies'},
+        {opts: Object.assign({}, options, {dev: false, optional: true}), type: 'optionalDependencies'}
       ])
-      .map(params => Object.assign({}, options, params))
-      .flatMap(params => getDeps(manifest, params))
+      .flatMap(params =>
+        getDeps(manifest, params.opts).map(deps => ({deps, type: params.type}))
+      )
       .toArray()
       .map(deps => {
-        console.log('_getDependencies');
-        console.log(deps);
-        return {
-          dependencies: deps[0],
-          devDependencies: deps[1],
-          optionalDependencies: deps[2]
-        };
+        let report = {};
+        deps.forEach(dep => report[dep.type] = dep.deps);
+        return report;
       });
   }
 
