@@ -29,7 +29,8 @@ export class Checker extends Transform {
       registry: typeof options.registry == 'string' ? options.registry : '',
       reporter: typeof options.reporter != 'undefined' ? options.reporter : true,
       unstable: typeof options.unstable == 'boolean' ? options.unstable : false,
-      update: typeof options.update != 'undefined' ? options.update : false
+      update: typeof options.update != 'undefined' ? options.update : false,
+      verbose: typeof options.verbose == 'boolean' ? options.verbose : false
     };
 
     if (typeof this._options.reporter == 'boolean' && this._options.reporter) this._options.reporter = new Reporter();
@@ -128,7 +129,8 @@ export class Checker extends Transform {
       return;
     }
 
-    this.getUpdatedDependencies(manifest).subscribe(
+    let getDeps = (this._options.verbose ? this.getDependencies : this.getUpdatedDependencies).bind(this);
+    getDeps(manifest).subscribe(
       deps => {
         file.david = deps;
 
