@@ -14,7 +14,7 @@ Once the plugin has been installed, it may be enabled inside your `gulpfile.js` 
 
 ```javascript
 const gulp = require('gulp');
-const david = require('@cedx/gulp-david');
+const {david} = require('@cedx/gulp-david');
 
 gulp.task('checkDependencies', () => gulp.src('package.json')
   .pipe(david()).on('error', function(err) {
@@ -37,6 +37,7 @@ The plugin can be customized using these settings:
 - `reporter: boolean|object = true`: Whether a report should be printed to the standard output. If it is an object, it will be used as reporter.
 - `unstable: boolean = false` : Use unstable dependencies.
 - `update: boolean|string = false` : Whether to update dependencies in the file contents to latest versions. If it is a string, it will be used as the operator in version comparators.
+- `verbose: boolean = false` : Whether to output the versions of all dependencies instead of only the outdated ones.
 
 ## Results
 The plugin adds the following properties to the `file` object:
