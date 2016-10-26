@@ -1,7 +1,7 @@
 'use strict';
 
 const child = require('child_process');
-const david = require('@cedx/gulp-david');
+const {david} = require('@cedx/gulp-david');
 const gulp = require('gulp');
 
 /**
@@ -10,8 +10,7 @@ const gulp = require('gulp');
 gulp.task('default', ['upgradePackages']);
 
 /**
- * Checks the package dependencies.
- * Emits an error if some of them are outdated.
+ * Checks the package dependencies, and emits an error if some of them are outdated.
  */
 gulp.task('checkDependencies', () => gulp.src('package.json')
   .pipe(david({error404: true, errorDepCount: 1, errorDepType: true}))
@@ -19,6 +18,13 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
     console.error(err);
     this.emit('end');
   })
+);
+
+/**
+ * Prints a detailled report about the dependencies.
+ */
+gulp.task('printDependencyReport', () => gulp.src('package.json')
+  .pipe(david({verbose: true}))
 );
 
 /**

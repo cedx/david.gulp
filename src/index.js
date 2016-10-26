@@ -1,10 +1,10 @@
 import {Checker} from './checker';
 
 /**
- * TODO
+ * Create a new instance of the plug-in.
  * @param {object} options The plug-in options.
- * @returns {Checker} TODO
+ * @return {Checker} Tthe newly created instance.
  */
-export default function(options) {
+export function david(options) {
   return new Checker(options);
 }
