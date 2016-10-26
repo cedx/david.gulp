@@ -7,6 +7,8 @@ This file contains highlights of what changes on each version of the [Gulp-David
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Added a build task for fixing the coding standards issues.
 - Added the `verbose` option.
+- Externalized the [Babel](https://babeljs.io) settings.
+- Replaced [JSDoc](http://usejsdoc.org) documentation generator by [ESDoc](https://esdoc.org).
 - Replaced [JSHint](http://jshint.com) linter by [ESLint](http://eslint.org).
 - Updated the package dependencies.
 
