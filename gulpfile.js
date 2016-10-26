@@ -1,7 +1,12 @@
 'use strict';
 
+// Register the transpiler.
+process.env.BABEL_DISABLE_CACHE = process.platform == 'win32' ? '0' : '1';
+require('babel-register');
+
+// Module dependencies.
 const child = require('child_process');
-const david = require('./src');
+const {david} = require('./src');
 const del = require('del');
 const gulp = require('gulp');
 const loadPlugins = require('gulp-load-plugins');
@@ -18,7 +23,7 @@ const config = {
 };
 
 /**
- * The task plugins.
+ * The task plug-ins.
  * @type {object}
  */
 const plugins = loadPlugins({
@@ -105,16 +110,10 @@ gulp.task('test', ['test:instrument'], () => gulp.src(['test/**/*.js'], {read: f
   .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}))
 );
 
-gulp.task('test:instrument', ['test:setup'], () => gulp.src(['src/**/*.js'])
+gulp.task('test:instrument', () => gulp.src(['src/**/*.js'])
   .pipe(plugins.istanbul({instrumenter: require('isparta').Instrumenter}))
   .pipe(plugins.istanbul.hookRequire())
 );
-
-gulp.task('test:setup', () => new Promise(resolve => {
-  process.env.BABEL_DISABLE_CACHE = process.platform == 'win32' ? '0' : '1';
-  require('babel-register');
-  resolve();
-}));
 
 /**
  * Runs a command and prints its output.
