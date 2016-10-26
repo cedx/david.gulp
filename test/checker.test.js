@@ -32,20 +32,20 @@ describe('Checker', function() {
       assert(new Checker({reporter: false}).getDependencies({}) instanceof Observable)
     );
 
-    it('should return an object with 3 dependency properties', () =>
-      new Checker({reporter: false}).getDependencies({name: '@cedx/gulp-david'}).then(deps => {
+    it('should return an object with 3 dependency properties', done =>
+      new Checker({reporter: false}).getDependencies({name: '@cedx/gulp-david'}).subscribe(deps => {
         assert('dependencies' in deps);
         assert('devDependencies' in deps);
         assert('optionalDependencies' in deps);
-      })
+      }, null, done)
     );
 
-    it('should have some non-empty dependency properties for the current manifest', () =>
-      new Checker({reporter: false}).getDependencies(pkg).then(deps => {
+    it('should have some non-empty dependency properties for the current manifest', done =>
+      new Checker({reporter: false}).getDependencies(pkg).subscribe(deps => {
         assert(Object.keys(deps.dependencies).length > 0);
         assert(Object.keys(deps.devDependencies).length > 0);
         assert(!Object.keys(deps.optionalDependencies).length);
-      })
+      }, null, done)
     );
   });
 
@@ -57,18 +57,18 @@ describe('Checker', function() {
       assert(new Checker({reporter: false}).getUpdatedDependencies({}) instanceof Observable)
     );
 
-    it('should return an object with 3 dependency properties', () =>
-      new Checker({reporter: false}).getUpdatedDependencies({name: '@cedx/gulp-david'}).then(deps => {
+    it('should return an object with 3 dependency properties', done =>
+      new Checker({reporter: false}).getUpdatedDependencies({name: '@cedx/gulp-david'}).subscribe(deps => {
         assert('dependencies' in deps);
         assert('devDependencies' in deps);
         assert('optionalDependencies' in deps);
-      })
+      }, null, done)
     );
 
-    it('should have some empty dependency properties for the current manifest', () =>
-      new Checker({reporter: false}).getUpdatedDependencies(pkg).then(deps => {
+    it('should have some empty dependency properties for the current manifest', done =>
+      new Checker({reporter: false}).getUpdatedDependencies(pkg).subscribe(deps => {
         assert(!Object.keys(deps.optionalDependencies).length);
-      })
+      }, null, done)
     );
   });
 

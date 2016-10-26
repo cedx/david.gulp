@@ -11,7 +11,6 @@ export class Reporter {
    * Logs to the standard output the outdated dependencies provided by the specified file.
    * @param {File} file The file providing the outdated dependencies.
    * @throws {Error} The dependencies were not found in the file.
-   * @todo console.log(..... .toString(encoding))
    */
   log(file) {
     if (!('david' in file)) throw new Error(`[${pkg.name}] Dependencies not found.`);
