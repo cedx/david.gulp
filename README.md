@@ -1,16 +1,16 @@
 # Gulp-David
 ![Release](https://img.shields.io/npm/v/@cedx/gulp-david.svg) ![License](https://img.shields.io/npm/l/@cedx/gulp-david.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/gulp-david.svg) ![Dependencies](https://img.shields.io/david/cedx/gulp-david.svg) ![Code quality](https://img.shields.io/codacy/grade/1c110f507ebf4b91b2d8c33b7bb68ccf.svg) ![Build](https://img.shields.io/travis/cedx/gulp-david.svg)
 
-Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plugin for [Gulp.js](http://gulpjs.com), the streaming build system.
+Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plug-in for [Gulp.js](http://gulpjs.com), the streaming build system.
 
 ## Getting Started
-If you haven't used [Gulp.js](http://gulpjs.com) before, be sure to check out the [related documentation](https://github.com/gulpjs/gulp/blob/master/docs/README.md), as it explains how to create a `gulpfile.js` as well as install and use plugins. Once you're familiar with that process, you may install this plugin with this command:
+If you haven't used [Gulp.js](http://gulpjs.com) before, be sure to check out the [related documentation](https://github.com/gulpjs/gulp/blob/master/docs/README.md), as it explains how to create a `gulpfile.js` as well as install and use plug-ins. Once you're familiar with that process, you may install this plug-in with this command:
 
 ```shell
 $ npm install --save-dev @cedx/gulp-david
 ```
 
-Once the plugin has been installed, it may be enabled inside your `gulpfile.js` with these [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) statements:
+Once the plug-in has been installed, it may be enabled inside your `gulpfile.js` with these [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) statements:
 
 ```javascript
 const gulp = require('gulp');
@@ -26,7 +26,7 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
 ```
 
 ## Options
-The plugin can be customized using these settings:
+The plug-in can be customized using these settings:
 
 - `error404: boolean = false` : If dependency not found, emit an error.
 - `errorDepCount: number = 0` : If greater than `0`, emit an error when the count of outdated dependencies equals or exceeds the specified value.
@@ -40,7 +40,7 @@ The plugin can be customized using these settings:
 - `verbose: boolean = false` : Whether to output the versions of all dependencies instead of only the outdated ones.
 
 ## Results
-The plugin adds the following properties to the `file` object:
+The plug-in adds the following properties to the `file` object:
 
 ```javascript
 file.david = {
@@ -51,7 +51,7 @@ file.david = {
 ```
 
 ## Reporters
-By default, the plugin prints to the standard output the list of outdated packages.
+By default, the plug-in prints to the standard output the list of outdated packages.
 You can disable this output by setting the `reporter` option to `false`.
 
 ```javascript
@@ -68,7 +68,7 @@ return gulp.src('package.json')
 ```
 
 ## Updating Dependencies
-The plugin lets you update dependencies in the manifest file to latest versions and save them back to the file system:
+The plug-in lets you update dependencies in the manifest file to latest versions and save them back to the file system:
 
 ```javascript
 return gulp.src('package.json')
@@ -76,7 +76,7 @@ return gulp.src('package.json')
   .pipe(gulp.dest('.'));
 ```
 
-By default, the plugin will use the caret operator (e.g. `^`) to specifiy the version comparators in the manifest file.
+By default, the plug-in will use the caret operator (e.g. `^`) to specifiy the version comparators in the manifest file.
 You can use a different operator by providing a string indicating the wanted one:
 
 ```javascript

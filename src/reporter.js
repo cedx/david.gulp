@@ -21,7 +21,7 @@ export class Reporter {
   /**
    * Builds the output of the outdated dependencies provided by the specified file.
    * @param {File} file The file providing the outdated dependencies.
-   * @return {string} The output of the outdated dependencies. // TODO Buffer !
+   * @return {string} The output of the outdated dependencies.
    */
   _report(file) {
     let lines = [];
