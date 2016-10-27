@@ -2,10 +2,10 @@
 
 .babelrc text
 .editorconfig text
-.eslintrc.json
+.eslintrc.json text
 .gitattributes text
 .gitignore text
-.travis.yml
+.travis.yml text
 
 *.js text
 *.json text
