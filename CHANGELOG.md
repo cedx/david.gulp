@@ -1,5 +1,5 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Gulp-David](https://www.npmjs.com/package/@cedx/gulp-david) package.
+This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
 ## Version 3.0.0
 - Breaking change: the plug-in is not anymore a default export. The use of destructuring assignment is advised to access it.

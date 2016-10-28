@@ -100,4 +100,4 @@ You can find a more detailled sample in the `example` folder:
 - [Continuous Integration](https://travis-ci.org/cedx/gulp-david)
 
 ## License
-[Gulp-David](https://www.npmjs.com/package/@cedx/gulp-david) is distributed under the Apache License, version 2.0.
+[Gulp-David](https://github.com/cedx/gulp-david) is distributed under the Apache License, version 2.0.
