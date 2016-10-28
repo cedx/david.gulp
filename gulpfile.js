@@ -1,7 +1,7 @@
 'use strict';
 
 // Register the transpiler.
-process.env.BABEL_DISABLE_CACHE = process.platform == 'win32' ? '0' : '1';
+process.env.BABEL_DISABLE_CACHE = process.platform == 'win32' ? '1' : '0';
 require('babel-register');
 
 // Module dependencies.
@@ -105,12 +105,12 @@ gulp.task('lint', () => gulp.src(['*.js', 'example/*.js', 'src/**/*.js', 'test/*
 /**
  * Runs the unit tests.
  */
-gulp.task('test', ['test:instrument'], () => gulp.src(['test/**/*.js'], {read: false})
+gulp.task('test', ['test:instrument'], () => gulp.src('test/**/*.js', {read: false})
   .pipe(plugins.mocha())
   .pipe(plugins.istanbul.writeReports({dir: 'var', reporters: ['lcovonly']}))
 );
 
-gulp.task('test:instrument', () => gulp.src(['src/**/*.js'])
+gulp.task('test:instrument', () => gulp.src('src/**/*.js')
   .pipe(plugins.istanbul({instrumenter: require('isparta').Instrumenter}))
   .pipe(plugins.istanbul.hookRequire())
 );
