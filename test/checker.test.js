@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {Checker} from '../src/checker';
+import {Checker} from '../src/index';
 import File from 'vinyl';
 import {Observable} from 'rxjs';
 import * as pkg from '../package.json';
