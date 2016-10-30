@@ -6,9 +6,11 @@
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/gulp-david/issues",
   "license": "Apache-2.0",
-  "main": "./lib",
   "repository": "cedx/gulp-david",
   "version": "3.0.0",
+  
+  "jsnext:main": "./src/index",
+  "main": "./lib/index",
 
   "dependencies": {
     "chalk": "^1.1.3",
