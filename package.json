@@ -7,8 +7,8 @@
   "bugs": "https://github.com/cedx/gulp-david/issues",
   "license": "Apache-2.0",
   "repository": "cedx/gulp-david",
-  "version": "3.0.0",
-  
+  "version": "3.0.1",
+
   "jsnext:main": "./src/index",
   "main": "./lib/index",
 
