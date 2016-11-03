@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+## Version 3.0.1
+- Updated the package dependencies.
+
 ## Version 3.0.0
 - Breaking change: the plug-in is not anymore a default export. The use of destructuring assignment is advised to access it.
 - Breaking change: ported the [CommonJS](https://nodejs.org/api/modules.html) modules to ES2015 format.
