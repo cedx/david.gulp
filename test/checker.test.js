@@ -15,84 +15,84 @@ describe('Checker', function() {
    * @test {Checker#constructor}
    */
   describe('#constructor()', () => {
-    it('should properly handle the options', () =>
-      assert.equal(new Checker({errorDepCount: 5, reporter: false})._options.errorDepCount, 5)
-    );
+    it('should properly handle the options', () => {
+      assert.equal(new Checker({errorDepCount: 5, reporter: false})._options.errorDepCount, 5);
+    });
 
-    it('should have a reporter if the property is not false', () =>
-      assert(typeof new Checker({reporter: {}})._options.reporter == 'object')
-    );
+    it('should have a reporter if the property is not false', () => {
+      assert.ok(typeof new Checker({reporter: {}})._options.reporter == 'object');
+    });
   });
 
   /**
    * @test {Checker#getDependencies}
    */
   describe('#getDependencies()', () => {
-    it('should return an Observable object', () =>
-      assert(new Checker({reporter: false}).getDependencies({}) instanceof Observable)
-    );
+    it('should return an Observable object', () => {
+      assert.ok(new Checker({reporter: false}).getDependencies({}) instanceof Observable);
+    });
 
-    it('should return an object with 3 dependency properties', done =>
+    it('should return an object with 3 dependency properties', done => {
       new Checker({reporter: false}).getDependencies({name: '@cedx/gulp-david'}).subscribe(deps => {
-        assert('dependencies' in deps);
-        assert('devDependencies' in deps);
-        assert('optionalDependencies' in deps);
-      }, null, done)
-    );
+        assert.ok('dependencies' in deps);
+        assert.ok('devDependencies' in deps);
+        assert.ok('optionalDependencies' in deps);
+      }, null, done);
+    });
 
-    it('should have some non-empty dependency properties for the current manifest', done =>
+    it('should have some non-empty dependency properties for the current manifest', done => {
       new Checker({reporter: false}).getDependencies(pkg).subscribe(deps => {
-        assert(Object.keys(deps.dependencies).length > 0);
-        assert(Object.keys(deps.devDependencies).length > 0);
-        assert(!Object.keys(deps.optionalDependencies).length);
-      }, null, done)
-    );
+        assert.ok(Object.keys(deps.dependencies).length > 0);
+        assert.ok(Object.keys(deps.devDependencies).length > 0);
+        assert.equal(Object.keys(deps.optionalDependencies).length, 0);
+      }, null, done);
+    });
   });
 
   /**
    * @test {Checker#getUpdatedDependencies}
    */
   describe('#getUpdatedDependencies()', () => {
-    it('should return an Observable object', () =>
-      assert(new Checker({reporter: false}).getUpdatedDependencies({}) instanceof Observable)
-    );
+    it('should return an Observable object', () => {
+      assert.ok(new Checker({reporter: false}).getUpdatedDependencies({}) instanceof Observable);
+    });
 
-    it('should return an object with 3 dependency properties', done =>
+    it('should return an object with 3 dependency properties', done => {
       new Checker({reporter: false}).getUpdatedDependencies({name: '@cedx/gulp-david'}).subscribe(deps => {
-        assert('dependencies' in deps);
-        assert('devDependencies' in deps);
-        assert('optionalDependencies' in deps);
-      }, null, done)
-    );
+        assert.ok('dependencies' in deps);
+        assert.ok('devDependencies' in deps);
+        assert.ok('optionalDependencies' in deps);
+      }, null, done);
+    });
 
-    it('should have some empty dependency properties for the current manifest', done =>
+    it('should have some empty dependency properties for the current manifest', done => {
       new Checker({reporter: false}).getUpdatedDependencies(pkg).subscribe(deps => {
-        assert(!Object.keys(deps.optionalDependencies).length);
-      }, null, done)
-    );
+        assert.equal(Object.keys(deps.optionalDependencies).length, 0);
+      }, null, done);
+    });
   });
 
   /**
    * @test {Checker#parseManifest}
    */
   describe('#parseManifest()', () => {
-    it('should throw an error if the file is null', () =>
-      assert.throws(() => new Checker({reporter: false}).parseManifest(new File()))
-    );
+    it('should throw an error if the file is null', () => {
+      assert.throws(() => new Checker({reporter: false}).parseManifest(new File()));
+    });
 
-    it('should throw an error if the file is a stream', () =>
+    it('should throw an error if the file is a stream', () => {
       assert.throws(() => {
         let file = new File({contents: new stream.Readable()});
         new Checker({reporter: false}).parseManifest(file);
-      })
-    );
+      });
+    });
 
-    it('should throw an error if the manifest is invalid', () =>
+    it('should throw an error if the manifest is invalid', () => {
       assert.throws(() => {
         let file = new File({contents: Buffer.from('FooBar')});
         new Checker({reporter: false}).parseManifest(file);
-      })
-    );
+      });
+    });
 
     it('should return an object if the manifest is valid', () => {
       let file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
@@ -107,8 +107,8 @@ describe('Checker', function() {
     it('should return an error if the manifest is invalid', done => {
       let src = new File({contents: Buffer.from('FooBar')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
-        assert(err instanceof Error);
-        assert(typeof dest == 'undefined');
+        assert.ok(err instanceof Error);
+        assert.ok(typeof dest == 'undefined');
         done();
       });
     });
@@ -117,7 +117,7 @@ describe('Checker', function() {
       let src = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
         assert.ifError(err);
-        assert('david' in dest);
+        assert.ok('david' in dest);
         done();
       });
     });
