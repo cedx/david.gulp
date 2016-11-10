@@ -37,7 +37,7 @@ describe('Checker', function() {
         assert.ok('dependencies' in deps);
         assert.ok('devDependencies' in deps);
         assert.ok('optionalDependencies' in deps);
-      }, null, done);
+      }, done, done);
     });
 
     it('should have some non-empty dependency properties for the current manifest', done => {
@@ -45,7 +45,7 @@ describe('Checker', function() {
         assert.ok(Object.keys(deps.dependencies).length > 0);
         assert.ok(Object.keys(deps.devDependencies).length > 0);
         assert.equal(Object.keys(deps.optionalDependencies).length, 0);
-      }, null, done);
+      }, done, done);
     });
   });
 
@@ -62,13 +62,13 @@ describe('Checker', function() {
         assert.ok('dependencies' in deps);
         assert.ok('devDependencies' in deps);
         assert.ok('optionalDependencies' in deps);
-      }, null, done);
+      }, done, done);
     });
 
     it('should have some empty dependency properties for the current manifest', done => {
       new Checker({reporter: false}).getUpdatedDependencies(pkg).subscribe(deps => {
         assert.equal(Object.keys(deps.optionalDependencies).length, 0);
-      }, null, done);
+      }, done, done);
     });
   });
 
@@ -116,9 +116,11 @@ describe('Checker', function() {
     it('should add a "david" property to the file object', done => {
       let src = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
-        assert.ifError(err);
-        assert.ok('david' in dest);
-        done();
+        if (err) done(err);
+        else {
+          assert.ok('david' in dest);
+          done();
+        }
       });
     });
   });
