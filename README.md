@@ -95,7 +95,7 @@ You can find a more detailled sample in the `example` folder:
 [Sample Gulp Tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
 
 ## See Also
-- [API Reference](http://dev.belin.io/gulp-david)
+- [API Reference](https://cedx.github.io/gulp-david)
 - [Code Quality](https://www.codacy.com/app/cedx/gulp-david)
 - [Continuous Integration](https://travis-ci.org/cedx/gulp-david)
 
