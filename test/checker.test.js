@@ -1,3 +1,5 @@
+'use strict';
+
 import assert from 'assert';
 import {Checker} from '../src/index';
 import File from 'vinyl';

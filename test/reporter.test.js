@@ -1,3 +1,5 @@
+'use strict';
+
 import assert from 'assert';
 import File from 'vinyl';
 import {Reporter} from '../src/index';
