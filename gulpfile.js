@@ -116,7 +116,7 @@ gulp.task('test:instrument', () => gulp.src('src/**/*.js')
 );
 
 /**
- * Runs a command and prints its output.
+ * Runs a command and returns its output.
  * @param {string} command The command to run, with space-separated arguments.
  * @param {object} [options] The settings to customize how the process is spawned.
  * @return {Promise<string>} The command output when it is finally terminated.
