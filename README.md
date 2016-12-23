@@ -1,9 +1,9 @@
 # Gulp-David
-![Release](https://img.shields.io/npm/v/@cedx/gulp-david.svg) ![License](https://img.shields.io/npm/l/@cedx/gulp-david.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/gulp-david.svg) ![Dependencies](https://img.shields.io/david/cedx/gulp-david.svg) ![Code quality](https://img.shields.io/codacy/grade/1c110f507ebf4b91b2d8c33b7bb68ccf.svg) ![Build](https://img.shields.io/travis/cedx/gulp-david.svg)
+![Release](https://img.shields.io/npm/v/@cedx/gulp-david.svg) ![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg) ![Dependencies](https://david-dm.org/cedx/gulp-david.svg) ![Coverage](https://coveralls.io/repos/github/cedx/gulp-david/badge.svg) ![Build](https://travis-ci.org/cedx/gulp-david.svg)
 
-Check your [NPM](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plug-in for [Gulp.js](http://gulpjs.com), the streaming build system.
+Check your [npm](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plug-in for [Gulp.js](http://gulpjs.com), the streaming build system.
 
-## Getting Started
+## Getting started
 If you haven't used [Gulp.js](http://gulpjs.com) before, be sure to check out the [related documentation](https://github.com/gulpjs/gulp/blob/master/docs/README.md), as it explains how to create a `gulpfile.js` as well as install and use plug-ins. Once you're familiar with that process, you may install this plug-in with this command:
 
 ```shell
@@ -94,10 +94,10 @@ gulp.src('package.json').pipe(david({update: '='}));
 You can find a more detailled sample in the `example` folder:  
 [Sample Gulp Tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
 
-## See Also
-- [API Reference](https://cedx.github.io/gulp-david)
-- [Code Quality](https://www.codacy.com/app/cedx/gulp-david)
-- [Continuous Integration](https://travis-ci.org/cedx/gulp-david)
+## See also
+- [API reference](https://cedx.github.io/gulp-david)
+- [Code coverage](https://coveralls.io/github/cedx/gulp-david)
+- [Continuous integration](https://travis-ci.org/cedx/gulp-david)
 
 ## License
 [Gulp-David](https://github.com/cedx/gulp-david) is distributed under the Apache License, version 2.0.

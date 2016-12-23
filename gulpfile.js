@@ -5,7 +5,7 @@ process.env.BABEL_DISABLE_CACHE = process.platform == 'win32' ? '1' : '0';
 require('babel-register');
 
 // Module dependencies.
-const child = require('child_process');
+const childProcess = require('child_process');
 const {david} = require('./src');
 const del = require('del');
 const gulp = require('gulp');
@@ -65,8 +65,9 @@ gulp.task('clean', () =>
  * Sends the results of the code coverage.
  */
 gulp.task('coverage', ['test'], () => {
-  let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'codacy-coverage.cmd' : 'codacy-coverage');
-  return _exec(`${command} < var/lcov.info`);
+  let command = process.platform == 'win32' ? 'type' : 'cat';
+  let executable = path.join('node_modules/.bin', process.platform == 'win32' ? 'coveralls.cmd' : 'coveralls');
+  return _exec(`${command} var/lcov.info | ${executable}`);
 });
 
 /**
@@ -81,8 +82,8 @@ gulp.task('dist', () => gulp.src(config.sources, {base: '.'})
  * Builds the documentation.
  */
 gulp.task('doc', () => {
-  let command = path.join('node_modules/.bin', process.platform == 'win32' ? 'esdoc.cmd' : 'esdoc');
-  return del('doc/api').then(() => _exec(`${command} -c esdoc.json`));
+  let executable = path.join('node_modules/.bin', process.platform == 'win32' ? 'esdoc.cmd' : 'esdoc');
+  return del('doc/api').then(() => _exec(`${executable} -c esdoc.json`));
 });
 
 /**
@@ -122,7 +123,7 @@ gulp.task('test:instrument', () => gulp.src('src/**/*.js')
  * @return {Promise<string>} The command output when it is finally terminated.
  */
 function _exec(command, options = {}) {
-  return new Promise((resolve, reject) => child.exec(command, options, (err, stdout) => {
+  return new Promise((resolve, reject) => childProcess.exec(command, options, (err, stdout) => {
     if (err) reject(err);
     else resolve(stdout.trim());
   }));
