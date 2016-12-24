@@ -67,7 +67,7 @@ return gulp.src('package.json')
   .pipe(david({reporter: new MyReporter()}));
 ```
 
-## Updating Dependencies
+## Updating dependencies
 The plug-in lets you update dependencies in the manifest file to latest versions and save them back to the file system:
 
 ```javascript
