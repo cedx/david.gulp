@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+## Version 3.1.0
+- Replaced the [Codacy](https://www.codacy.com) code coverage service by the [Coveralls](https://coveralls.io) one.
+- Updated the package dependencies.
+
 ## Version 3.0.2
 - Fixed [GitHub issue #11](https://github.com/cedx/gulp-david/issues/11).
 
