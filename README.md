@@ -92,7 +92,7 @@ gulp.src('package.json').pipe(david({update: '='}));
 
 ## Examples
 You can find a more detailled sample in the `example` folder:  
-[Sample Gulp Tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
+[Sample Gulp tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
 
 ## See also
 - [API reference](https://cedx.github.io/gulp-david)
