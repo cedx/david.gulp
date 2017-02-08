@@ -128,8 +128,8 @@ export class Checker extends Transform {
     }
 
     let getDeps = (this._options.verbose ? this.getDependencies : this.getUpdatedDependencies).bind(this);
-    getDeps(manifest)
-      .then(deps => {
+    getDeps(manifest).then(
+      deps => {
         file.david = deps;
 
         if (typeof this._options.reporter == 'object' && typeof this._options.reporter.log == 'function')
@@ -149,7 +149,8 @@ export class Checker extends Transform {
           callback(new Error(`[${pkg.name}] ${count} outdated dependencies`));
         else
           callback(null, file);
-      })
-      .catch(err => callback(new Error(`[${pkg.name}] ${err}`)));
+      },
+      err => callback(new Error(`[${pkg.name}] ${err}`))
+    );
   }
 }
