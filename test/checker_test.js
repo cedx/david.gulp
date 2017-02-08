@@ -3,7 +3,6 @@
 import assert from 'assert';
 import {Checker} from '../src/index';
 import File from 'vinyl';
-import {Observable} from 'rxjs';
 import * as pkg from '../package.json';
 import stream from 'stream';
 
@@ -30,48 +29,48 @@ describe('Checker', function() {
    * @test {Checker#getDependencies}
    */
   describe('#getDependencies()', () => {
-    it('should return an Observable object', () => {
-      assert.ok(new Checker({reporter: false}).getDependencies({}) instanceof Observable);
+    it('should return a Promise object', () => {
+      assert.ok(new Checker({reporter: false}).getDependencies({}) instanceof Promise);
     });
 
-    it('should return an object with 3 dependency properties', done => {
-      new Checker({reporter: false}).getDependencies({name: '@cedx/gulp-david'}).subscribe(deps => {
+    it('should return an object with 3 dependency properties', () =>
+      new Checker({reporter: false}).getDependencies({name: '@cedx/gulp-david'}).then(deps => {
         assert.ok('dependencies' in deps);
         assert.ok('devDependencies' in deps);
         assert.ok('optionalDependencies' in deps);
-      }, done, done);
-    });
+      })
+    );
 
-    it('should have some non-empty dependency properties for the current manifest', done => {
-      new Checker({reporter: false}).getDependencies(pkg).subscribe(deps => {
+    it('should have some non-empty dependency properties for the current manifest', () =>
+      new Checker({reporter: false}).getDependencies(pkg).then(deps => {
         assert.ok(Object.keys(deps.dependencies).length > 0);
         assert.ok(Object.keys(deps.devDependencies).length > 0);
         assert.equal(Object.keys(deps.optionalDependencies).length, 0);
-      }, done, done);
-    });
+      })
+    );
   });
 
   /**
    * @test {Checker#getUpdatedDependencies}
    */
   describe('#getUpdatedDependencies()', () => {
-    it('should return an Observable object', () => {
-      assert.ok(new Checker({reporter: false}).getUpdatedDependencies({}) instanceof Observable);
+    it('should return a Promise object', () => {
+      assert.ok(new Checker({reporter: false}).getUpdatedDependencies({}) instanceof Promise);
     });
 
-    it('should return an object with 3 dependency properties', done => {
-      new Checker({reporter: false}).getUpdatedDependencies({name: '@cedx/gulp-david'}).subscribe(deps => {
+    it('should return an object with 3 dependency properties', () =>
+      new Checker({reporter: false}).getUpdatedDependencies({name: '@cedx/gulp-david'}).then(deps => {
         assert.ok('dependencies' in deps);
         assert.ok('devDependencies' in deps);
         assert.ok('optionalDependencies' in deps);
-      }, done, done);
-    });
+      })
+    );
 
-    it('should have some empty dependency properties for the current manifest', done => {
-      new Checker({reporter: false}).getUpdatedDependencies(pkg).subscribe(deps => {
+    it('should have some empty dependency properties for the current manifest', () =>
+      new Checker({reporter: false}).getUpdatedDependencies(pkg).then(deps => {
         assert.equal(Object.keys(deps.optionalDependencies).length, 0);
-      }, done, done);
-    });
+      })
+    );
   });
 
   /**

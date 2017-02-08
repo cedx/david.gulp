@@ -5,7 +5,7 @@ process.env.BABEL_DISABLE_CACHE = process.platform == 'win32' ? '1' : '0';
 require('babel-register');
 
 // Module dependencies.
-const childProcess = require('child_process');
+const child_process = require('child_process');
 const {david} = require('./src');
 const del = require('del');
 const gulp = require('gulp');
@@ -103,7 +103,7 @@ gulp.task('test:instrument', () => gulp.src('src/**/*.js')
  * @return {Promise<string>} The command output when it is finally terminated.
  */
 function _exec(command, options = {}) {
-  return new Promise((resolve, reject) => childProcess.exec(command, options, (err, stdout) => {
+  return new Promise((resolve, reject) => child_process.exec(command, options, (err, stdout) => {
     if (err) reject(err);
     else resolve(stdout.trim());
   }));

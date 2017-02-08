@@ -1,6 +1,6 @@
 'use strict';
 
-const childProcess = require('child_process');
+const child_process = require('child_process');
 const {david} = require('@cedx/gulp-david');
 const gulp = require('gulp');
 
@@ -39,7 +39,7 @@ gulp.task('updateManifest', () => gulp.src('package.json')
  * Upgrades the packages to latest versions.
  */
 gulp.task('upgradePackages', ['updateManifest'], () => new Promise((resolve, reject) =>
-  childProcess.exec('npm update', (err, stdout) => {
+  child_process.exec('npm update', (err, stdout) => {
     console.log(stdout.trim());
     if (err) reject(err);
     else resolve();
