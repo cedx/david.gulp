@@ -1,5 +1,4 @@
 import david from 'david';
-import {Observable} from 'rxjs';
 import * as pkg from '../package.json';
 import {Reporter} from './reporter';
 import {Transform} from 'stream';
@@ -40,7 +39,7 @@ export class Checker extends Transform {
   /**
    * Gets details about project dependencies.
    * @param {object} manifest The manifest providing the dependencies.
-   * @return {Observable<object>} An object providing details about the dependencies.
+   * @return {Promise<object>} An object providing details about the dependencies.
    */
   getDependencies(manifest) {
     return this._getDependencies(david.getDependencies, manifest);
@@ -49,7 +48,7 @@ export class Checker extends Transform {
   /**
    * Gets details about project dependencies that are outdated.
    * @param {object} manifest The manifest providing the dependencies.
-   * @return {Observable<object>} An object providing details about the dependencies that are outdated.
+   * @return {Promise<object>} An object providing details about the dependencies that are outdated.
    */
   getUpdatedDependencies(manifest) {
     return this._getDependencies(david.getUpdatedDependencies, manifest);
@@ -80,7 +79,7 @@ export class Checker extends Transform {
    * Gets details about project dependencies.
    * @param {function} getter The function invoked to fetch the dependency details.
    * @param {object} manifest The manifest providing the list of dependencies.
-   * @return {Observable<object>} An object providing details about the project dependencies.
+   * @return {Promise<object>} An object providing details about the project dependencies.
    */
   _getDependencies(getter, manifest) {
     let options = {
@@ -94,22 +93,25 @@ export class Checker extends Transform {
       registry: this._options.registry
     };
 
-    let getDeps = Observable.bindNodeCallback(getter);
-    return Observable
-      .from([
-        {opts: Object.assign({}, options, {dev: false, optional: false}), type: 'dependencies'},
-        {opts: Object.assign({}, options, {dev: true, optional: false}), type: 'devDependencies'},
-        {opts: Object.assign({}, options, {dev: false, optional: true}), type: 'optionalDependencies'}
-      ])
-      .flatMap(params =>
-        getDeps(manifest, params.opts).map(deps => ({deps, type: params.type}))
-      )
-      .toArray()
-      .map(deps => {
-        let report = {};
-        deps.forEach(dep => report[dep.type] = dep.deps);
-        return report;
+    let getDeps = (mf, opts) =>
+      new Promise((resolve, reject) => {
+        getter(mf, opts, (err, deps) => {
+          if (err) reject(err);
+          else resolve(deps);
+        });
       });
+
+    let promises = [
+      getDeps(manifest, Object.assign(options, {dev: false, optional: false})),
+      getDeps(manifest, Object.assign(options, {dev: true, optional: false})),
+      getDeps(manifest, Object.assign(options, {dev: false, optional: true}))
+    ];
+
+    return Promise.all(promises).then(deps => ({
+      dependencies: deps[0],
+      devDependencies: deps[1],
+      optionalDependencies: deps[2]
+    }));
   }
 
   /**
@@ -127,8 +129,8 @@ export class Checker extends Transform {
     }
 
     let getDeps = (this._options.verbose ? this.getDependencies : this.getUpdatedDependencies).bind(this);
-    getDeps(manifest).subscribe(
-      deps => {
+    getDeps(manifest)
+      .then(deps => {
         file.david = deps;
 
         if (typeof this._options.reporter == 'object' && typeof this._options.reporter.log == 'function')
@@ -148,8 +150,7 @@ export class Checker extends Transform {
           callback(new Error(`[${pkg.name}] ${count} outdated dependencies`));
         else
           callback(null, file);
-      },
-      err => callback(new Error(`[${pkg.name}] ${err}`))
-    );
+      })
+      .catch(err => callback(new Error(`[${pkg.name}] ${err}`)));
   }
 }
