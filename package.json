@@ -17,9 +17,9 @@
     "david": "^10.1.0"
   },
   "devDependencies": {
+    "@cedx/coveralls": "^0.2.0",
     "babel-preset-latest": "^6.22.0",
-    "babel-register": "^6.22.0",
-    "coveralls": "^2.11.16",
+    "babel-register": "^6.23.0",
     "del": "^2.2.2",
     "esdoc": "^0.5.2",
     "gulp": "^3.9.1",
@@ -42,7 +42,7 @@
     "npm"
   ],
   "scripts": {
-    "coverage": "cat var/lcov.info | coveralls",
+    "coverage": "coveralls --file=var/lcov.info",
     "prepublish": "gulp build",
     "test": "gulp test"
   }
