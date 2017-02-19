@@ -117,11 +117,9 @@ describe('Checker', function() {
     it('should add a "david" property to the file object', done => {
       let src = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
-        if (err) done(err);
-        else {
-          assert.ok('david' in dest);
-          done();
-        }
+        assert.ifError(err);
+        assert.ok('david' in dest);
+        done();
       });
     });
   });

@@ -93,12 +93,10 @@ export class Checker extends Transform {
       registry: this._options.registry
     };
 
-    let getDeps = (mf, opts) => new Promise((resolve, reject) => {
-      getter(mf, opts, (err, deps) => {
-        if (err) reject(err);
-        else resolve(deps);
-      });
-    });
+    let getDeps = (mf, opts) => new Promise((resolve, reject) => getter(mf, opts, (err, deps) => {
+      if (err) reject(err);
+      else resolve(deps);
+    }));
 
     let promises = [
       getDeps(manifest, Object.assign({}, options, {dev: false, optional: false})),
