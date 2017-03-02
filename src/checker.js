@@ -115,19 +115,14 @@ export class Checker extends Transform {
    * Transforms input and produces output.
    * @param {File} file The chunk to transform.
    * @param {string} encoding The encoding type if the chunk is a string.
-   * @param {function} callback The function to invoke when the supplied chunk has been processed.
+   * @param {function} [callback] The function to invoke when the supplied chunk has been processed.
    * @return {Promise<File>} The transformed chunk.
    */
   async _transform(file, encoding, callback) {
-    let manifest;
-    try { manifest = this.parseManifest(file); }
-    catch (err) {
-      callback(new Error(`[${pkg.name}] ${err}`));
-      return null;
-    }
-
     try {
       let getDeps = mf => this._options.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
+      let manifest = this.parseManifest(file);
+
       let deps = await getDeps(manifest);
       file.david = deps;
 
@@ -146,11 +141,11 @@ export class Checker extends Transform {
       let count = Object.keys(deps).reduce((previousValue, depType) => previousValue + Object.keys(deps[depType]).length, 0);
       if (this._options.errorDepCount > 0 && count >= this._options.errorDepCount) throw new Error(`${count} outdated dependencies`);
 
-      callback(null, file);
+      if (typeof callback == 'function') callback(null, file);
     }
 
     catch (err) {
-      callback(new Error(`[${pkg.name}] ${err.message}`));
+      if (typeof callback == 'function') callback(new Error(`[${pkg.name}] ${err.message}`));
     }
 
     return file;
