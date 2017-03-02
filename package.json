@@ -7,7 +7,7 @@
   "bugs": "https://github.com/cedx/gulp-david/issues",
   "license": "Apache-2.0",
   "repository": "cedx/gulp-david",
-  "version": "4.0.0",
+  "version": "5.0.0",
 
   "jsnext:main": "./src/index",
   "main": "./lib/index",
@@ -32,7 +32,7 @@
     "vinyl": "^2.0.1"
   },
   "engines": {
-    "node": ">=6.9.0"
+    "node": ">=7.6.0"
   },
   "keywords": [
     "david",
@@ -44,6 +44,6 @@
   "scripts": {
     "coverage": "coveralls --file=var/lcov.info",
     "prepublish": "gulp build",
-    "test": "gulp test"
+    "test": "nyc --report-dir=var --reporter=lcovonly mocha --compilers=js:babel-register"
   }
 }
