@@ -38,10 +38,18 @@ gulp.task('updateManifest', () => gulp.src('package.json')
 /**
  * Upgrades the packages to latest versions.
  */
-gulp.task('upgradePackages', ['updateManifest'], () => new Promise((resolve, reject) =>
-  child_process.exec('npm update', (err, stdout) => {
-    console.log(stdout.trim());
-    if (err) reject(err);
-    else resolve();
-  })
-));
+gulp.task('upgradePackages', ['updateManifest'], () => _exec('npm', ['update']));
+
+/**
+ * Spawns a new process using the specified command.
+ * @param {string} command The command to run.
+ * @param {string[]} [args] The command arguments.
+ * @param {object} [options] The settings to customize how the process is spawned.
+ * @return {Promise} Completes when the command is finally terminated.
+ */
+function _exec(command, args = [], options = {shell: true, stdio: 'inherit'}) {
+  return new Promise((resolve, reject) => child_process
+    .spawn(command, args, options)
+    .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : resolve())
+  );
+}
