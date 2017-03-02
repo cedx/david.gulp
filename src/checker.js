@@ -41,7 +41,7 @@ export class Checker extends Transform {
    * @param {object} manifest The manifest providing the dependencies.
    * @return {Promise<object>} An object providing details about the dependencies.
    */
-  getDependencies(manifest) {
+  async getDependencies(manifest) {
     return this._getDependencies(david.getDependencies, manifest);
   }
 
@@ -50,7 +50,7 @@ export class Checker extends Transform {
    * @param {object} manifest The manifest providing the dependencies.
    * @return {Promise<object>} An object providing details about the dependencies that are outdated.
    */
-  getUpdatedDependencies(manifest) {
+  async getUpdatedDependencies(manifest) {
     return this._getDependencies(david.getUpdatedDependencies, manifest);
   }
 
@@ -81,7 +81,7 @@ export class Checker extends Transform {
    * @param {object} manifest The manifest providing the list of dependencies.
    * @return {Promise<object>} An object providing details about the project dependencies.
    */
-  _getDependencies(getter, manifest) {
+  async _getDependencies(getter, manifest) {
     let options = {
       error: {E404: this._options.error404, EDEPTYPE: this._options.errorDepType, ESCM: this._options.errorSCM},
       ignore: this._options.ignore,
@@ -98,17 +98,17 @@ export class Checker extends Transform {
       else resolve(deps);
     }));
 
-    let promises = [
+    let deps = await Promise.all([
       getDeps(manifest, Object.assign({}, options, {dev: false, optional: false})),
       getDeps(manifest, Object.assign({}, options, {dev: true, optional: false})),
       getDeps(manifest, Object.assign({}, options, {dev: false, optional: true}))
-    ];
+    ]);
 
-    return Promise.all(promises).then(deps => ({
+    return {
       dependencies: deps[0],
       devDependencies: deps[1],
       optionalDependencies: deps[2]
-    }));
+    };
   }
 
   /**
@@ -125,7 +125,7 @@ export class Checker extends Transform {
       return;
     }
 
-    let getDeps = (this._options.verbose ? this.getDependencies : this.getUpdatedDependencies).bind(this);
+    let getDeps = mf => this._options.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
     getDeps(manifest).then(
       deps => {
         file.david = deps;
