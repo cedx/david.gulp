@@ -113,10 +113,10 @@ export class Checker extends Transform {
 
   /**
    * Transforms input and produces output.
-   * @param {File} file The chunk to be transformed.
+   * @param {File} file The chunk to transform.
    * @param {string} encoding The encoding type if the chunk is a string.
    * @param {function} callback The function to invoke when the supplied chunk has been processed.
-   * @return {Promise} Completes when the chunk has been transformed.
+   * @return {Promise<File>} The transformed chunk.
    */
   async _transform(file, encoding, callback) {
     let manifest;
@@ -153,6 +153,6 @@ export class Checker extends Transform {
       callback(new Error(`[${pkg.name}] ${err.message}`));
     }
 
-    return null;
+    return file;
   }
 }
