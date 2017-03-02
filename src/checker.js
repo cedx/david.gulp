@@ -144,14 +144,13 @@ export class Checker extends Transform {
       }
 
       let count = Object.keys(deps).reduce((previousValue, depType) => previousValue + Object.keys(deps[depType]).length, 0);
-      if (this._options.errorDepCount > 0 && count >= this._options.errorDepCount)
-        callback(new Error(`[${pkg.name}] ${count} outdated dependencies`));
-      else
-        callback(null, file);
+      if (this._options.errorDepCount > 0 && count >= this._options.errorDepCount) throw new Error(`${count} outdated dependencies`);
+
+      callback(null, file);
     }
 
     catch (err) {
-      callback(new Error(`[${pkg.name}] ${err}`));
+      callback(new Error(`[${pkg.name}] ${err.message}`));
     }
 
     return null;
