@@ -1,6 +1,6 @@
 'use strict';
 
-import assert from 'assert';
+import {expect} from 'chai';
 import {Checker} from '../src/index';
 import File from 'vinyl';
 import * as pkg from '../package.json';
@@ -17,11 +17,11 @@ describe('Checker', function() {
    */
   describe('#constructor()', () => {
     it('should properly handle the options', () => {
-      assert.equal(new Checker({errorDepCount: 5, reporter: false})._options.errorDepCount, 5);
+      expect(new Checker({errorDepCount: 5, reporter: false})._options.errorDepCount).to.equal(5);
     });
 
     it('should have a reporter if the property is not false', () => {
-      assert.ok(typeof new Checker({reporter: {}})._options.reporter == 'object');
+      expect(new Checker({reporter: {}})._options.reporter).to.be.an('object');
     });
   });
 
@@ -29,48 +29,32 @@ describe('Checker', function() {
    * @test {Checker#getDependencies}
    */
   describe('#getDependencies()', () => {
-    it('should return a Promise object', () => {
-      assert.ok(new Checker({reporter: false}).getDependencies({}) instanceof Promise);
+    it('should return an object with 3 dependency properties', async () => {
+      let deps = await new Checker({reporter: false}).getDependencies({name: '@cedx/gulp-david'});
+      expect(deps).to.contain.all.keys('dependencies', 'devDependencies', 'optionalDependencies');
     });
 
-    it('should return an object with 3 dependency properties', () =>
-      new Checker({reporter: false}).getDependencies({name: '@cedx/gulp-david'}).then(deps => {
-        assert.ok('dependencies' in deps);
-        assert.ok('devDependencies' in deps);
-        assert.ok('optionalDependencies' in deps);
-      })
-    );
-
-    it('should have some non-empty dependency properties for the current manifest', () =>
-      new Checker({reporter: false}).getDependencies(pkg).then(deps => {
-        assert.ok(Object.keys(deps.dependencies).length > 0);
-        assert.ok(Object.keys(deps.devDependencies).length > 0);
-        assert.equal(Object.keys(deps.optionalDependencies).length, 0);
-      })
-    );
+    it('should have some non-empty dependency properties for the current manifest', async () => {
+      let deps = await new Checker({reporter: false}).getDependencies(pkg);
+      expect(Object.keys(deps.dependencies)).to.not.be.empty;
+      expect(Object.keys(deps.devDependencies)).to.not.be.empty;
+      expect(Object.keys(deps.optionalDependencies)).to.be.empty;
+    });
   });
 
   /**
    * @test {Checker#getUpdatedDependencies}
    */
   describe('#getUpdatedDependencies()', () => {
-    it('should return a Promise object', () => {
-      assert.ok(new Checker({reporter: false}).getUpdatedDependencies({}) instanceof Promise);
+    it('should return an object with 3 dependency properties', async () => {
+      let deps = await new Checker({reporter: false}).getUpdatedDependencies({name: '@cedx/gulp-david'});
+      expect(deps).to.contain.all.keys('dependencies', 'devDependencies', 'optionalDependencies');
     });
 
-    it('should return an object with 3 dependency properties', () =>
-      new Checker({reporter: false}).getUpdatedDependencies({name: '@cedx/gulp-david'}).then(deps => {
-        assert.ok('dependencies' in deps);
-        assert.ok('devDependencies' in deps);
-        assert.ok('optionalDependencies' in deps);
-      })
-    );
-
-    it('should have some empty dependency properties for the current manifest', () =>
-      new Checker({reporter: false}).getUpdatedDependencies(pkg).then(deps => {
-        assert.equal(Object.keys(deps.optionalDependencies).length, 0);
-      })
-    );
+    it('should have some empty dependency properties for the current manifest', async () => {
+      let deps = await new Checker({reporter: false}).getUpdatedDependencies(pkg);
+      expect(Object.keys(deps.optionalDependencies)).to.be.empty;
+    });
   });
 
   /**
@@ -78,26 +62,26 @@ describe('Checker', function() {
    */
   describe('#parseManifest()', () => {
     it('should throw an error if the file is null', () => {
-      assert.throws(() => new Checker({reporter: false}).parseManifest(new File()));
+      expect(() => new Checker({reporter: false}).parseManifest(new File())).to.throw();
     });
 
     it('should throw an error if the file is a stream', () => {
-      assert.throws(() => {
+      expect(() => {
         let file = new File({contents: new stream.Readable()});
         new Checker({reporter: false}).parseManifest(file);
-      });
+      }).to.throw();
     });
 
     it('should throw an error if the manifest is invalid', () => {
-      assert.throws(() => {
+      expect(() => {
         let file = new File({contents: Buffer.from('FooBar')});
         new Checker({reporter: false}).parseManifest(file);
-      });
+      }).to.throw();
     });
 
     it('should return an object if the manifest is valid', () => {
       let file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
-      assert.deepEqual(new Checker({reporter: false}).parseManifest(file), {name: '@cedx/gulp-david'});
+      expect(new Checker({reporter: false}).parseManifest(file)).to.deep.equal({name: '@cedx/gulp-david'});
     });
   });
 
@@ -105,22 +89,24 @@ describe('Checker', function() {
    * @test {Checker#_transform}
    */
   describe('#_transform()', () => {
-    it('should return an error if the manifest is invalid', done => {
+    it('should return an error if the manifest is invalid', () => new Promise(resolve => {
       let src = new File({contents: Buffer.from('FooBar')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
-        assert.ok(err instanceof Error);
-        assert.ok(typeof dest == 'undefined');
-        done();
+        expect(err).to.be.instanceof(Error);
+        expect(dest).to.be.an('undefined');
+        resolve();
       });
-    });
+    }));
 
-    it('should add a "david" property to the file object', done => {
+    it('should add a "david" property to the file object', () => new Promise((resolve, reject) => {
       let src = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
       new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
-        assert.ifError(err);
-        assert.ok('david' in dest);
-        done();
+        if (err) reject(err);
+        else {
+          expect(dest).to.contain.keys('david');
+          resolve();
+        }
       });
-    });
+    }));
   });
 });

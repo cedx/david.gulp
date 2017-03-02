@@ -1,6 +1,6 @@
 'use strict';
 
-import assert from 'assert';
+import {expect} from 'chai';
 import File from 'vinyl';
 import {Reporter} from '../src/index';
 
@@ -14,7 +14,7 @@ describe('Reporter', () => {
    */
   describe('#log()', () => {
     it('should throw an error if the "david" property is not found on the file object', () => {
-      assert.throws(() => new Reporter().log(new File()));
+      expect(() => new Reporter().log(new File())).to.throw();
     });
   });
 
@@ -27,13 +27,13 @@ describe('Reporter', () => {
 
     it('should output the file path', () => {
       let output = new Reporter()._report(file);
-      assert.ok(output.includes(file.path));
+      expect(output).to.contain(file.path);
     });
 
     it('should output "All dependencies up to date." if there is no outdated dependencies', () => {
       let output = new Reporter()._report(file);
-      assert.ok(output.includes(file.path));
-      assert.ok(output.includes('All dependencies up to date.'));
+      expect(output).to.contain(file.path);
+      expect(output).to.contain('All dependencies up to date.');
     });
 
     it('should output the package names and versions if there is some outdated dependencies', () => {
@@ -44,11 +44,11 @@ describe('Reporter', () => {
       };
 
       let output = new Reporter()._report(file);
-      assert.ok(output.includes('dependencies'));
-      assert.ok(output.includes('foobar'));
-      assert.ok(output.includes('required:'));
-      assert.ok(output.includes('stable:'));
-      assert.ok(output.includes('latest:'));
+      expect(output).to.contain('dependencies')
+        .and.contain('foobar')
+        .and.contain('required:')
+        .and.contain('stable:')
+        .and.contain('latest:');
     });
   });
 });
