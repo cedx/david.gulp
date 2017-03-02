@@ -116,39 +116,44 @@ export class Checker extends Transform {
    * @param {File} file The chunk to be transformed.
    * @param {string} encoding The encoding type if the chunk is a string.
    * @param {function} callback The function to invoke when the supplied chunk has been processed.
+   * @return {Promise} Completes when the chunk has been transformed.
    */
-  _transform(file, encoding, callback) {
+  async _transform(file, encoding, callback) {
     let manifest;
     try { manifest = this.parseManifest(file); }
     catch (err) {
-      callback(err);
-      return;
+      callback(new Error(`[${pkg.name}] ${err}`));
+      return null;
     }
 
-    let getDeps = mf => this._options.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
-    getDeps(manifest).then(
-      deps => {
-        file.david = deps;
+    try {
+      let getDeps = mf => this._options.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
+      let deps = await getDeps(manifest);
+      file.david = deps;
 
-        if (typeof this._options.reporter == 'object' && typeof this._options.reporter.log == 'function')
-          this._options.reporter.log(file, encoding);
+      if (typeof this._options.reporter == 'object' && typeof this._options.reporter.log == 'function')
+        this._options.reporter.log(file, encoding);
 
-        if (typeof this._options.update == 'string') {
-          for (let type in deps) {
-            let version = this._options.unstable ? 'latest' : 'stable';
-            for (let name in deps[type]) manifest[type][name] = this._options.update + deps[type][name][version];
-          }
-
-          file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding);
+      if (typeof this._options.update == 'string') {
+        for (let type in deps) {
+          let version = this._options.unstable ? 'latest' : 'stable';
+          for (let name in deps[type]) manifest[type][name] = this._options.update + deps[type][name][version];
         }
 
-        let count = Object.keys(deps).reduce((previousValue, depType) => previousValue + Object.keys(deps[depType]).length, 0);
-        if (this._options.errorDepCount > 0 && count >= this._options.errorDepCount)
-          callback(new Error(`[${pkg.name}] ${count} outdated dependencies`));
-        else
-          callback(null, file);
-      },
-      err => callback(new Error(`[${pkg.name}] ${err}`))
-    );
+        file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding);
+      }
+
+      let count = Object.keys(deps).reduce((previousValue, depType) => previousValue + Object.keys(deps[depType]).length, 0);
+      if (this._options.errorDepCount > 0 && count >= this._options.errorDepCount)
+        callback(new Error(`[${pkg.name}] ${count} outdated dependencies`));
+      else
+        callback(null, file);
+    }
+
+    catch (err) {
+      callback(new Error(`[${pkg.name}] ${err}`));
+    }
+
+    return null;
   }
 }
