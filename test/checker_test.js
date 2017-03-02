@@ -89,24 +89,22 @@ describe('Checker', function() {
    * @test {Checker#_transform}
    */
   describe('#_transform()', () => {
-    it('should return an error if the manifest is invalid', () => new Promise(resolve => {
-      let src = new File({contents: Buffer.from('FooBar')});
-      new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
-        expect(err).to.be.instanceof(Error);
-        expect(dest).to.be.an('undefined');
-        resolve();
-      });
-    }));
+    it('should throw an error if the manifest is invalid', async () => {
+      try {
+        let input = new File({contents: Buffer.from('FooBar')});
+        await new Checker({reporter: false})._transform(input, 'utf8');
+        expect(true).to.not.be.ok;
+      }
 
-    it('should add a "david" property to the file object', () => new Promise((resolve, reject) => {
-      let src = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
-      new Checker({reporter: false})._transform(src, 'utf8', (err, dest) => {
-        if (err) reject(err);
-        else {
-          expect(dest).to.contain.keys('david');
-          resolve();
-        }
-      });
-    }));
+      catch (err) {
+        expect(true).to.be.ok;
+      }
+    });
+
+    it('should add a "david" property to the file object', async () => {
+      let input = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
+      let output = await new Checker({reporter: false})._transform(input, 'utf8');
+      expect(output).to.contain.keys('david');
+    });
   });
 });
