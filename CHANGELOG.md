@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+## Version 6.0.0
+- Breaking change: changed the signature of the `Checker` constructor.
+- Checker options are now exposed as public properties.
+
 ## Version 5.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: using ES2017 features, like async/await functions.
