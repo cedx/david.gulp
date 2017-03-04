@@ -14,8 +14,8 @@ export function david(options = {}) {
 
   if (typeof options.error404 == 'boolean') checker.error['404'] = options.error404;
   if (typeof options.errorDepCount == 'number') checker.error.depCount = options.errorDepCount;
-  if (typeof options.errorDepCount == 'boolean') checker.error.depType = options.errorDepType;
-  if (typeof options.errorDepCount == 'boolean') checker.error.scm = options.errorSCM;
+  if (typeof options.errorDepType == 'boolean') checker.error.depType = options.errorDepType;
+  if (typeof options.errorSCM == 'boolean') checker.error.scm = options.errorSCM;
   if (Array.isArray(options.ignore)) checker.ignore = options.ignore;
   if (typeof options.registry == 'string') checker.registry = options.registry;
   if (typeof options.unstable == 'boolean') checker.unstable = options.unstable;
