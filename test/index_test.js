@@ -6,7 +6,7 @@ import {david, Checker, Reporter} from '../src/index';
 /**
  * @test {david}
  */
-describe('david', () => {
+describe('david()', () => {
   it('should return a `Checker` with a `Reporter`', () => {
     let checker = david();
     expect(checker).to.be.instanceof(Checker);
