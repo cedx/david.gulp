@@ -1,6 +1,5 @@
 import david from 'david';
 import * as pkg from '../package.json';
-import {Reporter} from './reporter';
 import {Transform} from 'stream';
 
 /**
@@ -10,30 +9,59 @@ export class Checker extends Transform {
 
   /**
    * Initializes a new instance of the class.
-   * @param {object} [options] The checker settings.
+   * @param {object} [reporter] The instance used to output the report.
    */
-  constructor(options = {}) {
+  constructor(reporter = null) {
     super({objectMode: true});
 
     /**
-     * The checker settings.
+     * Values indicating whether to emit an error.
      * @type {object}
      */
-    this._options = {
-      error404: typeof options.error404 == 'boolean' ? options.error404 : false,
-      errorDepCount: typeof options.errorDepCount == 'number' ? options.errorDepCount : 0,
-      errorDepType: typeof options.errorDepType == 'boolean' ? options.errorDepType : false,
-      errorSCM: typeof options.errorSCM == 'boolean' ? options.errorSCM : false,
-      ignore: Array.isArray(options.ignore) ? options.ignore : [],
-      registry: typeof options.registry == 'string' ? options.registry : '',
-      reporter: typeof options.reporter != 'undefined' ? options.reporter : true,
-      unstable: typeof options.unstable == 'boolean' ? options.unstable : false,
-      update: typeof options.update != 'undefined' ? options.update : false,
-      verbose: typeof options.verbose == 'boolean' ? options.verbose : false
+    this.error = {
+      404: false,
+      depCount: 0,
+      depType: false,
+      scm: false
     };
 
-    if (typeof this._options.reporter == 'boolean' && this._options.reporter) this._options.reporter = new Reporter();
-    if (typeof this._options.update == 'boolean' && this._options.update) this._options.update = '^';
+    /**
+     * The list of dependencies to ignore.
+     * @type {string[]}
+     */
+    this.ignore = [];
+
+    /**
+     * The [npm](https://www.npmjs.com) registry URL.
+     * Uses [registry.npmjs.org](https://registry.npmjs.org) if empty.
+     * @type {string}
+     */
+    this.registry = '';
+
+    /**
+     * The instance used to output the report.
+     * @type {object}
+     */
+    this.reporter = reporter;
+
+    /**
+     * Value indicating whether to use unstable dependencies.
+     * @type {boolean}
+     */
+    this.unstable = false;
+
+    /**
+     * The operator to use in version comparators.
+     * If empty, the dependencies will not be updated.
+     * @type {string}
+     */
+    this.update = '';
+
+    /**
+     * Value indicating whether to output the versions of all dependencies instead of only the outdated ones.
+     * @type {boolean}
+     */
+    this.verbose = false;
   }
 
   /**
@@ -62,17 +90,18 @@ export class Checker extends Transform {
    * @throws {Error} The file is a stream, or the manifest is invalid.
    */
   parseManifest(file, encoding = 'utf8') {
-    if (file.isNull()) throw new Error(`[${pkg.name}] Empty manifest: ${file.path}`);
-    if (file.isStream()) throw new Error(`[${pkg.name}] Streams are not supported.`);
-
-    let manifest;
     try {
-      manifest = JSON.parse(file.contents.toString(encoding));
+      if (file.isNull()) throw new Error(`Empty manifest: ${file.path}`);
+      if (file.isStream()) throw new Error('Streams are not supported.');
+
+      let manifest = JSON.parse(file.contents.toString(encoding));
       if (typeof manifest != 'object' || !manifest) throw new Error('Invalid manifest format.');
+      return manifest;
     }
 
-    catch (err) { throw new Error(`[${pkg.name}] Invalid manifest: ${file.path}`); }
-    return manifest;
+    catch (error) {
+      throw new Error(`[${pkg.name}] Invalid manifest: ${error.message}`);
+    }
   }
 
   /**
@@ -83,14 +112,14 @@ export class Checker extends Transform {
    */
   async _getDependencies(getter, manifest) {
     let options = {
-      error: {E404: this._options.error404, EDEPTYPE: this._options.errorDepType, ESCM: this._options.errorSCM},
-      ignore: this._options.ignore,
+      error: {E404: this.error['404'], EDEPTYPE: this.error.depType, ESCM: this.error.scm},
+      ignore: this.ignore,
       loose: true,
-      stable: !this._options.unstable
+      stable: !this.unstable
     };
 
-    if (this._options.registry.length) options.npm = {
-      registry: this._options.registry
+    if (this.registry.length) options.npm = {
+      registry: this.registry
     };
 
     let getDeps = (mf, opts) => new Promise((resolve, reject) => getter(mf, opts, (err, deps) => {
@@ -120,27 +149,24 @@ export class Checker extends Transform {
    */
   async _transform(file, encoding, callback) {
     try {
-      let getDeps = mf => this._options.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
-      let manifest = this.parseManifest(file);
+      let getDeps = mf => this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
 
+      let manifest = this.parseManifest(file);
       let deps = await getDeps(manifest);
       file.david = deps;
+      if (this.reporter && typeof this.reporter.log == 'function') this.reporter.log(file, encoding);
 
-      if (typeof this._options.reporter == 'object' && typeof this._options.reporter.log == 'function')
-        this._options.reporter.log(file, encoding);
-
-      if (typeof this._options.update == 'string') {
+      if (this.update.length) {
         for (let type in deps) {
-          let version = this._options.unstable ? 'latest' : 'stable';
-          for (let name in deps[type]) manifest[type][name] = this._options.update + deps[type][name][version];
+          let version = this.unstable ? 'latest' : 'stable';
+          for (let name in deps[type]) manifest[type][name] = this.update + deps[type][name][version];
         }
 
         file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding);
       }
 
       let count = Object.keys(deps).reduce((previousValue, depType) => previousValue + Object.keys(deps[depType]).length, 0);
-      if (this._options.errorDepCount > 0 && count >= this._options.errorDepCount) throw new Error(`${count} outdated dependencies`);
-
+      if (this.error.depCount > 0 && count >= this.error.depCount) throw new Error(`Outdated dependencies: ${count}`);
       if (typeof callback == 'function') callback(null, file);
     }
 
