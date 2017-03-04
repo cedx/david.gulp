@@ -4,6 +4,7 @@ This file contains highlights of what changes on each version of the [Gulp-David
 ## Version 6.0.0
 - Breaking change: changed the signature of the `Checker` constructor.
 - Checker options are now exposed as public properties.
+- Turned the `Checker#_transform` method into an async function.
 
 ## Version 5.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
