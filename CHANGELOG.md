@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+## Version 6.1.0
+- Updated the package dependencies.
+
 ## Version 6.0.0
 - Breaking change: changed the signature of the `Checker` constructor.
 - Checker options are now exposed as public properties.
