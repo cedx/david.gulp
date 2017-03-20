@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
 ## Version 4.1.0
+- Updated the package dependencies.
 
 ## Version 4.0.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
