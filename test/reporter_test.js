@@ -14,7 +14,7 @@ describe('Reporter', () => {
    */
   describe('#log()', () => {
     it('should throw an error if the "david" property is not found on the file object', () => {
-      assert.throws(() => new Reporter().log(new File()), Error);
+      assert.throws(() => new Reporter().log(new File()));
     });
   });
 
