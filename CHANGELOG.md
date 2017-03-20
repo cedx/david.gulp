@@ -16,6 +16,10 @@ This file contains highlights of what changes on each version of the [Gulp-David
 - Ported the unit test assertions from [TDD](https://en.wikipedia.org/wiki/Test-driven_development) to [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development).
 - Updated the package dependencies.
 
+## Version 4.1.0
+- Backported the non-breaking changes from versions 5 and 6: feature request from [issue #14](https://github.com/cedx/gulp-david/issues/14).
+- Updated the package dependencies.
+
 ## Version 4.0.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
 - Updated the package dependencies.
