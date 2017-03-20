@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
 ## Version 4.1.0
+- Backported the non-breaking changes from versions 5 and 6: feature request from [issue #14](https://github.com/cedx/gulp-david/issues/14).
 - Updated the package dependencies.
 
 ## Version 4.0.0
