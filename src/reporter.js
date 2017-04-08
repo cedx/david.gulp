@@ -28,7 +28,7 @@ export class Reporter {
 
     let types = Object.keys(file.david).filter(type => Object.keys(file.david[type]).length > 0);
     if (!types.length) lines.push(chalk.green('  All dependencies up to date.'));
-    else types.forEach(type => {
+    else for (let type of types) {
       lines.push(type);
 
       let deps = file.david[type];
@@ -41,7 +41,7 @@ export class Reporter {
         let pkgName = chalk.magenta(name);
         lines.push(`  ${pkgName} { required: ${requiredVersion}, stable: ${stableVersion}, latest: ${latestVersion} }`);
       }
-    });
+    }
 
     return lines.join(os.EOL);
   }
