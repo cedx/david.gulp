@@ -1,10 +1,12 @@
 'use strict';
 
 import {expect} from 'chai';
-import {Checker} from '../src/index';
-import File from 'vinyl';
-import * as pkg from '../package.json';
+import {describe, it} from 'mocha';
 import stream from 'stream';
+import File from 'vinyl';
+
+import * as pkg from '../package.json';
+import {Checker} from '../src/index';
 
 /**
  * @test {Checker}

@@ -1,6 +1,7 @@
 'use strict';
 
 import {expect} from 'chai';
+import {describe, it} from 'mocha';
 import File from 'vinyl';
 import {Reporter} from '../src/index';
 
