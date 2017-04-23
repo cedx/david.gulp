@@ -1,5 +1,5 @@
 # Gulp-David
-![Release](https://img.shields.io/npm/v/@cedx/gulp-david.svg) ![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg) ![Dependencies](https://david-dm.org/cedx/gulp-david.svg) ![Coverage](https://coveralls.io/repos/github/cedx/gulp-david/badge.svg) ![Build](https://travis-ci.org/cedx/gulp-david.svg)
+![Release](https://img.shields.io/npm/v/@cedx/gulp-david.svg) ![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/gulp-david.svg) ![Dependencies](https://david-dm.org/cedx/gulp-david.svg) ![Coverage](https://coveralls.io/repos/github/cedx/gulp-david/badge.svg) ![Build](https://travis-ci.org/cedx/gulp-david.svg)
 
 Check your [npm](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plug-in for [Gulp.js](http://gulpjs.com), the streaming build system.
 
