@@ -17,7 +17,7 @@
     "david": "^11.0.0"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^0.5.0",
+    "@cedx/coveralls": "^0.6.0",
     "babel-preset-env": "^1.4.0",
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
