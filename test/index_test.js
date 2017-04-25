@@ -34,7 +34,7 @@ describe('david()', () => {
       scm: true
     });
 
-    expect(checker.ignore).to.have.members(['@cedx/gulp-david']);
+    expect(checker.ignore).to.include('@cedx/gulp-david');
     expect(checker.registry).to.equal('https://github.com/cedx/gulp-david');
     expect(checker.reporter).to.be.an('object').and.have.keys('foo');
     expect(checker.unstable).to.be.true;
