@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+## Version 6.2.0
+- Updated the package dependencies.
+
 ## Version 6.1.0
 - Updated the package dependencies.
 
