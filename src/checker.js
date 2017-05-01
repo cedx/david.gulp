@@ -122,7 +122,7 @@ export class Checker extends Transform {
       registry: this.registry
     };
 
-    let getDeps = (mf, opts) => new Promise((resolve, reject) => getter(mf, opts, (err, deps) => {
+    const getDeps = (mf, opts) => new Promise((resolve, reject) => getter(mf, opts, (err, deps) => {
       if (err) reject(err);
       else resolve(deps);
     }));
