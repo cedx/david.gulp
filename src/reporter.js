@@ -1,6 +1,6 @@
 import chalk from 'chalk';
-import os from 'os';
-import * as pkg from '../package.json';
+import {EOL} from 'os';
+import {name as pkgName} from '../package.json';
 
 /**
  * Prints the checker results to the standard output.
@@ -13,7 +13,7 @@ export class Reporter {
    * @throws {Error} The dependencies were not found in the file.
    */
   log(file) {
-    if (!('david' in file)) throw new Error(`[${pkg.name}] Dependencies not found.`);
+    if (!('david' in file)) throw new Error(`[${pkgName}] Dependencies not found.`);
     console.log(this._report(file));
   }
 
@@ -37,12 +37,10 @@ export class Reporter {
         let requiredVersion = chalk.red(dependency.required || '*');
         let stableVersion = chalk.green(dependency.stable || '*');
         let latestVersion = chalk.yellow(dependency.latest || '*');
-
-        let pkgName = chalk.magenta(name);
-        lines.push(`  ${pkgName} { required: ${requiredVersion}, stable: ${stableVersion}, latest: ${latestVersion} }`);
+        lines.push(`  ${chalk.magenta(name)} { required: ${requiredVersion}, stable: ${stableVersion}, latest: ${latestVersion} }`);
       }
     }
 
-    return lines.join(os.EOL);
+    return lines.join(EOL);
   }
 }

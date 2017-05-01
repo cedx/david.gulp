@@ -1,6 +1,6 @@
-import david from 'david';
-import * as pkg from '../package.json';
+import {getDependencies, getUpdatedDependencies} from 'david';
 import {Transform} from 'stream';
+import {name as pkgName} from '../package.json';
 
 /**
  * Checks whether the dependencies of a project are out of date.
@@ -70,7 +70,7 @@ export class Checker extends Transform {
    * @return {Promise<object>} An object providing details about the dependencies.
    */
   async getDependencies(manifest) {
-    return this._getDependencies(david.getDependencies, manifest);
+    return this._getDependencies(getDependencies, manifest);
   }
 
   /**
@@ -79,7 +79,7 @@ export class Checker extends Transform {
    * @return {Promise<object>} An object providing details about the dependencies that are outdated.
    */
   async getUpdatedDependencies(manifest) {
-    return this._getDependencies(david.getUpdatedDependencies, manifest);
+    return this._getDependencies(getUpdatedDependencies, manifest);
   }
 
   /**
@@ -100,7 +100,7 @@ export class Checker extends Transform {
     }
 
     catch (error) {
-      throw new Error(`[${pkg.name}] Invalid manifest: ${error.message}`);
+      throw new Error(`[${pkgName}] Invalid manifest: ${error.message}`);
     }
   }
 
@@ -171,7 +171,7 @@ export class Checker extends Transform {
     }
 
     catch (err) {
-      if (typeof callback == 'function') callback(new Error(`[${pkg.name}] ${err.message}`));
+      if (typeof callback == 'function') callback(new Error(`[${pkgName}] ${err.message}`));
     }
 
     return file;

@@ -1,7 +1,7 @@
 'use strict';
 
-const child_process = require('child_process');
 const {david} = require('@cedx/gulp-david');
+const {spawn} = require('child_process');
 const gulp = require('gulp');
 
 /**
@@ -48,8 +48,7 @@ gulp.task('upgradePackages', ['updateManifest'], () => _exec('npm', ['update']))
  * @return {Promise} Completes when the command is finally terminated.
  */
 async function _exec(command, args = [], options = {shell: true, stdio: 'inherit'}) {
-  return new Promise((resolve, reject) => child_process
-    .spawn(command, args, options)
+  return new Promise((resolve, reject) => spawn(command, args, options)
     .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : resolve())
   );
 }
