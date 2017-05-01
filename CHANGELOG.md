@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+## Version 6.3.0
+- Added support for the [Node Security Platform](https://nodesecurity.io) reports.
+
 ## Version 6.2.0
 - Updated the package dependencies.
 
