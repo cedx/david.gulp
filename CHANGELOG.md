@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
 ## Version 7.0.0
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
 
 ## Version 6.3.0
 - Added support for the [Node Security Platform](https://nodesecurity.io) reports.
