@@ -3,6 +3,8 @@ This file contains highlights of what changes on each version of the [Gulp-David
 
 ## Version 7.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Breaking change: the `Checker#registry` property is now an instance of the [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) class.
+- Updated the package dependencies.
 
 ## Version 6.3.0
 - Added support for the [Node Security Platform](https://nodesecurity.io) reports.

@@ -1,3 +1,4 @@
+import {URL} from 'url';
 import {Checker} from './checker';
 import {Reporter} from './reporter';
 
@@ -17,7 +18,7 @@ export function david(options = {}) {
   if (typeof options.errorDepType == 'boolean') checker.error.depType = options.errorDepType;
   if (typeof options.errorSCM == 'boolean') checker.error.scm = options.errorSCM;
   if (Array.isArray(options.ignore)) checker.ignore = options.ignore;
-  if (typeof options.registry == 'string') checker.registry = options.registry;
+  if (typeof options.registry == 'string') checker.registry = new URL(options.registry);
   if (typeof options.unstable == 'boolean') checker.unstable = options.unstable;
   if (typeof options.verbose == 'boolean') checker.verbose = options.verbose;
 

@@ -2,6 +2,7 @@
 
 import {expect} from 'chai';
 import {describe, it} from 'mocha';
+import {URL} from 'url';
 import {david, Checker, Reporter} from '../src/index';
 
 /**
@@ -35,7 +36,7 @@ describe('david()', () => {
     });
 
     expect(checker.ignore).to.include('@cedx/gulp-david');
-    expect(checker.registry).to.equal('https://github.com/cedx/gulp-david');
+    expect(checker.registry).to.be.instanceOf(URL).and.have.property('href').that.equal('https://github.com/cedx/gulp-david');
     expect(checker.reporter).to.be.an('object').and.have.keys('foo');
     expect(checker.unstable).to.be.true;
     expect(checker.update).to.equal('=');

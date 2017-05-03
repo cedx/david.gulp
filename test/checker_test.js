@@ -2,7 +2,7 @@
 
 import {expect} from 'chai';
 import {describe, it} from 'mocha';
-import stream from 'stream';
+import {Readable} from 'stream';
 import File from 'vinyl';
 
 import * as pkg from '../package.json';
@@ -56,7 +56,7 @@ describe('Checker', function() {
 
     it('should throw an error if the file is a stream', () => {
       expect(() => {
-        let file = new File({contents: new stream.Readable()});
+        let file = new File({contents: new Readable()});
         new Checker().parseManifest(file);
       }).to.throw();
     });

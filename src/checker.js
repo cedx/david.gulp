@@ -33,10 +33,10 @@ export class Checker extends Transform {
 
     /**
      * The [npm](https://www.npmjs.com) registry URL.
-     * Uses [registry.npmjs.org](https://registry.npmjs.org) if empty.
-     * @type {string}
+     * Uses [registry.npmjs.org](https://registry.npmjs.org) if `null`.
+     * @type {URL}
      */
-    this.registry = '';
+    this.registry = null;
 
     /**
      * The instance used to output the report.
@@ -118,8 +118,8 @@ export class Checker extends Transform {
       stable: !this.unstable
     };
 
-    if (this.registry.length) options.npm = {
-      registry: this.registry
+    if (this.registry) options.npm = {
+      registry: this.registry.href
     };
 
     const getDeps = (mf, opts) => new Promise((resolve, reject) => getter(mf, opts, (err, deps) => {
