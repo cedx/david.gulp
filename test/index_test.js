@@ -37,7 +37,7 @@ describe('david()', () => {
 
     expect(checker.ignore).to.include('@cedx/gulp-david');
     expect(checker.registry).to.be.instanceOf(URL).and.have.property('href').that.equal('https://github.com/cedx/gulp-david');
-    expect(checker.reporter).to.be.an('object').and.have.keys('foo');
+    expect(checker.reporter).to.be.an('object').and.have.property('foo');
     expect(checker.unstable).to.be.true;
     expect(checker.update).to.equal('=');
   });

@@ -93,7 +93,7 @@ describe('Checker', function() {
     it('should add a "david" property to the file object', async () => {
       let input = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
       let output = await new Checker()._transform(input, 'utf8');
-      expect(output).to.contain.keys('david');
+      expect(output).to.have.property('david');
     });
   });
 });
