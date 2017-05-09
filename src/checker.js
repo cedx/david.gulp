@@ -127,17 +127,13 @@ export class Checker extends Transform {
       else resolve(deps);
     }));
 
-    let deps = await Promise.all([
+    let [dependencies, devDependencies, optionalDependencies] = await Promise.all([
       getDeps(manifest, Object.assign({}, options, {dev: false, optional: false})),
       getDeps(manifest, Object.assign({}, options, {dev: true, optional: false})),
       getDeps(manifest, Object.assign({}, options, {dev: false, optional: true}))
     ]);
 
-    return {
-      dependencies: deps[0],
-      devDependencies: deps[1],
-      optionalDependencies: deps[2]
-    };
+    return {dependencies, devDependencies, optionalDependencies};
   }
 
   /**
