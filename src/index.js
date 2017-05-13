@@ -11,7 +11,7 @@ export * from './reporter';
  * @return {Checker} The newly created instance.
  */
 export function david(options = {}) {
-  let checker = new Checker(new Reporter());
+  let checker = new Checker(new Reporter);
 
   if (typeof options.error404 == 'boolean') checker.error['404'] = options.error404;
   if (typeof options.errorDepCount == 'number') checker.error.depCount = options.errorDepCount;

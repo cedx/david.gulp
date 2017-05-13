@@ -64,7 +64,7 @@ Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david
 
 ```javascript
 return gulp.src('package.json')
-  .pipe(david({reporter: new MyReporter()}));
+  .pipe(david({reporter: new MyReporter}));
 ```
 
 ## Updating dependencies

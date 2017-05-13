@@ -15,7 +15,7 @@ describe('Reporter', () => {
    */
   describe('#log()', () => {
     it('should throw an error if the "david" property is not found on the file object', () => {
-      expect(() => new Reporter().log(new File())).to.throw();
+      expect(() => (new Reporter).log(new File)).to.throw();
     });
   });
 
@@ -27,12 +27,12 @@ describe('Reporter', () => {
     file.david = {};
 
     it('should output the file path', () => {
-      let output = new Reporter()._report(file);
+      let output = (new Reporter)._report(file);
       expect(output).to.contain(file.path);
     });
 
     it('should output "All dependencies up to date." if there is no outdated dependencies', () => {
-      let output = new Reporter()._report(file);
+      let output = (new Reporter)._report(file);
       expect(output).to.contain(file.path);
       expect(output).to.contain('All dependencies up to date.');
     });
@@ -44,7 +44,7 @@ describe('Reporter', () => {
         }
       };
 
-      let output = new Reporter()._report(file);
+      let output = (new Reporter)._report(file);
       expect(output).to.contain('dependencies')
         .and.contain('foobar')
         .and.contain('required:')
