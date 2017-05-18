@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+## Version 7.0.1
+- Fixed a code generation bug.
+- Updated the package dependencies.
+
 ## Version 7.0.0
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Breaking change: the `Checker#registry` property is now an instance of the [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) class.
