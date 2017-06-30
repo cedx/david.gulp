@@ -1,5 +1,6 @@
 import {getDependencies, getUpdatedDependencies} from 'david';
 import {Transform} from 'stream';
+import {promisify} from 'util';
 import {name as pkgName} from '../package.json';
 
 /**
@@ -122,11 +123,7 @@ export class Checker extends Transform {
       registry: this.registry.href
     };
 
-    const getDeps = (mf, opts) => new Promise((resolve, reject) => getter(mf, opts, (err, deps) => {
-      if (err) reject(err);
-      else resolve(deps);
-    }));
-
+    const getDeps = promisify(getter);
     let [dependencies, devDependencies, optionalDependencies] = await Promise.all([
       getDeps(manifest, Object.assign({}, options, {dev: false, optional: false})),
       getDeps(manifest, Object.assign({}, options, {dev: true, optional: false})),
