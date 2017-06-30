@@ -10,7 +10,7 @@
   "repository": "cedx/gulp-david",
   "version": "7.0.1",
   "dependencies": {
-    "chalk": "^1.1.3",
+    "chalk": "^2.0.1",
     "david": "^11.0.0"
   },
   "devDependencies": {
