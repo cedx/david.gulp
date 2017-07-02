@@ -14,7 +14,7 @@ export function david(options = {}) {
   let checker = new Checker(new Reporter);
 
   if (typeof options.error404 == 'boolean') checker.error['404'] = options.error404;
-  if (typeof options.errorDepCount == 'number') checker.error.depCount = options.errorDepCount;
+  if (Number.isInteger(options.errorDepCount)) checker.error.depCount = options.errorDepCount;
   if (typeof options.errorDepType == 'boolean') checker.error.depType = options.errorDepType;
   if (typeof options.errorSCM == 'boolean') checker.error.scm = options.errorSCM;
   if (Array.isArray(options.ignore)) checker.ignore = options.ignore;
