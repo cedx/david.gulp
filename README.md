@@ -13,8 +13,8 @@ $ npm install --save-dev @cedx/gulp-david
 Once the plug-in has been installed, it may be enabled inside your `gulpfile.js` with these [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) statements:
 
 ```javascript
-const gulp = require('gulp');
-const {david} = require('@cedx/gulp-david');
+import {david} from '@cedx/gulp-david';
+import gulp from 'gulp';
 
 gulp.task('checkDependencies', () => gulp.src('package.json')
   .pipe(david()).on('error', function(err) {

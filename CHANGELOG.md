@@ -2,6 +2,8 @@
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
 ## Version 8.0.0
+- Breaking change: restored the [Observable](http://reactivex.io/intro.html) APIs.
+- Updated the package dependencies.
 
 ## Version 7.0.1
 - Fixed a code generation bug.
