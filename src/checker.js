@@ -1,6 +1,6 @@
 import {getDependencies, getUpdatedDependencies} from 'david';
+import {Observable} from 'rxjs';
 import {Transform} from 'stream';
-import {promisify} from 'util';
 import {name as pkgName} from '../package.json';
 
 /**
@@ -68,18 +68,18 @@ export class Checker extends Transform {
   /**
    * Gets details about project dependencies.
    * @param {object} manifest The manifest providing the dependencies.
-   * @return {Promise<object>} An object providing details about the dependencies.
+   * @return {Observable<object>} An object providing details about the dependencies.
    */
-  async getDependencies(manifest) {
+  getDependencies(manifest) {
     return this._getDependencies(getDependencies, manifest);
   }
 
   /**
    * Gets details about project dependencies that are outdated.
    * @param {object} manifest The manifest providing the dependencies.
-   * @return {Promise<object>} An object providing details about the dependencies that are outdated.
+   * @return {Observable<object>} An object providing details about the dependencies that are outdated.
    */
-  async getUpdatedDependencies(manifest) {
+  getUpdatedDependencies(manifest) {
     return this._getDependencies(getUpdatedDependencies, manifest);
   }
 
@@ -109,9 +109,9 @@ export class Checker extends Transform {
    * Gets details about project dependencies.
    * @param {function} getter The function invoked to fetch the dependency details.
    * @param {object} manifest The manifest providing the list of dependencies.
-   * @return {Promise<object>} An object providing details about the project dependencies.
+   * @return {Observable<object>} An object providing details about the project dependencies.
    */
-  async _getDependencies(getter, manifest) {
+  _getDependencies(getter, manifest) {
     let options = {
       error: {E404: this.error['404'], EDEPTYPE: this.error.depType, ESCM: this.error.scm},
       ignore: this.ignore,
@@ -123,50 +123,54 @@ export class Checker extends Transform {
       registry: this.registry.href
     };
 
-    const getDeps = promisify(getter);
-    let [dependencies, devDependencies, optionalDependencies] = await Promise.all([
+    const getDeps = Observable.bindNodeCallback(getter);
+    let observables = [
       getDeps(manifest, Object.assign({}, options, {dev: false, optional: false})),
       getDeps(manifest, Object.assign({}, options, {dev: true, optional: false})),
       getDeps(manifest, Object.assign({}, options, {dev: false, optional: true}))
-    ]);
+    ];
 
-    return {dependencies, devDependencies, optionalDependencies};
+    return Observable.zip(...observables).map(results => ({
+      dependencies: results[0],
+      devDependencies: results[1],
+      optionalDependencies: results[2]
+    }));
   }
 
   /**
    * Transforms input and produces output.
    * @param {File} file The chunk to transform.
    * @param {string} encoding The encoding type if the chunk is a string.
-   * @param {function} [callback] The function to invoke when the supplied chunk has been processed.
-   * @return {Promise<File>} The transformed chunk.
+   * @param {function} callback The function to invoke when the supplied chunk has been processed.
    */
-  async _transform(file, encoding, callback) {
-    try {
-      let getDeps = mf => this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
+  _transform(file, encoding, callback) {
+    let manifest;
+    try { manifest = this.parseManifest(file); }
+    catch (err) {
+      callback(err);
+      return;
+    }
 
-      let manifest = this.parseManifest(file);
-      let deps = await getDeps(manifest);
-      file.david = deps;
-      if (this.reporter && typeof this.reporter.log == 'function') this.reporter.log(file, encoding);
+    const getDeps = mf => this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
+    getDeps(manifest).subscribe({
+      error: err => callback(new Error(`[${pkgName}] ${err.message}`)),
+      next: deps => {
+        file.david = deps;
+        if (this.reporter && typeof this.reporter.log == 'function') this.reporter.log(file, encoding);
 
-      if (this.update.length) {
-        for (let type in deps) {
-          let version = this.unstable ? 'latest' : 'stable';
-          for (let name in deps[type]) manifest[type][name] = this.update + deps[type][name][version];
+        if (this.update.length) {
+          for (let type in deps) {
+            let version = this.unstable ? 'latest' : 'stable';
+            for (let name in deps[type]) manifest[type][name] = this.update + deps[type][name][version];
+          }
+
+          file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding);
         }
 
-        file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding);
+        let count = Object.keys(deps).reduce((previousValue, depType) => previousValue + Object.keys(deps[depType]).length, 0);
+        if (this.error.depCount > 0 && count >= this.error.depCount) throw new Error(`Outdated dependencies: ${count}`);
+        callback(null, file);
       }
-
-      let count = Object.keys(deps).reduce((previousValue, depType) => previousValue + Object.keys(deps[depType]).length, 0);
-      if (this.error.depCount > 0 && count >= this.error.depCount) throw new Error(`Outdated dependencies: ${count}`);
-      if (typeof callback == 'function') callback(null, file);
-    }
-
-    catch (err) {
-      if (typeof callback == 'function') callback(new Error(`[${pkgName}] ${err.message}`));
-    }
-
-    return file;
+    });
   }
 }
