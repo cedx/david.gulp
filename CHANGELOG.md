@@ -1,6 +1,8 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+## Version 8.0.0
+
 ## Version 7.0.1
 - Fixed a code generation bug.
 - Updated the package dependencies.

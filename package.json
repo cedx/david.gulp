@@ -8,7 +8,7 @@
   "module": "./src/index",
   "name": "@cedx/gulp-david",
   "repository": "cedx/gulp-david",
-  "version": "7.0.1",
+  "version": "8.0.0",
   "dependencies": {
     "chalk": "^2.0.1",
     "david": "^11.0.0",
