@@ -18,16 +18,18 @@ describe('Checker', function() {
    * @test {Checker#getDependencies}
    */
   describe('#getDependencies()', () => {
-    it('should return an object with 3 dependency properties', async () => {
-      let deps = await (new Checker).getDependencies({name: '@cedx/gulp-david'});
-      expect(deps).to.contain.all.keys('dependencies', 'devDependencies', 'optionalDependencies');
+    it('should return an object with 3 dependency properties', done => {
+      (new Checker).getDependencies({name: '@cedx/gulp-david'}).subscribe(deps => {
+        expect(deps).to.contain.all.keys('dependencies', 'devDependencies', 'optionalDependencies');
+      }, done, done);
     });
 
-    it('should have some non-empty dependency properties for the current manifest', async () => {
-      let deps = await (new Checker).getDependencies(pkg);
-      expect(Object.keys(deps.dependencies)).to.not.be.empty;
-      expect(Object.keys(deps.devDependencies)).to.not.be.empty;
-      expect(Object.keys(deps.optionalDependencies)).to.be.empty;
+    it('should have some non-empty dependency properties for the current manifest', done => {
+      (new Checker).getDependencies(pkg).subscribe(deps => {
+        expect(Object.keys(deps.dependencies)).to.not.be.empty;
+        expect(Object.keys(deps.devDependencies)).to.not.be.empty;
+        expect(Object.keys(deps.optionalDependencies)).to.be.empty;
+      }, done, done);
     });
   });
 
@@ -35,14 +37,16 @@ describe('Checker', function() {
    * @test {Checker#getUpdatedDependencies}
    */
   describe('#getUpdatedDependencies()', () => {
-    it('should return an object with 3 dependency properties', async () => {
-      let deps = await (new Checker).getUpdatedDependencies({name: '@cedx/gulp-david'});
-      expect(deps).to.contain.all.keys('dependencies', 'devDependencies', 'optionalDependencies');
+    it('should return an object with 3 dependency properties', done => {
+      (new Checker).getUpdatedDependencies({name: '@cedx/gulp-david'}).subscribe(deps => {
+        expect(deps).to.contain.all.keys('dependencies', 'devDependencies', 'optionalDependencies');
+      }, done, done);
     });
 
-    it('should have some empty dependency properties for the current manifest', async () => {
-      let deps = await (new Checker).getUpdatedDependencies(pkg);
-      expect(Object.keys(deps.optionalDependencies)).to.be.empty;
+    it('should have some empty dependency properties for the current manifest', done => {
+      (new Checker).getUpdatedDependencies(pkg).subscribe(deps => {
+        expect(Object.keys(deps.optionalDependencies)).to.be.empty;
+      }, done, done);
     });
   });
 
@@ -78,22 +82,21 @@ describe('Checker', function() {
    * @test {Checker#_transform}
    */
   describe('#_transform()', () => {
-    it('should throw an error if the manifest is invalid', async () => {
-      try {
-        let input = new File({contents: Buffer.from('FooBar')});
-        await (new Checker)._transform(input, 'utf8');
-        expect(true).to.not.be.ok;
-      }
-
-      catch (err) {
-        expect(true).to.be.ok;
-      }
+    it('should throw an error if the manifest is invalid', done => {
+      let input = new File({contents: Buffer.from('FooBar')});
+      (new Checker)._transform(input, 'utf8', err => {
+        expect(err).to.be.instanceof(Error);
+        done();
+      });
     });
 
-    it('should add a "david" property to the file object', async () => {
+    it('should add a "david" property to the file object', done => {
       let input = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
-      let output = await (new Checker)._transform(input, 'utf8');
-      expect(output).to.have.property('david');
+      (new Checker)._transform(input, 'utf8', (err, file) => {
+        if (err) return done(err);
+        expect(file).to.have.property('david').that.is.an('object');
+        done();
+      });
     });
   });
 });
