@@ -11,13 +11,14 @@
   "version": "7.0.1",
   "dependencies": {
     "chalk": "^2.0.1",
-    "david": "^11.0.0"
+    "david": "^11.0.0",
+    "rxjs": "^5.4.2"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^1.0.2",
+    "@cedx/coveralls": "^2.0.0",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.24.1",
-    "chai": "^4.0.2",
+    "chai": "^4.1.0",
     "del": "^3.0.0",
     "esdoc": "^0.5.2",
     "estraverse": "^4.2.0",
@@ -30,14 +31,16 @@
     "vinyl": "^2.0.2"
   },
   "engines": {
-    "node": ">=8.1.0"
+    "node": ">=8.0.0"
   },
   "keywords": [
     "david",
     "dependencies",
     "gulp",
     "gulpplugin",
-    "npm"
+    "npm",
+    "observable",
+    "rxjs"
   ],
   "scripts": {
     "coverage": "coveralls --file=var/lcov.info",
