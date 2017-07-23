@@ -2,7 +2,7 @@
 
 const {expect} = require('chai');
 const {URL} = require('url');
-const {Checker, factory, Reporter} = require('../lib');
+const {Checker, david: factory, Reporter} = require('../lib');
 
 /**
  * @test {factory}
