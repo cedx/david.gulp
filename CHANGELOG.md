@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+## Version 8.1.0
+- Removed the dependency on [Babel](https://babeljs.io) compiler.
+- Updated the package dependencies.
+
 ## Version 8.0.0
 - Breaking change: restored the [Observable](http://reactivex.io/intro.html) APIs.
 - Updated the package dependencies.
