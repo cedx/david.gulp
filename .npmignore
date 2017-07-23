@@ -7,7 +7,6 @@
 /var/
 /web/
 
-/.babelrc
 /.editorconfig
 /.esdoc.json
 /.eslintrc.yaml
