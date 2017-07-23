@@ -1,12 +1,11 @@
 'use strict';
 
-import {expect} from 'chai';
-import {describe, it} from 'mocha';
-import {Readable} from 'stream';
-import File from 'vinyl';
+const {expect} = require('chai');
+const {Readable} = require('stream');
+const File = require('vinyl');
 
-import * as pkg from '../package.json';
-import {Checker} from '../src/index';
+const pkg = require('../package.json');
+const {Checker} = require('../lib');
 
 /**
  * @test {Checker}

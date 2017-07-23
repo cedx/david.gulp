@@ -1,22 +1,21 @@
 'use strict';
 
-import {expect} from 'chai';
-import {describe, it} from 'mocha';
-import {URL} from 'url';
-import {david, Checker, Reporter} from '../src/index';
+const {expect} = require('chai');
+const {URL} = require('url');
+const {Checker, factory, Reporter} = require('../lib');
 
 /**
- * @test {david}
+ * @test {factory}
  */
-describe('david()', () => {
+describe('factory()', () => {
   it('should return a `Checker` with a `Reporter`', () => {
-    let checker = david();
+    let checker = factory();
     expect(checker).to.be.instanceof(Checker);
     expect(checker.reporter).to.be.instanceof(Reporter);
   });
 
   it('should properly initialize the checker properties', () => {
-    let checker = david({
+    let checker = factory({
       error404: true,
       errorDepCount: 123,
       errorDepType: true,

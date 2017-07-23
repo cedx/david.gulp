@@ -1,9 +1,8 @@
 'use strict';
 
-import {expect} from 'chai';
-import {describe, it} from 'mocha';
-import File from 'vinyl';
-import {Reporter} from '../src/index';
+const {expect} = require('chai');
+const File = require('vinyl');
+const {Reporter} = require('../lib');
 
 /**
  * @test {Reporter}
