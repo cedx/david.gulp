@@ -14,7 +14,7 @@
     "rxjs": "^5.4.2"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^2.1.0",
+    "@cedx/coveralls": "^2.2.0",
     "chai": "^4.1.0",
     "del": "^3.0.0",
     "esdoc": "^0.5.2",
