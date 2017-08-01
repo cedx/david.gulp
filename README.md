@@ -22,7 +22,6 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
     this.emit('end');
   })
 );
-
 ```
 
 ## Options
