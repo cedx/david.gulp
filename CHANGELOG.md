@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+# Version 9.0.0
+- Breaking change: changed the `factory()` function to the `Checker.factory` method.
+- Updated the package dependencies.
+
 ## Version 8.1.0
 - Removed the dependency on [Babel](https://babeljs.io) compiler.
 - Updated the package dependencies.
