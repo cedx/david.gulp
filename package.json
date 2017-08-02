@@ -38,6 +38,7 @@
     "gulpplugin",
     "npm",
     "observable",
+    "reactivex",
     "rxjs"
   ],
   "scripts": {
