@@ -10,7 +10,10 @@ If you haven't used [Gulp](http://gulpjs.com) before, be sure to check out the [
 $ npm install --save-dev @cedx/gulp-david
 ```
 
-Once the plug-in has been installed, it may be enabled inside your `gulpfile.js` with these [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) statements:
+Once the plug-in has been installed, it may be enabled inside your `gulpfile.js` file.
+
+## Usage
+The plug-in takes a [`package.json`](https://docs.npmjs.com/files/package.json) file as input, and scans its dependencies to check whether any one is outdated:
 
 ```javascript
 const {david} = require('@cedx/gulp-david');
@@ -24,7 +27,7 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
 );
 ```
 
-## Options
+### Options
 The plug-in can be customized using these settings:
 
 - `error404: boolean = false` : If dependency not found, emit an error.
@@ -38,7 +41,7 @@ The plug-in can be customized using these settings:
 - `update: boolean|string = false` : Whether to update dependencies in the file contents to latest versions. If it is a string, it will be used as the operator in version comparators.
 - `verbose: boolean = false` : Whether to output the versions of all dependencies instead of only the outdated ones.
 
-## Results
+### Results
 The plug-in adds the following properties to the `file` object:
 
 ```javascript
