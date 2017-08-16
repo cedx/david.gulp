@@ -97,17 +97,11 @@ describe('Checker', function() {
     });
 
     it('should throw an error if the file is a stream', () => {
-      expect(() => {
-        let file = new File({contents: new Readable});
-        (new Checker).parseManifest(file);
-      }).to.throw();
+      expect(() => (new Checker).parseManifest(new File({contents: new Readable}))).to.throw();
     });
 
     it('should throw an error if the manifest is invalid', () => {
-      expect(() => {
-        let file = new File({contents: Buffer.from('FooBar')});
-        (new Checker).parseManifest(file);
-      }).to.throw();
+      expect(() => (new Checker).parseManifest(new File({contents: Buffer.from('FooBar')}))).to.throw();
     });
 
     it('should return an object if the manifest is valid', () => {
