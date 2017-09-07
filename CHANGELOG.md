@@ -1,7 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
-# Version 9.0.0
+## Version 10.0.0
+- Changed licensing for the [MIT License](https://opensource.org/licenses/MIT).
+
+## Version 9.0.0
 - Breaking change: changed the `factory()` function to the `Checker.factory` method.
 - Updated the package dependencies.
 
