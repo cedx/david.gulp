@@ -10,7 +10,7 @@
       "test": {"source": "test"},
       "brand": {
         "description": "Check your NPM dependencies with the David plug-in for Gulp, the streaming build system.",
-        "logo": "web/favicon.ico",
+        "logo": "www/favicon.ico",
         "title": "Gulp-David"
       }
     }}
