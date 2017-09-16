@@ -1,17 +1,10 @@
-/.c9/
-/.idea/
-/.nyc_output/
+/.*/
 /doc/
 /example/
 /test/
 /var/
 /www/
 
-/.editorconfig
-/.esdoc.json
-/.eslintrc.yaml
-/.gitattributes
-/.gitignore
-/.travis.yml
+/.*
 /*.iml
 /*.js
