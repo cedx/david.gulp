@@ -13,7 +13,7 @@
     "david": "^11.0.0"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^4.0.0",
+    "@cedx/coveralls": "^5.0.0",
     "chai": "^4.1.2",
     "del": "^3.0.0",
     "esdoc": "^1.0.2",
@@ -21,13 +21,13 @@
     "esdoc-standard-plugin": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
-    "mocha": "^3.5.0",
+    "mocha": "^3.5.3",
     "nsp": "^2.8.0",
     "nyc": "^11.2.1",
     "vinyl": "^2.1.0"
   },
   "engines": {
-    "node": ">=8.4.0"
+    "node": ">=8.5.0"
   },
   "keywords": [
     "david",
@@ -41,6 +41,6 @@
   },
   "scripts": {
     "coverage": "coveralls var/lcov.info",
-    "test": "nyc --report-dir=var --reporter=lcovonly mocha --recursive"
+    "test": "nyc mocha"
   }
 }
