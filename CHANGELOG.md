@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
+## Version [11.0.0](https://github.com/cedx/gulp-david/compare/v10.0.0...v11.0.0)
+- Breaking change: changed the signature of the `Checker` constructor.
+- Updated the package dependencies.
+
 ## Version [10.0.0](https://github.com/cedx/gulp-david/compare/v9.0.0...v10.0.0)
 - Breaking change: converted the [`Observable`](http://reactivex.io/intro.html)-based API to an `async/await`-based one.
 - Added the [`#[Symbol.toStringTag]`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag) property to all classes.
