@@ -6,7 +6,7 @@ const {URL} = require('url');
 const File = require('vinyl');
 
 const pkg = require('../package.json');
-const {Checker, Reporter} = require('../lib');
+const {Checker, Reporter} = require('../lib/index.js');
 
 /**
  * @test {Checker}

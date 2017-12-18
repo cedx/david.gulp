@@ -2,7 +2,7 @@
 
 const {expect} = require('chai');
 const File = require('vinyl');
-const {Reporter} = require('../lib');
+const {Reporter} = require('../lib/index.js');
 
 /**
  * @test {Reporter}

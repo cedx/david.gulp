@@ -5,7 +5,7 @@ const del = require('del');
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const {normalize} = require('path');
-const {david} = require('./lib');
+const {david} = require('./lib/index.js');
 
 /**
  * Runs the default tasks.
