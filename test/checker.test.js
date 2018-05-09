@@ -118,7 +118,7 @@ describe('Checker', function() {
       }
 
       catch (err) {
-        expect(true).to.be.ok;
+        expect(err).to.be.instanceof(Error);
       }
     });
 
