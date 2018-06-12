@@ -1,5 +1,4 @@
 # Changelog
-This file contains highlights of what changes on each version of the [Gulp-David](https://github.com/cedx/gulp-david) package.
 
 ## Version [11.0.0](https://github.com/cedx/gulp-david/compare/v10.0.0...v11.0.0)
 - Breaking change: changed the signature of the `Checker` constructor.
@@ -135,7 +134,7 @@ This file contains highlights of what changes on each version of the [Gulp-David
 - Breaking change: using ES2015 features, like arrow functions, block-scoped binding constructs, classes and template strings.
 - Breaking change: raised the required [Node.js](http://nodejs.org) version.
 - Added the `ignore` option to the checker.
-- Added support for [Travis CI](https://travis-ci.org) continuous integration.
+- Added support for [Travis CI](https://travis-ci.com) continuous integration.
 - Changed the documentation system for [JSDoc](http://usejsdoc.org).
 - Updated the package dependencies.
 
