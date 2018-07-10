@@ -30,7 +30,7 @@ describe('Checker', function() {
         errorDepType: true,
         errorSCM: true,
         ignore: ['@cedx/gulp-david'],
-        registry: 'https://github.com/cedx/gulp-david',
+        registry: 'https://dev.belin.io/gulp-david',
         reporter: {foo: 'bar'},
         unstable: true,
         update: '='
@@ -44,7 +44,7 @@ describe('Checker', function() {
       });
 
       expect(checker.ignore).to.include('@cedx/gulp-david');
-      expect(checker.registry).to.be.instanceOf(URL).and.have.property('href').that.equal('https://github.com/cedx/gulp-david');
+      expect(checker.registry).to.be.instanceOf(URL).and.have.property('href').that.equal('https://dev.belin.io/gulp-david');
       expect(checker.reporter).to.be.an('object').and.have.property('foo');
       expect(checker.unstable).to.be.true;
       expect(checker.update).to.equal('=');

@@ -2,7 +2,7 @@
   "author": "Cédric Belin <cedric@belin.io>",
   "bugs": "https://github.com/cedx/gulp-david/issues",
   "description": "David plug-in for Gulp, the streaming build system.",
-  "homepage": "https://github.com/cedx/gulp-david",
+  "homepage": "https://dev.belin.io/gulp-david",
   "license": "MIT",
   "main": "./lib/index.js",
   "name": "@cedx/gulp-david",

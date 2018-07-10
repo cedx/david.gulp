@@ -97,9 +97,9 @@ You can find a more detailled sample in the `example` folder:
 [Sample Gulp tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
 
 ## See also
-- [API reference](https://dev.belin.io/gulp-david)
+- [API reference](https://dev.belin.io/gulp-david/api)
 - [Code coverage](https://coveralls.io/github/cedx/gulp-david)
 - [Continuous integration](https://travis-ci.com/cedx/gulp-david)
 
 ## License
-[Gulp-David](https://github.com/cedx/gulp-david) is distributed under the MIT License.
+[Gulp-David](https://dev.belin.io/gulp-david) is distributed under the MIT License.
