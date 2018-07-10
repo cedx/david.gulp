@@ -6,11 +6,6 @@ const gulp = require('gulp');
 const {normalize} = require('path');
 
 /**
- * Runs the default tasks.
- */
-gulp.task('default', ['upgradePackages']);
-
-/**
  * Checks the package dependencies, and emits an error if some of them are outdated.
  */
 gulp.task('checkDependencies', () => gulp.src('package.json')
@@ -39,7 +34,14 @@ gulp.task('updateManifest', () => gulp.src('package.json')
 /**
  * Upgrades the packages to latest versions.
  */
-gulp.task('upgradePackages', ['updateManifest'], () => _exec('npm', ['update']));
+gulp.task('upgradePackages:npmInstall', () => _exec('npm', ['install']));
+gulp.task('upgradePackages:npmUpdate', () => _exec('npm', ['update']));
+gulp.task('upgradePackages', gulp.series('updateManifest', 'upgradePackages:npmInstall'));
+
+/**
+ * Runs the default tasks.
+ */
+gulp.task('default', gulp.task('upgradePackages'));
 
 /**
  * Spawns a new process using the specified command.
