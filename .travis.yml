@@ -1,12 +1,8 @@
 dist: trusty
+language: node_js
+node_js: 10
+notifications: {email: false}
 sudo: false
 
-language: node_js
-node_js:
-- 8
-- 9
-
-notifications:
-  email: false
-
+script: npm test
 after_success: npm run coverage
