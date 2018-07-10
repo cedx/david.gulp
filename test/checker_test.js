@@ -2,7 +2,6 @@
 
 const {expect} = require('chai');
 const {Readable} = require('stream');
-const {URL} = require('url');
 const File = require('vinyl');
 
 const pkg = require('../package.json');
