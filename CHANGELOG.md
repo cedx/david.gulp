@@ -1,5 +1,12 @@
 # Changelog
 
+## Version [12.0.0](https://github.com/cedx/gulp-david/compare/v11.0.0...v12.0.0)
+- Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Added a user guide based on [MkDocs](http://www.mkdocs.org).
+- Using the global `URL` class.
+- Updated the build system to [Gulp](https://gulpjs.com) version 4.
+- Updated the package dependencies.
+
 ## Version [11.0.0](https://github.com/cedx/gulp-david/compare/v10.0.0...v11.0.0)
 - Breaking change: changed the signature of the `Checker` constructor.
 - Updated the package dependencies.
