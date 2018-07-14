@@ -1,0 +1,42 @@
+site_name: Gulp-David
+site_description: Check your npm dependencies with the David plug-in for Gulp, the streaming build system.
+site_author: Cédric Belin - cedric@belin.io
+site_url: https://dev.belin.io/gulp-david
+
+docs_dir: doc
+site_dir: web
+
+repo_name: GitHub
+repo_url: https://github.com/cedx/gulp-david
+edit_uri: ''
+
+copyright: Copyright &copy; 2014 - 2018 Cédric Belin
+google_analytics:
+- !!python/object/apply:os.getenv [GOOGLE_ANALYTICS_ID]
+- auto
+
+extra:
+  social:
+  - {type: globe, link: 'https://belin.io'}
+  - {type: github, link: 'https://github.com/cedx'}
+  - {type: twitter, link: 'https://twitter.com/cedxbelin'}
+  - {type: linkedin, link: 'https://linkedin.com/in/cedxbelin'}
+
+markdown_extensions:
+- admonition
+- codehilite
+- meta
+
+pages:
+- Overview: index.md
+- Installation: installation.md
+- Usage: usage.md
+- About:
+  - Changelog: about/changelog.md
+  - License: about/license.md
+  - See also: about/see_also.md
+
+theme:
+  name: material
+  favicon: img/favicon.ico
+  palette: {primary: red, accent: red}
