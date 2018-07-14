@@ -20,16 +20,16 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
 ### Options
 The plug-in can be customized using these settings:
 
-- `error404: boolean = false` : If dependency not found, emit an error.
-- `errorDepCount: number = 0` : If greater than `0`, emit an error when the count of outdated dependencies equals or exceeds the specified value.
-- `errorDepType: boolean = false` : If dependency version is invalid (not a string), emit an error.
-- `errorSCM: boolean = false` : If dependency version is a source control URL, emit an error.
-- `ignore: Array = []`: Ignore the specified dependencies.
-- `registry: string = ""` : The [npm](https://www.npmjs.com) registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if empty.
-- `reporter: boolean|object = true`: Whether a report should be printed to the standard output. If it is an object, it will be used as reporter.
-- `unstable: boolean = false` : Use unstable dependencies.
-- `update: boolean|string = false` : Whether to update dependencies in the file contents to latest versions. If it is a string, it will be used as the operator in version comparators.
-- `verbose: boolean = false` : Whether to output the versions of all dependencies instead of only the outdated ones.
+- **error404**: boolean = `false` : If dependency not found, emit an error.
+- **errorDepCount**: number = `0` : If greater than `0`, emit an error when the count of outdated dependencies equals or exceeds the specified value.
+- **errorDepType**: boolean = `false` : If dependency version is invalid (not a string), emit an error.
+- **errorSCM**: boolean = `false` : If dependency version is a source control URL, emit an error.
+- **ignore**: string[] = `[]`: Ignore the specified dependencies.
+- **registry**: string = `""` : The [npm](https://www.npmjs.com) registry URL. Uses [registry.npmjs.org](https://registry.npmjs.org) if empty.
+- **reporter**: boolean | Object = `true`: Whether a report should be printed to the standard output. If it is an object, it will be used as reporter.
+- **unstable**: boolean = `false` : Use unstable dependencies.
+- **update**: boolean | string = `false` : Whether to update dependencies in the file contents to latest versions. If it is a string, it will be used as the operator in version comparators.
+- **verbose**: boolean = `false` : Whether to output the versions of all dependencies instead of only the outdated ones.
 
 ### Results
 The plug-in adds the following properties to the `file` object:
