@@ -20,13 +20,12 @@
     "esdoc-node": "^1.0.3",
     "esdoc-standard-plugin": "^1.0.0",
     "gulp": "^4.0.0",
-    "gulp-eslint": "^5.0.0",
     "mocha": "^5.2.0",
     "nyc": "^13.0.1",
     "vinyl": "^2.2.0"
   },
   "engines": {
-    "node": ">=10.7.0"
+    "node": ">=10.8.0"
   },
   "keywords": [
     "david",
