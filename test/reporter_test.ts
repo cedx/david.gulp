@@ -1,6 +1,6 @@
-const {expect} = require('chai');
-const File = require('vinyl');
-const {Reporter} = require('../lib/index.js');
+import {expect} from 'chai';
+const File from 'vinyl');
+const {Reporter} from '../lib';
 
 /**
  * @test {Reporter}

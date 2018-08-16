@@ -1,6 +1,7 @@
-const chalk = require('chalk');
-const {EOL} = require('os');
-const pkg = require('../package.json');
+const chalk from 'chalk');
+const {EOL} from 'os');
+// @ts-ignore: disable processing of the imported JSON file.
+import * as pkg from '../package.json';
 
 /**
  * Prints the checker results to the standard output.
@@ -11,7 +12,7 @@ class Reporter {
    * The class name.
    * @type {string}
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'Reporter';
   }
 
@@ -51,6 +52,3 @@ class Reporter {
     return lines.join(EOL);
   }
 }
-
-// Module exports.
-exports.Reporter = Reporter;

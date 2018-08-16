@@ -1,9 +1,10 @@
-const {expect} = require('chai');
-const {Readable} = require('stream');
-const File = require('vinyl');
+import {expect} from 'chai';
+const {Readable} from 'stream');
+const File from 'vinyl');
 
-const pkg = require('../package.json');
-const {Checker, Reporter} = require('../lib/index.js');
+// @ts-ignore: disable processing of the imported JSON file.
+import * as pkg from '../package.json';
+const {Checker, Reporter} from '../lib';
 
 /**
  * @test {Checker}

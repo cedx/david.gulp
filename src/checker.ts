@@ -1,8 +1,9 @@
-const {getDependencies, getUpdatedDependencies} = require('david');
-const {Transform} = require('stream');
-const {promisify} = require('util');
-const {Reporter} = require('./reporter.js');
-const pkg = require('../package.json');
+const {getDependencies, getUpdatedDependencies} from 'david');
+const {Transform} from 'stream');
+const {promisify} from 'util');
+const {Reporter} from './reporter.js');
+// @ts-ignore: disable processing of the imported JSON file.
+import * as pkg from '../package.json';
 
 /**
  * Checks whether the dependencies of a project are out of date.
@@ -70,7 +71,7 @@ class Checker extends Transform {
    * The class name.
    * @type {string}
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'Checker';
   }
 
@@ -200,6 +201,3 @@ class Checker extends Transform {
     return file;
   }
 }
-
-// Module exports.
-exports.Checker = Checker;
