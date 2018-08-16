@@ -47,7 +47,7 @@ gulp.task('lint', () => _exec('node_modules/.bin/tslint', sources));
 /**
  * Runs the unit tests.
  */
-gulp.task('test', () => _exec('node_modules/.bin/nyc', [normalize('node_modules/.bin/mocha'), 'test/**/*.ts']));
+gulp.task('test', () => _exec('node_modules/.bin/nyc', [normalize('node_modules/.bin/mocha')]));
 
 /**
  * Upgrades the project to the latest revision.
@@ -56,8 +56,8 @@ gulp.task('upgrade', async () => {
   await _exec('git', ['reset', '--hard']);
   await _exec('git', ['fetch', '--all', '--prune']);
   await _exec('git', ['pull', '--rebase']);
-  await _exec('npm', ['install']);
-  return _exec('npm', ['update']);
+  await _exec('npm', ['install', '--ignore-scripts']);
+  return _exec('npm', ['update', '--dev']);
 });
 
 /**
