@@ -1,5 +1,5 @@
-const {Checker} = require('./checker.js');
-const {Reporter} = require('./reporter.js');
+const {Checker} from './checker.js');
+const {Reporter} from './reporter.js');
 
 module.exports = {
   david: Checker.factory,
