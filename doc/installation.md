@@ -5,16 +5,16 @@ Before installing **Gulp-David**, you need to make sure you have [Node.js](https
 and [npm](https://www.npmjs.com), the Node.js package manager, up and running.
 
 !!! warning
-    Gulp-David requires Node.js >= **10.8.0**.
+    Gulp-David requires Node.js >= **10.9.0**.
     
 You can verify if you're already good to go with the following commands:
 
 ```shell
 node --version
-# v10.8.0
+# v10.9.0
 
 npm --version
-# 6.1.0
+# 6.2.0
 ```
 
 !!! info
@@ -31,7 +31,7 @@ npm install @cedx/gulp-david
 ```
 
 ### 2. Import it
-Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code, you can use:
+Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) or [TypeScript](https://www.typescriptlang.org) code, you can use:
 
 ```js
 const david = require('@cedx/gulp-david');

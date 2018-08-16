@@ -5,7 +5,7 @@ Once you're familiar with that process, you may install the plug-in.
 ## Programming interface
 The plug-in takes a [`package.json`](https://docs.npmjs.com/files/package.json) file as input, and scans its dependencies to check whether any one is outdated:
 
-```javascript
+```js
 const {david} = require('@cedx/gulp-david');
 const gulp = require('gulp');
 
@@ -34,7 +34,7 @@ The plug-in can be customized using these settings:
 ### Results
 The plug-in adds the following properties to the `file` object:
 
-```javascript
+```js
 file.david = {
   dependencies: {}, // Details about the required dependencies needing an update.
   devDependencies: {}, // Details about the development dependencies needing an update.
@@ -46,7 +46,7 @@ file.david = {
 By default, the plug-in prints to the standard output the list of outdated packages.
 You can disable this output by setting the `reporter` option to `false`.
 
-```javascript
+```js
 return gulp.src('package.json')
   .pipe(david({reporter: false}));
 ```
@@ -54,7 +54,7 @@ return gulp.src('package.json')
 You can also replace this reporter by your own implementation.
 Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david/blob/master/lib/reporter.js) for a code sample.
 
-```javascript
+```js
 return gulp.src('package.json')
   .pipe(david({reporter: new MyReporter}));
 ```
@@ -62,7 +62,7 @@ return gulp.src('package.json')
 ## Updating dependencies
 The plug-in lets you update dependencies in the manifest file to latest versions and save them back to the file system:
 
-```javascript
+```js
 return gulp.src('package.json')
   .pipe(david({update: true}))
   .pipe(gulp.dest('.'));
@@ -71,14 +71,14 @@ return gulp.src('package.json')
 By default, the plug-in will use the caret operator (e.g. `^`) to specifiy the version comparators in the manifest file.
 You can use a different operator by providing a string indicating the wanted one:
 
-```javascript
+```js
 gulp.src('package.json').pipe(david({update: '~'}));
 gulp.src('package.json').pipe(david({update: '>='}));
 ```
 
 In order to pin your dependencies, just use the equality operator:
 
-```javascript
+```js
 gulp.src('package.json').pipe(david({update: '='}));
 ```
 
