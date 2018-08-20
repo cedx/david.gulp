@@ -7,13 +7,13 @@ import * as pkg from '../package.json';
 const {Checker, Reporter} from '../lib';
 
 /**
- * @test {Checker}
+ * Tests the `Checker}
  */
 describe('Checker', function() {
   this.timeout(15000);
 
   /**
-   * @test {Checker.factory}
+   * Tests the `Checker.factory}
    */
   describe('.factory()', () => {
     it('should return a `Checker` with a `Reporter`', () => {
@@ -51,7 +51,7 @@ describe('Checker', function() {
   });
 
   /**
-   * @test {Checker#getDependencies}
+   * Tests the `Checker#getDependencies}
    */
   describe('#getDependencies()', () => {
     it('should return an object with 3 dependency properties', async () => {
@@ -68,7 +68,7 @@ describe('Checker', function() {
   });
 
   /**
-   * @test {Checker#getUpdatedDependencies}
+   * Tests the `Checker#getUpdatedDependencies}
    */
   describe('#getUpdatedDependencies()', () => {
     it('should return an object with 3 dependency properties', async () => {
@@ -83,7 +83,7 @@ describe('Checker', function() {
   });
 
   /**
-   * @test {Checker#parseManifest}
+   * Tests the `Checker#parseManifest}
    */
   describe('#parseManifest()', () => {
     it('should throw an error if the file is null', () => {
@@ -105,7 +105,7 @@ describe('Checker', function() {
   });
 
   /**
-   * @test {Checker#_transform}
+   * Tests the `Checker#_transform}
    */
   describe('#_transform()', () => {
     it('should throw an error if the manifest is invalid', async () => {

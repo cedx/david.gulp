@@ -3,12 +3,12 @@ const File from 'vinyl');
 const {Reporter} from '../lib';
 
 /**
- * @test {Reporter}
+ * Tests the `Reporter}
  */
 describe('Reporter', () => {
 
   /**
-   * @test {Reporter#log}
+   * Tests the `Reporter#log}
    */
   describe('#log()', () => {
     it('should throw an error if the "david" property is not found on the file object', () => {
@@ -17,7 +17,7 @@ describe('Reporter', () => {
   });
 
   /**
-   * @test {Reporter#_report}
+   * Tests the `Reporter#_report}
    */
   describe('#_report()', () => {
     let file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});
