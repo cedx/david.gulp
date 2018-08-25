@@ -1,5 +1,6 @@
 'use strict';
 
+/* tslint:disable: no-console */
 const {david} = require('@cedx/gulp-david');
 const {spawn} = require('child_process');
 const gulp = require('gulp');
@@ -9,7 +10,11 @@ const {normalize} = require('path');
  * Checks the package dependencies, and emits an error if some of them are outdated.
  */
 gulp.task('checkDependencies', () => gulp.src('package.json')
-  .pipe(david({error404: true, errorDepCount: 1, errorDepType: true}))
+  .pipe(david({
+    error404: true,
+    errorDepCount: 1,
+    errorDepType: true
+  }))
   .on('error', function(err) {
     console.error(err);
     this.emit('end');
@@ -34,8 +39,8 @@ gulp.task('updateManifest', () => gulp.src('package.json')
 /**
  * Upgrades the packages to latest versions.
  */
-gulp.task('upgradePackages:npmInstall', () => _exec('npm', ['install']));
-gulp.task('upgradePackages:npmUpdate', () => _exec('npm', ['update']));
+gulp.task('upgradePackages:npmInstall', () => _exec('npm', ['install', '--ignore-scripts']));
+gulp.task('upgradePackages:npmUpdate', () => _exec('npm', ['update', '--dev']));
 gulp.task('upgradePackages', gulp.series('updateManifest', 'upgradePackages:npmInstall'));
 
 /**
