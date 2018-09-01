@@ -1,10 +1,10 @@
-'use strict';
-
 /* tslint:disable: no-console */
-const {david} = require('@cedx/gulp-david');
-const {spawn} = require('child_process');
-const gulp = require('gulp');
-const {normalize} = require('path');
+
+// @ts-ignore
+import {david} from '@cedx/gulp-david';
+import {spawn, SpawnOptions} from 'child_process';
+import * as gulp from 'gulp';
+import {normalize} from 'path';
 
 /**
  * Checks the package dependencies, and emits an error if some of them are outdated.
@@ -15,7 +15,7 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
     errorDepCount: 1,
     errorDepType: true
   }))
-  .on('error', function(err) {
+  .on('error', function(this: NodeJS.ReadWriteStream, err: Error) {
     console.error(err);
     this.emit('end');
   })
@@ -50,13 +50,13 @@ gulp.task('default', gulp.task('upgradePackages'));
 
 /**
  * Spawns a new process using the specified command.
- * @param {string} command The command to run.
- * @param {string[]} [args] The command arguments.
- * @param {Object} [options] The settings to customize how the process is spawned.
- * @return {Promise} Completes when the command is finally terminated.
+ * @param command The command to run.
+ * @param args The command arguments.
+ * @param options The settings to customize how the process is spawned.
+ * @return Completes when the command is finally terminated.
  */
-function _exec(command, args = [], options = {shell: true, stdio: 'inherit'}) {
-  return new Promise((resolve, reject) => spawn(normalize(command), args, options)
-    .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : resolve())
+function _exec(command: string, args: string[] = [], options: SpawnOptions = {}): Promise<void> {
+  return new Promise((fulfill, reject) => spawn(normalize(command), args, Object.assign({shell: true, stdio: 'inherit'}, options))
+    .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : fulfill())
   );
 }
