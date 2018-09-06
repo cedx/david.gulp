@@ -2,7 +2,6 @@ import {Checker, CheckerOptions} from './checker';
 import {Reporter} from './reporter';
 
 export * from './checker';
-export * from './map';
 export * from './reporter';
 
 /**
