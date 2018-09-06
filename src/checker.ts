@@ -54,7 +54,7 @@ export class Checker extends Transform {
   verbose: boolean;
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new checker.
    * @param options An object specifying values used to initialize this instance.
    */
   constructor(options: Partial<CheckerOptions> = {}) {
