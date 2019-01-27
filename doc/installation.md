@@ -5,16 +5,16 @@ Before installing **Gulp-David**, you need to make sure you have [Node.js](https
 and [npm](https://www.npmjs.com), the Node.js package manager, up and running.
 
 !!! warning
-    Gulp-David requires Node.js >= **10.13.0**.
+    Gulp-David requires Node.js >= **10.15.0**.
     
 You can verify if you're already good to go with the following commands:
 
 ```shell
 node --version
-# v10.13.0
+# v10.15.0
 
 npm --version
-# 6.4.1
+# 6.5.0
 ```
 
 !!! info
@@ -36,3 +36,7 @@ Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript
 ```js
 const david = require('@cedx/gulp-david');
 ```
+
+!!! info
+    This library is packaged as [CommonJS modules](https://nodejs.org/api/modules.html) (`.js` files)
+    and [ECMAScript modules](https://nodejs.org/api/esm.html) (`.mjs` files).

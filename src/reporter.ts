@@ -20,14 +20,12 @@ export interface Reporter {
 /**
  * Prints the checker results to the standard output.
  */
-export class StdoutReporter implements Reporter {
+export class ConsoleReporter implements Reporter {
 
   /**
    * The class name.
    */
-  get [Symbol.toStringTag](): string {
-    return 'Reporter';
-  }
+  readonly [Symbol.toStringTag]: string = 'ConsoleReporter';
 
   /**
    * Logs to the standard output the outdated dependencies provided by the specified file.
