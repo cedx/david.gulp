@@ -31,12 +31,11 @@ npm install @cedx/gulp-david
 ```
 
 ### 2. Import it
-Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) or [TypeScript](https://www.typescriptlang.org) code, you can use:
+Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code, you can use:
 
 ```js
-const david = require('@cedx/gulp-david');
+const {david} = require('@cedx/gulp-david');
 ```
 
 !!! info
-    This library is packaged as [CommonJS modules](https://nodejs.org/api/modules.html) (`.js` files)
-    and [ECMAScript modules](https://nodejs.org/api/esm.html) (`.mjs` files).
+    This library is packaged as [CommonJS modules](https://nodejs.org/api/modules.html) (`.js` files).
