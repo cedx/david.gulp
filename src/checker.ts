@@ -6,12 +6,17 @@ import * as File from 'vinyl';
 // @ts-ignore: disable processing of the imported JSON file.
 import * as pkg from '../package.json';
 import {JsonMap} from './map';
-import {Reporter} from './reporter';
+import {ConsoleReporter, Reporter} from './reporter';
 
 /**
  * Checks whether the dependencies of a project are out of date.
  */
 export class Checker extends Transform {
+
+  /**
+   * The class name.
+   */
+  readonly [Symbol.toStringTag]: string = 'Checker';
 
   /**
    * The condition indicating that an error occurred.
@@ -63,7 +68,7 @@ export class Checker extends Transform {
     const {
       ignore = [],
       registry = 'https://registry.npmjs.org',
-      reporter = new Reporter,
+      reporter = new ConsoleReporter,
       unstable = false,
       update = '',
       verbose = false
@@ -75,13 +80,6 @@ export class Checker extends Transform {
     this.unstable = unstable;
     this.update = update;
     this.verbose = verbose;
-  }
-
-  /**
-   * The class name.
-   */
-  get [Symbol.toStringTag](): string {
-    return 'Checker';
   }
 
   /**
