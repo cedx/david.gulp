@@ -3,11 +3,14 @@
 
 Check your [npm](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plug-in for [Gulp](https://gulpjs.com), the streaming build system.
 
-## Resources
-- [Documentation](https://dev.belin.io/gulp-david)
-- [API reference](https://dev.belin.io/gulp-david/api)
-- [npm package](https://www.npmjs.com/package/@cedx/gulp-david)
-- [GitHub repository](https://github.com/cedx/gulp-david)
+## Documentation
+- [User guide](https://dev.belin.io/david)
+- [API reference](https://dev.belin.io/david/api)
+
+## Development
+- [Git repository](https://github.com/cedx/david)
+- [npm package](https://www.npmjs.com/package/@cedx/david)
+- [Submit an issue](https://github.com/cedx/david/issues)
 
 ## License
 [Gulp-David](https://dev.belin.io/gulp-david) is distributed under the MIT License.
