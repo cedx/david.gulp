@@ -1,3 +1,5 @@
+'use strict';
+
 /* tslint:disable: no-console */
 const {david} = require('@cedx/gulp-david');
 const {spawn} = require('child_process');
