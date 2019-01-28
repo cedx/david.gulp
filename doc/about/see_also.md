@@ -3,7 +3,7 @@
 ## Development
 - [API reference](https://dev.belin.io/gulp-david/api)
 - [npm package](https://www.npmjs.com/package/@cedx/gulp-david)
-- [Gulp API docs](https://github.com/gulpjs/gulp/blob/master/docs/API.md)
+- [Gulp API docs](https://github.com/gulpjs/gulp/tree/master/docs/api)
 
 ## Testing
 - [Continuous integration](https://travis-ci.com/cedx/gulp-david)
