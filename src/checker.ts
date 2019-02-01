@@ -75,7 +75,7 @@ export class Checker extends Transform {
     } = options;
 
     this.ignore = ignore;
-    this.registry = typeof registry == 'string' ? new URL(registry) : registry;
+    this.registry = registry instanceof URL ? registry : new URL(registry);
     this.reporter = reporter;
     this.unstable = unstable;
     this.update = update;
@@ -155,7 +155,7 @@ export class Checker extends Transform {
 
   /**
    * Gets details about project dependencies.
-   * @param {function} getter The function invoked to fetch the dependency details.
+   * @param getter The function invoked to fetch the dependency details.
    * @param manifest The manifest providing the list of dependencies.
    * @return An object providing details about the project dependencies.
    */
