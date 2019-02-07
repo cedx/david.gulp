@@ -1,5 +1,6 @@
 /* tslint:disable: no-console */
 import chalk from 'chalk';
+import {Dependency} from 'david';
 import {EOL} from 'os';
 import * as File from 'vinyl';
 // @ts-ignore: disable processing of the imported JSON file.
@@ -51,8 +52,7 @@ export class ConsoleReporter implements Reporter {
     else for (const type of types) {
       lines.push(type);
 
-      const deps = file.david[type];
-      for (const [name, dependency] of Object.entries(deps)) {
+      for (const [name, dependency] of Object.entries(file.david[type]) as [string, Partial<Dependency>][]) {
         const requiredVersion = chalk.red(dependency.required || '*');
         const stableVersion = chalk.green(dependency.stable || '*');
         const latestVersion = chalk.yellow(dependency.latest || '*');
