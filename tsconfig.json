@@ -5,8 +5,10 @@
     "experimentalDecorators": true,
     "module": "commonjs",
     "outDir": "lib",
+    "removeComments": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es2018"
+    "target": "es2018",
+    "typeRoots" : ["node_modules/@types", "src/types"]
   }
 }
