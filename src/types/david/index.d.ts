@@ -44,7 +44,7 @@ declare module 'david' {
    * A function that gets a list of dependencies for the passed manifest.
    */
   export interface GetDependenciesCallback {
-    (error?: Error, result?: DependencyMap): void;
+    (error: Error | null, result: DependencyMap): void;
   }
 
   /**
@@ -102,6 +102,11 @@ declare module 'david' {
      * For each dependency, return the available versions for the range specified in the `package.json` file.
      */
     rangeVersions: boolean;
+
+    /**
+     * Consider only stable packages.
+     */
+    stable: boolean;
 
     /**
      * For each dependency, return the available versions.
