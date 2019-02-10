@@ -1,7 +1,7 @@
 /* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
-import {Checker, david, Reporter} from '../src';
+import {Checker, david, ConsoleReporter} from '../src';
 
 /**
  * Tests the features of the factory function.
@@ -12,10 +12,10 @@ import {Checker, david, Reporter} from '../src';
    * Tests the `david()` function.
    */
   @test testDavid(): void {
-    // It should return a `Checker` with a `Reporter`.
+    // It should return a `Checker` with a `ConsoleReporter`.
     let checker = david();
     expect(checker).to.be.instanceof(Checker);
-    expect(checker.reporter).to.be.instanceof(Reporter);
+    expect(checker.reporter).to.be.instanceof(ConsoleReporter);
 
     // It should properly initialize the instance properties.
     checker = david({
@@ -26,7 +26,7 @@ import {Checker, david, Reporter} from '../src';
       ignore: ['@cedx/gulp-david'],
       registry: 'https://dev.belin.io/gulp-david',
       reporter: {
-        [Symbol.toStringTag]: 'Reporter',
+        [Symbol.toStringTag]: 'ConsoleReporter',
         log(_: File) {}
       },
       unstable: true,
