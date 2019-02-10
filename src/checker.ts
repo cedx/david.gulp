@@ -1,4 +1,4 @@
-import {getDependencies, getUpdatedDependencies} from 'david';
+import {Dependency, DependencyMap, GetDependenciesFunction, GetDependenciesOptions, getDependencies, getUpdatedDependencies} from 'david';
 import {Transform, TransformCallback} from 'stream';
 import {promisify} from 'util';
 import * as File from 'vinyl';
@@ -41,7 +41,7 @@ export class Checker extends Transform {
   /**
    * The instance used to output the report.
    */
-  reporter: Reporter;
+  reporter: Reporter | null;
 
   /**
    * Value indicating whether to use unstable dependencies.
@@ -67,7 +67,7 @@ export class Checker extends Transform {
 
     const {
       ignore = [],
-      registry = 'https://registry.npmjs.org',
+      registry = new URL('https://registry.npmjs.org'),
       reporter = new ConsoleReporter,
       unstable = false,
       update = '',
@@ -75,7 +75,7 @@ export class Checker extends Transform {
     } = options;
 
     this.ignore = ignore;
-    this.registry = registry instanceof URL ? registry : new URL(registry);
+    this.registry = registry;
     this.reporter = reporter;
     this.unstable = unstable;
     this.update = update;
@@ -87,7 +87,7 @@ export class Checker extends Transform {
    * @param manifest The manifest providing the dependencies.
    * @return An object providing details about the dependencies.
    */
-  async getDependencies(manifest: JsonMap): Promise<JsonMap> {
+  async getDependencies(manifest: JsonMap): Promise<DependencyReport> {
     return this._getDependencies(getDependencies, manifest);
   }
 
@@ -96,7 +96,7 @@ export class Checker extends Transform {
    * @param manifest The manifest providing the dependencies.
    * @return An object providing details about the dependencies that are outdated.
    */
-  async getUpdatedDependencies(manifest: JsonMap): Promise<JsonMap> {
+  async getUpdatedDependencies(manifest: JsonMap): Promise<DependencyReport> {
     return this._getDependencies(getUpdatedDependencies, manifest);
   }
 
@@ -133,14 +133,17 @@ export class Checker extends Transform {
       if (this.reporter) this.reporter.log(file);
 
       if (this.update.length) {
-        const version = this.unstable ? 'latest' : 'stable';
-        for (const type of Object.keys(deps))
-          for (const [name, dependency] of Object.entries(deps[type])) manifest[type][name] = this.update + dependency[version];
+        for (const type of Object.keys(deps)) {
+          const map = deps[type] as DependencyMap;
+          for (const [name, dependency] of Object.entries(deps[type]) as [string, Partial<Dependency>][])
+            manifest[type][name] = this.update + (this.unstable ? dependency.latest : dependency.stable);
+        }
 
         file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding);
       }
 
       const count = Object.keys(deps).reduce((previousValue, type) => previousValue + Object.keys(deps[type]).length, 0);
+
       if (this.error.depCount > 0 && count >= this.error.depCount) throw new Error(`Outdated dependencies: ${count}`);
       if (callback) callback(undefined, file);
     }
@@ -159,8 +162,8 @@ export class Checker extends Transform {
    * @param manifest The manifest providing the list of dependencies.
    * @return An object providing details about the project dependencies.
    */
-  private async _getDependencies(getter, manifest: JsonMap): Promise<JsonMap> {
-    const options: JsonMap = {
+  private async _getDependencies(getter: GetDependenciesFunction, manifest: JsonMap): Promise<DependencyReport> {
+    const options: Partial<GetDependenciesOptions> = {
       error: {E404: this.error['404'], EDEPTYPE: this.error.depType, ESCM: this.error.scm},
       ignore: this.ignore,
       loose: true,
@@ -171,7 +174,7 @@ export class Checker extends Transform {
       registry: this.registry.href
     };
 
-    const getDeps = promisify(getter);
+    const getDeps = promisify<object, Partial<GetDependenciesOptions>, DependencyMap>(getter);
     const [dependencies, devDependencies, optionalDependencies] = await Promise.all([
       getDeps(manifest, Object.assign({}, options, {dev: false, optional: false})),
       getDeps(manifest, Object.assign({}, options, {dev: true, optional: false})),
@@ -195,7 +198,7 @@ export interface CheckerOptions {
   /**
    * The [npm](https://www.npmjs.com) registry URL.
    */
-  registry: string | URL;
+  registry: URL;
 
   /**
    * The instance used to output the report.
@@ -216,6 +219,27 @@ export interface CheckerOptions {
    * Value indicating whether to output the versions of all dependencies instead of only the outdated ones.
    */
   verbose: boolean;
+}
+
+/**
+ * Provides information about a package dependencies.
+ */
+export interface DependencyReport {
+
+  /**
+   * Information about the dependencies.
+   */
+  dependencies: DependencyMap;
+
+  /**
+   * Information about the development dependencies.
+   */
+  devDependencies: DependencyMap;
+
+  /**
+   * Information about the optional dependencies.
+   */
+  optionalDependencies: DependencyMap;
 }
 
 /**
