@@ -2,36 +2,30 @@
 import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
 import * as File from 'vinyl';
-import {Reporter} from '../src';
+import {ConsoleReporter} from '../src';
 
 /**
- * Tests the features of the `Reporter` class.
+ * Tests the features of the `ConsoleReporter` class.
  */
-@suite class ReporterTest {
+@suite class ConsoleReporterTest {
 
   /**
-   * Tests the `Reporter#log}
+   * Tests the `ConsoleReporter#log` method.
    */
   @test testLog(): void {
-    // It should throw an error if the "david" property is not found on the file object.
-    expect(() => (new Reporter).log(new File)).to.throw();
-  }
-
-  /**
-   * Tests the `Reporter#_report}
-   */
-  @test testReport(): void {
     const file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});
     file.david = {};
 
+    // It should throw an error if the "david" property is not found on the file object.
+    expect(() => (new ConsoleReporter).log(new File)).to.throw();
+
     // It should output the file path.
-    let output = (new Reporter)._report(file);
+    let output = (new ConsoleReporter).log(file, true);
     expect(output).to.contain(file.path);
 
     // It should output "All dependencies up to date." if there is no outdated dependencies.
-    output = (new Reporter)._report(file);
-    expect(output).to.contain(file.path);
-    expect(output).to.contain('All dependencies up to date.');
+    output = (new ConsoleReporter).log(file, true);
+    expect(output).to.contain(file.path).and.contain('All dependencies up to date.');
 
     // It should output the package names and versions if there is some outdated dependencies.
     file.david = {
@@ -40,7 +34,7 @@ import {Reporter} from '../src';
       }
     };
 
-    output = (new Reporter)._report(file);
+    output = (new ConsoleReporter).log(file, true);
     expect(output).to.contain('dependencies')
       .and.contain('foobar')
       .and.contain('required:')
