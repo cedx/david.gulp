@@ -32,6 +32,14 @@ gulp.task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web'
 gulp.task('coverage', () => _exec('coveralls', ['var/lcov.info']));
 
 /**
+ * Checks the package dependencies.
+ */
+gulp.task('deps', () => {
+  const {david} = require('./lib');
+  return gulp.src('package.json').pipe(david());
+});
+
+/**
  * Builds the documentation.
  */
 gulp.task('doc', async () => {
