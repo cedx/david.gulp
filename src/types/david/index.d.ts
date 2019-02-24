@@ -44,6 +44,7 @@ declare module 'david' {
    * A function that gets a list of dependencies for the passed manifest.
    */
   export interface GetDependenciesCallback {
+    // tslint:disable:next-line: callable-types
     (error: Error | null, result: DependencyMap): void;
   }
 
@@ -51,6 +52,7 @@ declare module 'david' {
    * A function that gets a list of dependencies for the passed manifest.
    */
   export interface GetDependenciesFunction {
+    // tslint:disable:next-line: callable-types
     (manifest: object, opts: Partial<GetDependenciesOptions>, cb: GetDependenciesCallback): void;
   }
 

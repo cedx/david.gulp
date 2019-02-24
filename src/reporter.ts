@@ -56,7 +56,7 @@ export class ConsoleReporter implements Reporter {
     else for (const type of types) {
       lines.push(type);
 
-      for (const [name, dependency] of Object.entries(file.david[type]) as [string, Partial<Dependency>][]) {
+      for (const [name, dependency] of Object.entries(file.david[type]) as Array<[string, Partial<Dependency>]>) {
         const requiredVersion = chalk.red(dependency.required || '*');
         const stableVersion = chalk.green(dependency.stable || '*');
         const latestVersion = chalk.yellow(dependency.latest || '*');

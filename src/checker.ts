@@ -1,4 +1,4 @@
-import {Dependency, DependencyMap, GetDependenciesFunction, GetDependenciesOptions, getDependencies, getUpdatedDependencies} from 'david';
+import {Dependency, DependencyMap, getDependencies, GetDependenciesFunction, GetDependenciesOptions, getUpdatedDependencies} from 'david';
 import {Transform, TransformCallback} from 'stream';
 import {promisify} from 'util';
 import * as File from 'vinyl';
@@ -133,17 +133,14 @@ export class Checker extends Transform {
       if (this.reporter) this.reporter.log(file);
 
       if (this.update.length) {
-        for (const type of Object.keys(deps)) {
-          const map = deps[type] as DependencyMap;
-          for (const [name, dependency] of Object.entries(deps[type]) as [string, Partial<Dependency>][])
+        for (const type of Object.keys(deps))
+          for (const [name, dependency] of Object.entries(deps[type]) as Array<[string, Partial<Dependency>]>)
             manifest[type][name] = this.update + (this.unstable ? dependency.latest : dependency.stable);
-        }
 
         file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding);
       }
 
       const count = Object.keys(deps).reduce((previousValue, type) => previousValue + Object.keys(deps[type]).length, 0);
-
       if (this.error.depCount > 0 && count >= this.error.depCount) throw new Error(`Outdated dependencies: ${count}`);
       if (callback) callback(undefined, file);
     }
@@ -225,6 +222,11 @@ export interface CheckerOptions {
  * Provides information about a package dependencies.
  */
 export interface DependencyReport {
+
+  /**
+   * Gets or sets the value for the given key.
+   */
+  [key: string]: DependencyMap;
 
   /**
    * Information about the dependencies.
