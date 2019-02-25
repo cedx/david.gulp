@@ -1,7 +1,8 @@
 /* tslint:disable: no-unused-expression */
 import {expect} from 'chai';
 import {suite, test} from 'mocha-typescript';
-import {Checker, david, ConsoleReporter} from '../src';
+import * as File from 'vinyl';
+import {Checker, ConsoleReporter, david} from '../src';
 
 /**
  * Tests the features of the factory function.
@@ -25,10 +26,7 @@ import {Checker, david, ConsoleReporter} from '../src';
       errorSCM: true,
       ignore: ['@cedx/gulp-david'],
       registry: 'https://dev.belin.io/gulp-david',
-      reporter: {
-        [Symbol.toStringTag]: 'ConsoleReporter',
-        log(_: File) {}
-      },
+      reporter: {log(file: File) { /* Noop */ }},
       unstable: true,
       update: '='
     });
@@ -42,7 +40,7 @@ import {Checker, david, ConsoleReporter} from '../src';
 
     expect(checker.ignore).to.include('@cedx/gulp-david');
     expect(checker.registry).to.be.instanceOf(URL).and.have.property('href').that.equal('https://dev.belin.io/gulp-david');
-    expect(checker.reporter).to.be.an('object').and.have.property('foo');
+    expect(checker.reporter).to.be.an('object').and.have.property('log');
     expect(checker.unstable).to.be.true;
     expect(checker.update).to.equal('=');
   }

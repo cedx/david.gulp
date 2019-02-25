@@ -24,18 +24,20 @@ class CheckerTest {
     expect(checker.reporter).to.be.instanceof(ConsoleReporter);
 
     // It should properly initialize the instance properties.
-    /*
     checker = new Checker({
-      error404: true,
-      errorDepCount: 123,
-      errorDepType: true,
-      errorSCM: true,
       ignore: ['@cedx/gulp-david'],
       registry: new URL('https://dev.belin.io/gulp-david'),
-      reporter: {foo: 'bar'},
+      reporter: {log(file: File) { /* Noop */ }},
       unstable: true,
       update: '='
     });
+
+    checker.error = {
+      404: true,
+      depCount: 123,
+      depType: true,
+      scm: true
+    };
 
     expect(checker.error).to.deep.equal({
       404: true,
@@ -46,10 +48,9 @@ class CheckerTest {
 
     expect(checker.ignore).to.include('@cedx/gulp-david');
     expect(checker.registry).to.be.instanceOf(URL).and.have.property('href').that.equal('https://dev.belin.io/gulp-david');
-    expect(checker.reporter).to.be.an('object').and.have.property('foo');
+    expect(checker.reporter).to.be.an('object').and.have.property('log');
     expect(checker.unstable).to.be.true;
     expect(checker.update).to.equal('=');
-    */
   }
 
   /**
@@ -104,9 +105,11 @@ class CheckerTest {
    * Tests the `Checker#_transform` method.
    */
   @test async testTransform(): Promise<void> {
+    let input;
+
     // It should throw an error if the manifest is invalid.
     try {
-      const input = new File({contents: Buffer.from('FooBar')});
+      input = new File({contents: Buffer.from('FooBar')});
       await (new Checker)._transform(input);
       expect(true).to.not.be.ok;
     }
@@ -116,7 +119,7 @@ class CheckerTest {
     }
 
     // It should add a "david" property to the file object.
-    const input = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
+    input = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}')});
     const file = await (new Checker)._transform(input);
     expect(file).to.have.property('david').that.is.an('object');
   }
