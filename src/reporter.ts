@@ -49,7 +49,7 @@ export class ConsoleReporter implements Reporter {
    */
   private _report(file: File): string {
     const lines: string[] = [];
-    lines.push(chalk.bold(file.path));
+    lines.push(chalk.bold(typeof file.path == 'string' ? file.path : 'package.json'));
 
     const types = Object.keys(file.david).filter(type => Object.keys(file.david[type]).length > 0);
     if (!types.length) lines.push(chalk.green('  All dependencies up to date.'));

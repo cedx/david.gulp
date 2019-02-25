@@ -134,13 +134,13 @@ export class Checker extends Transform {
 
       if (this.update.length) {
         for (const type of Object.keys(deps))
-          for (const [name, dependency] of Object.entries(deps[type]) as Array<[string, Partial<Dependency>]>)
+          for (const [name, dependency] of Object.entries(deps[type]!) as Array<[string, Partial<Dependency>]>)
             manifest[type][name] = this.update + (this.unstable ? dependency.latest : dependency.stable);
 
         file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding);
       }
 
-      const count = Object.keys(deps).reduce((previousValue, type) => previousValue + Object.keys(deps[type]).length, 0);
+      const count = Object.keys(deps).reduce((previousValue, type) => previousValue + Object.keys(deps[type]!).length, 0);
       if (this.error.depCount > 0 && count >= this.error.depCount) throw new Error(`Outdated dependencies: ${count}`);
       if (callback) callback(undefined, file);
     }
@@ -226,7 +226,7 @@ export interface DependencyReport {
   /**
    * Gets or sets the value for the given key.
    */
-  [key: string]: DependencyMap;
+  [key: string]: DependencyMap | undefined;
 
   /**
    * Information about the dependencies.

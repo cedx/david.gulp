@@ -37,7 +37,7 @@ declare module 'david' {
     /**
      * Gets metrics for the given dependency name.
      */
-    [key: string]: Partial<Dependency>;
+    [key: string]: Partial<Dependency> | undefined;
   }
 
   /**

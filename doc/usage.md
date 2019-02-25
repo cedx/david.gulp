@@ -52,7 +52,7 @@ return gulp.src('package.json')
 ```
 
 You can also replace this reporter by your own implementation.
-Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david/blob/master/lib/reporter.js) for a code sample.
+Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david/blob/master/src/reporter.ts) for a code sample.
 
 ```js
 return gulp.src('package.json')
