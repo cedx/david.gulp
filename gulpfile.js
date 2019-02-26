@@ -2,7 +2,7 @@
 const {spawn} = require('child_process');
 const del = require('del');
 const {promises} = require('fs');
-const gulp = require('gulp');
+const {src, task, watch} = require('gulp');
 const {delimiter, normalize, resolve} = require('path');
 
 // Initialize the build system.
@@ -19,30 +19,30 @@ const sources = ['*.js', 'example/*.ts', 'src/**/*.ts', 'test/**/*.ts'];
 /**
  * Builds the project.
  */
-gulp.task('build', () => _exec('tsc'));
+task('build', () => _exec('tsc'));
 
 /**
  * Deletes all generated files and reset any saved state.
  */
-gulp.task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
+task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
 
 /**
  * Uploads the results of the code coverage.
  */
-gulp.task('coverage', () => _exec('coveralls', ['var/lcov.info']));
+task('coverage', () => _exec('coveralls', ['var/lcov.info']));
 
 /**
  * Checks the package dependencies.
  */
-gulp.task('deps', () => {
+task('deps', () => {
   const {david} = require('./lib');
-  return gulp.src('package.json').pipe(david());
+  return src('package.json').pipe(david());
 });
 
 /**
  * Builds the documentation.
  */
-gulp.task('doc', async () => {
+task('doc', async () => {
   await promises.copyFile('CHANGELOG.md', 'doc/about/changelog.md');
   await promises.copyFile('LICENSE.md', 'doc/about/license.md');
   await _exec('typedoc');
@@ -52,22 +52,22 @@ gulp.task('doc', async () => {
 /**
  * Fixes the coding standards issues.
  */
-gulp.task('fix', () => _exec('tslint', ['--fix', ...sources]));
+task('fix', () => _exec('tslint', ['--fix', ...sources]));
 
 /**
  * Performs the static analysis of source code.
  */
-gulp.task('lint', () => _exec('tslint', sources));
+task('lint', () => _exec('tslint', sources));
 
 /**
  * Runs the test suites.
  */
-gulp.task('test', () => _exec('nyc', [normalize('node_modules/.bin/mocha'), 'test/**/*.ts']));
+task('test', () => _exec('nyc', [normalize('node_modules/.bin/mocha'), 'test/**/*.ts']));
 
 /**
  * Upgrades the project to the latest revision.
  */
-gulp.task('upgrade', async () => {
+task('upgrade', async () => {
   await _exec('git', ['reset', '--hard']);
   await _exec('git', ['fetch', '--all', '--prune']);
   await _exec('git', ['pull', '--rebase']);
@@ -78,15 +78,15 @@ gulp.task('upgrade', async () => {
 /**
  * Watches for file changes.
  */
-gulp.task('watch', () => {
-  gulp.watch('src/**/*.ts', {ignoreInitial: false}, gulp.task('build'));
-  gulp.watch('test/**/*.ts', gulp.task('test'));
+task('watch', () => {
+  watch('src/**/*.ts', {ignoreInitial: false}, task('build'));
+  watch('test/**/*.ts', task('test'));
 });
 
 /**
  * Runs the default tasks.
  */
-gulp.task('default', gulp.task('build'));
+task('default', task('build'));
 
 /**
  * Spawns a new process using the specified command.

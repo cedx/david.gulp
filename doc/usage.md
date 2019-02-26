@@ -7,10 +7,11 @@ The plug-in takes a [`package.json`](https://docs.npmjs.com/files/package.json) 
 
 ```js
 const {david} = require('@cedx/gulp-david');
-const gulp = require('gulp');
+const {src, task} = require('gulp');
 
-gulp.task('checkDependencies', () => gulp.src('package.json')
-  .pipe(david()).on('error', function(err) {
+task('checkDependencies', () => src('package.json')
+  .pipe(david())
+  .on('error', function(err) {
     console.error(err);
     this.emit('end');
   })
@@ -47,25 +48,37 @@ By default, the plug-in prints to the standard output the list of outdated packa
 You can disable this output by setting the `reporter` option to `false`.
 
 ```js
-return gulp.src('package.json')
-  .pipe(david({reporter: false}));
+const {david} = require('@cedx/gulp-david');
+const {src, task} = require('gulp');
+
+task('checkDependencies', () =>
+  src('package.json').pipe(david({reporter: false}))
+);
 ```
 
 You can also replace this reporter by your own implementation.
 Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david/blob/master/src/reporter.ts) for a code sample.
 
 ```js
-return gulp.src('package.json')
-  .pipe(david({reporter: new MyReporter}));
+const {david} = require('@cedx/gulp-david');
+const {src, task} = require('gulp');
+
+task('checkDependencies', () =>
+  src('package.json').pipe(david({reporter: new MyReporter}))
+);
 ```
 
 ## Updating dependencies
 The plug-in lets you update dependencies in the manifest file to latest versions and save them back to the file system:
 
 ```js
-return gulp.src('package.json')
+const {david} = require('@cedx/gulp-david');
+const {dest, src, task} = require('gulp');
+
+task('updateDependencies', () => src('package.json')
   .pipe(david({update: true}))
-  .pipe(gulp.dest('.'));
+  .pipe(dest('.'))
+);
 ```
 
 By default, the plug-in will use the caret operator (e.g. `^`) to specifiy the version comparators in the manifest file.
@@ -79,7 +92,12 @@ gulp.src('package.json').pipe(david({update: '>='}));
 In order to pin your dependencies, just use the equality operator:
 
 ```js
-gulp.src('package.json').pipe(david({update: '='}));
+const {david} = require('@cedx/gulp-david');
+const {src, task} = require('gulp');
+
+task('updateDependencies', () =>
+  src('package.json').pipe(david({update: '='}))
+);
 ```
 
 ## Examples
