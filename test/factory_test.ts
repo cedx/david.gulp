@@ -15,8 +15,8 @@ import {Checker, ConsoleReporter, david} from '../src';
   @test testDavid(): void {
     // It should return a `Checker` with a `ConsoleReporter`.
     let checker = david();
-    expect(checker).to.be.instanceof(Checker);
-    expect(checker.reporter).to.be.instanceof(ConsoleReporter);
+    expect(checker).to.be.an.instanceof(Checker);
+    expect(checker.reporter).to.be.an.instanceof(ConsoleReporter);
 
     // It should properly initialize the instance properties.
     checker = david({

@@ -20,8 +20,8 @@ class CheckerTest {
   @test testFactory(): void {
     // It should return a `Checker` with a `ConsoleReporter`.
     let checker = new Checker;
-    expect(checker).to.be.instanceof(Checker);
-    expect(checker.reporter).to.be.instanceof(ConsoleReporter);
+    expect(checker).to.be.an.instanceof(Checker);
+    expect(checker.reporter).to.be.an.instanceof(ConsoleReporter);
 
     // It should properly initialize the instance properties.
     checker = new Checker({
@@ -115,7 +115,7 @@ class CheckerTest {
     }
 
     catch (err) {
-      expect(err).to.be.instanceof(Error);
+      expect(err).to.be.an.instanceof(Error);
     }
 
     // It should add a "david" property to the file object.
