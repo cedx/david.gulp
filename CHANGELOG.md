@@ -116,11 +116,11 @@
 - Updated the package dependencies.
 
 ## Version [0.4.2](https://github.com/cedx/gulp-david/compare/v0.4.1...v0.4.2)
-- Implemented the [request #9](https://github.com/cedx/david.gulp/issues/9): allow other operators than the caret in manifest updates.
+- Implemented the [request #9](https://github.com/cedx/gulp-david/issues/9): allow other operators than the caret in manifest updates.
 - Updated the package dependencies.
 
 ## Version [0.4.1](https://github.com/cedx/gulp-david/compare/v0.3.4...v0.4.1)
-- Implemented the [request #6](https://github.com/cedx/david.gulp/issues/6): merge the reporting feature into the main transformer.
+- Implemented the [request #6](https://github.com/cedx/gulp-david/issues/6): merge the reporting feature into the main transformer.
 - Breaking change: the report transformer is replaced by a logger.
 - Updated the package dependencies.
 
@@ -128,7 +128,7 @@
 - Added support for code coverage.
 
 ## Version [0.3.3](https://github.com/cedx/gulp-david/compare/v0.3.2...v0.3.3)
-- Implemented the [request #3](https://github.com/cedx/david.gulp/issues/3): added an `errorDepCount` option to the checker.
+- Implemented the [request #3](https://github.com/cedx/gulp-david/issues/3): added an `errorDepCount` option to the checker.
 
 ## Version [0.3.2](https://github.com/cedx/gulp-david/compare/v0.3.1...v0.3.2)
 - Changed licensing for the [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
