@@ -14,11 +14,6 @@ import {ConsoleReporter, Reporter} from './reporter';
 export class Checker extends Transform {
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'Checker';
-
-  /**
    * The condition indicating that an error occurred.
    */
   error: ErrorCondition = {

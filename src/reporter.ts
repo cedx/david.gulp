@@ -24,11 +24,6 @@ export interface Reporter {
 export class ConsoleReporter implements Reporter {
 
   /**
-   * The class name.
-   */
-  readonly [Symbol.toStringTag]: string = 'ConsoleReporter';
-
-  /**
    * Logs to the standard output the outdated dependencies provided by the specified file.
    * @param file The file providing the outdated dependencies.
    * @param returnOutput Value indicating whether to return the output of the outdated dependencies, rather than print it.
