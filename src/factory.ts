@@ -9,7 +9,7 @@ import {ConsoleReporter, Reporter} from './reporter';
 export function david(options: Partial<DavidOptions> = {}): Checker {
   const checker = new Checker({
     ignore: Array.isArray(options.ignore) ? options.ignore : [],
-    registry: new URL(typeof options.registry == 'string' && options.registry.length ? options.registry : 'https://registry.npmjs.org'),
+    registry: new URL(typeof options.registry == 'string' && options.registry.length ? options.registry : 'https://registry.npmjs.org/'),
     reporter: typeof options.reporter == 'object' && options.reporter ? options.reporter : new ConsoleReporter,
     unstable: typeof options.unstable == 'boolean' ? options.unstable : false,
     update: typeof options.update == 'string' ? options.update : '',

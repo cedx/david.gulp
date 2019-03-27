@@ -62,7 +62,7 @@ export class Checker extends Transform {
 
     const {
       ignore = [],
-      registry = new URL('https://registry.npmjs.org'),
+      registry = new URL('https://registry.npmjs.org/'),
       reporter = new ConsoleReporter,
       unstable = false,
       update = '',
