@@ -62,7 +62,7 @@ task('lint', () => _exec('tslint', sources));
 /**
  * Runs the test suites.
  */
-task('test', () => _exec('nyc', [normalize('node_modules/.bin/mocha'), 'test/**/*.ts']));
+task('test', () => _exec('nyc', [normalize('node_modules/.bin/mocha'), '"test/**/*.ts"']));
 
 /**
  * Upgrades the project to the latest revision.
