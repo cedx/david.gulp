@@ -178,7 +178,7 @@ export class Checker extends Transform {
 }
 
 /**
- * Defines the options of a `Checker` instance.
+ * Defines the options of a [[Checker]] instance.
  */
 export interface CheckerOptions {
 
