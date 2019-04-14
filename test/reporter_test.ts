@@ -5,7 +5,7 @@ import * as File from 'vinyl';
 import {ConsoleReporter} from '../src';
 
 /**
- * Tests the features of the `ConsoleReporter` class.
+ * Tests the features of the [[ConsoleReporter]] class.
  */
 @suite class ConsoleReporterTest {
 

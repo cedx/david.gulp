@@ -9,7 +9,7 @@ import * as pkg from '../package.json';
 import {Checker, ConsoleReporter} from '../src';
 
 /**
- * Tests the features of the `Checker` class.
+ * Tests the features of the [[Checker]] class.
  */
 @suite(timeout(15000))
 class CheckerTest {
