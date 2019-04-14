@@ -43,10 +43,10 @@ task('deps', () => {
  * Builds the documentation.
  */
 task('doc', async () => {
-  await promises.copyFile('CHANGELOG.md', 'doc/about/changelog.md');
-  await promises.copyFile('LICENSE.md', 'doc/about/license.md');
-  await _exec('typedoc');
-  return _exec('mkdocs', ['build']);
+  for (const path of ['CHANGELOG.md', 'LICENSE.md']) await promises.copyFile(path, `doc/about/${path.toLowerCase()}`);
+  await _exec('typedoc', ['--options', 'doc/typedoc.js']);
+  await _exec('mkdocs', ['build', '--config-file=doc/mkdocs.yml']);
+  return del(['doc/about/changelog.md', 'doc/about/license.md', 'web/mkdocs.yml', 'web/typedoc.js']);
 });
 
 /**
@@ -62,7 +62,12 @@ task('lint', () => _exec('tslint', sources));
 /**
  * Runs the test suites.
  */
-task('test', () => _exec('nyc', [normalize('node_modules/.bin/mocha'), '"test/**/*.ts"']));
+task('test', () => _exec('nyc', [
+  '--nycrc-path=test/.nycrc',
+  normalize('node_modules/.bin/mocha'),
+  '--config=test/.mocharc.yaml',
+  '"test/**/*.ts"'
+]));
 
 /**
  * Upgrades the project to the latest revision.
