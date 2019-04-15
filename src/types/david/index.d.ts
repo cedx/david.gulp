@@ -1,118 +1,76 @@
-/**
- * Provides typings for the [David](https://david-dm.org) module.
- */
+/** Provides typings for the [David](https://david-dm.org) module. */
 declare module 'david' {
 
-  /**
-   * Provides metrics about a package dependency.
-   */
+  /** Provides metrics about a package dependency. */
   export interface Dependency {
 
-    /**
-     * The latest version.
-     */
+    /** The latest version. */
     latest: string;
 
-    /**
-     * The required version.
-     */
+    /** The required version. */
     required: string;
 
-    /**
-     * The stable version.
-     */
+    /** The stable version. */
     stable: string;
 
-    /**
-     * The occurred error, if any.
-     */
+    /** The occurred error, if any. */
     warn: Error;
   }
 
-  /**
-   * A dictionary that maps dependency names to their metrics.
-   */
+  /** A dictionary that maps dependency names to their metrics. */
   export interface DependencyMap {
 
-    /**
-     * Gets metrics for the given dependency name.
-     */
+    /** Gets metrics for the given dependency name. */
     [key: string]: Partial<Dependency> | undefined;
   }
 
-  /**
-   * A function that gets a list of dependencies for the passed manifest.
-   */
+  /** A function that gets a list of dependencies for the passed manifest. */
   export interface GetDependenciesCallback {
     // tslint:disable:next-line: callable-types
     (error: Error | null, result: DependencyMap): void;
   }
 
-  /**
-   * A function that gets a list of dependencies for the passed manifest.
-   */
+  /** A function that gets a list of dependencies for the passed manifest. */
   export interface GetDependenciesFunction {
     // tslint:disable:next-line: callable-types
     (manifest: object, opts: Partial<GetDependenciesOptions>, cb: GetDependenciesCallback): void;
   }
 
-  /**
-   * Provides options for a `GetDependenciesFunction` function.
-   */
+  /** Provides options for a `GetDependenciesFunction` function. */
   export interface GetDependenciesOptions {
 
-    /**
-     * Consider the `devDependencies` section.
-     */
+    /** Consider the `devDependencies` section. */
     dev: boolean;
 
-    /**
-     * Trigger an error on specific condition.
-     */
+    /** Trigger an error on specific condition. */
     error: Partial<{
       E404: boolean,
       EDEPTYPE: boolean,
       ESCM: boolean
     }>;
 
-    /**
-     * List of dependency names to ignore.
-     */
+    /** List of dependency names to ignore. */
     ignore: string[];
 
-    /**
-     * Use loose option when querying semver.
-     */
+    /** Use loose option when querying semver. */
     loose: boolean;
 
-    /**
-     * The `npm` configuration options.
-     */
+    /** The `npm` configuration options. */
     npm: object;
 
-    /**
-     * Consider the `optionalDependencies` section.
-     */
+    /** Consider the `optionalDependencies` section. */
     optional: boolean;
 
-    /**
-     * Consider the `peerDependencies` section.
-     */
+    /** Consider the `peerDependencies` section. */
     peer: boolean;
 
-    /**
-     * For each dependency, return the available versions for the range specified in the `package.json` file.
-     */
+    /** For each dependency, return the available versions for the range specified in the `package.json` file. */
     rangeVersions: boolean;
 
-    /**
-     * Consider only stable packages.
-     */
+    /** Consider only stable packages. */
     stable: boolean;
 
-    /**
-     * For each dependency, return the available versions.
-     */
+    /** For each dependency, return the available versions. */
     versions: boolean;
   }
 

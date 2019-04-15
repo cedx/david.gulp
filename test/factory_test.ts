@@ -4,14 +4,10 @@ import {suite, test} from 'mocha-typescript';
 import * as File from 'vinyl';
 import {Checker, ConsoleReporter, david} from '../src';
 
-/**
- * Tests the features of the factory function.
- */
+/** Tests the features of the factory function. */
 @suite class FactoryTest {
 
-  /**
-   * Tests the `david()` function.
-   */
+  /** Tests the `david()` function. */
   @test testDavid(): void {
     // It should return a `Checker` with a `ConsoleReporter`.
     let checker = david();

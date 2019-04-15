@@ -4,14 +4,10 @@ import {suite, test} from 'mocha-typescript';
 import * as File from 'vinyl';
 import {ConsoleReporter} from '../src';
 
-/**
- * Tests the features of the [[ConsoleReporter]] class.
- */
+/** Tests the features of the [[ConsoleReporter]] class. */
 @suite class ConsoleReporterTest {
 
-  /**
-   * Tests the `ConsoleReporter#log` method.
-   */
+  /** Tests the `ConsoleReporter#log` method. */
   @test testLog(): void {
     const file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});
     file.david = {};

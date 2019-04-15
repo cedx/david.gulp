@@ -8,15 +8,11 @@ import * as File from 'vinyl';
 import * as pkg from '../package.json';
 import {Checker, ConsoleReporter} from '../src';
 
-/**
- * Tests the features of the [[Checker]] class.
- */
+/** Tests the features of the [[Checker]] class. */
 @suite(timeout(15000))
 class CheckerTest {
 
-  /**
-   * Tests the `Checker` constructor.
-   */
+  /** Tests the `Checker` constructor. */
   @test testFactory(): void {
     // It should return a `Checker` with a `ConsoleReporter`.
     let checker = new Checker;
@@ -53,9 +49,7 @@ class CheckerTest {
     expect(checker.update).to.equal('=');
   }
 
-  /**
-   * Tests the `Checker#getDependencies` method.
-   */
+  /** Tests the `Checker#getDependencies` method. */
   @test async testGetDependencies(): Promise<void> {
     // It should return an object with 3 dependency properties.
     let deps = await (new Checker).getDependencies({name: '@cedx/gulp-david'});
@@ -70,9 +64,7 @@ class CheckerTest {
     expect(Object.keys(deps.optionalDependencies)).to.be.empty;
   }
 
-  /**
-   * Tests the `Checker#getUpdatedDependencies` method.
-   */
+  /** Tests the `Checker#getUpdatedDependencies` method. */
   @test async testGetUpdatedDependencies(): Promise<void> {
     // It should return an object with 3 dependency properties.
     let deps = await (new Checker).getUpdatedDependencies({name: '@cedx/gulp-david'});
@@ -83,9 +75,7 @@ class CheckerTest {
     expect(Object.keys(deps.optionalDependencies)).to.be.empty;
   }
 
-  /**
-   * Tests the `Checker#parseManifest` method.
-   */
+  /** Tests the `Checker#parseManifest` method. */
   @test testParseManifest(): void {
     // It should throw an error if the file is null.
     expect(() => (new Checker).parseManifest(new File)).to.throw();
@@ -101,9 +91,7 @@ class CheckerTest {
     expect((new Checker).parseManifest(file)).to.deep.equal({name: '@cedx/gulp-david'});
   }
 
-  /**
-   * Tests the `Checker#_transform` method.
-   */
+  /** Tests the `Checker#_transform` method. */
   @test async testTransform(): Promise<void> {
     let input;
 

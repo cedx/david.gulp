@@ -3,12 +3,11 @@ import chalk from 'chalk';
 import {Dependency} from 'david';
 import {EOL} from 'os';
 import * as File from 'vinyl';
+
 // @ts-ignore: disable processing of the imported JSON file.
 import * as pkg from '../package.json';
 
-/**
- * Defines the shape of a dependency reporter.
- */
+/** Defines the shape of a dependency reporter. */
 export interface Reporter {
 
   /**
@@ -18,9 +17,7 @@ export interface Reporter {
   log(file: File): void;
 }
 
-/**
- * Prints the checker results to the standard output.
- */
+/** Prints the checker results to the standard output. */
 export class ConsoleReporter implements Reporter {
 
   /**

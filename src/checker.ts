@@ -8,14 +8,10 @@ import * as pkg from '../package.json';
 import {JsonMap} from './map';
 import {ConsoleReporter, Reporter} from './reporter';
 
-/**
- * Checks whether the dependencies of a project are out of date.
- */
+/** Checks whether the dependencies of a project are out of date. */
 export class Checker extends Transform {
 
-  /**
-   * The condition indicating that an error occurred.
-   */
+  /** The condition indicating that an error occurred. */
   error: ErrorCondition = {
     404: false,
     depCount: 0,
@@ -23,34 +19,22 @@ export class Checker extends Transform {
     scm: false
   };
 
-  /**
-   * The list of dependencies to ignore.
-   */
+  /** The list of dependencies to ignore. */
   ignore: string[];
 
-  /**
-   * The [npm](https://www.npmjs.com) registry URL.
-   */
+  /** The [npm](https://www.npmjs.com) registry URL. */
   registry: URL;
 
-  /**
-   * The instance used to output the report.
-   */
+  /** The instance used to output the report. */
   reporter: Reporter | null;
 
-  /**
-   * Value indicating whether to use unstable dependencies.
-   */
+  /** Value indicating whether to use unstable dependencies. */
   unstable: boolean;
 
-  /**
-   * The operator to use in version comparators.
-   */
+  /** The operator to use in version comparators. */
   update: string;
 
-  /**
-   * Value indicating whether to output the versions of all dependencies instead of only the outdated ones.
-   */
+  /** Value indicating whether to output the versions of all dependencies instead of only the outdated ones. */
   verbose: boolean;
 
   /**
@@ -132,7 +116,7 @@ export class Checker extends Transform {
           for (const [name, dependency] of Object.entries(deps[type]!) as Array<[string, Partial<Dependency>]>)
             manifest[type][name] = this.update + (this.unstable ? dependency.latest : dependency.stable);
 
-        file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding);
+        file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding as BufferEncoding);
       }
 
       const count = Object.keys(deps).reduce((previousValue, type) => previousValue + Object.keys(deps[type]!).length, 0);
@@ -177,90 +161,56 @@ export class Checker extends Transform {
   }
 }
 
-/**
- * Defines the options of a [[Checker]] instance.
- */
+/** Defines the options of a [[Checker]] instance. */
 export interface CheckerOptions {
 
-  /**
-   * The list of dependencies to ignore.
-   */
+  /** The list of dependencies to ignore. */
   ignore: string[];
 
-  /**
-   * The [npm](https://www.npmjs.com) registry URL.
-   */
+  /** The [npm](https://www.npmjs.com) registry URL. */
   registry: URL;
 
-  /**
-   * The instance used to output the report.
-   */
+  /** The instance used to output the report. */
   reporter: Reporter;
 
-  /**
-   * Value indicating whether to use unstable dependencies.
-   */
+  /** Value indicating whether to use unstable dependencies. */
   unstable: boolean;
 
-  /**
-   * The operator to use in version comparators.
-   */
+  /** The operator to use in version comparators. */
   update: string;
 
-  /**
-   * Value indicating whether to output the versions of all dependencies instead of only the outdated ones.
-   */
+  /** Value indicating whether to output the versions of all dependencies instead of only the outdated ones. */
   verbose: boolean;
 }
 
-/**
- * Provides information about a package dependencies.
- */
+/** Provides information about a package dependencies. */
 export interface DependencyReport {
 
-  /**
-   * Gets or sets the value for the given key.
-   */
+  /** Gets or sets the value for the given key. */
   [key: string]: DependencyMap | undefined;
 
-  /**
-   * Information about the dependencies.
-   */
+  /** Information about the dependencies. */
   dependencies: DependencyMap;
 
-  /**
-   * Information about the development dependencies.
-   */
+  /** Information about the development dependencies. */
   devDependencies: DependencyMap;
 
-  /**
-   * Information about the optional dependencies.
-   */
+  /** Information about the optional dependencies. */
   optionalDependencies: DependencyMap;
 }
 
-/**
- * Defines the condition indicating that an error occurred.
- */
+/** Defines the condition indicating that an error occurred. */
 export interface ErrorCondition {
 
-  /**
-   * If a dependency is not found, emit an error.
-   */
+  /** If a dependency is not found, emit an error. */
   404: boolean;
 
-  /**
-   * If greater than `0`, emit an error when the count of outdated dependencies equals or exceeds the specified value.
-   */
+  /** If greater than `0`, emit an error when the count of outdated dependencies equals or exceeds the specified value. */
   depCount: number;
 
-  /**
-   * If a dependency version is invalid (not a string), emit an error.
-   */
+  /** If a dependency version is invalid (not a string), emit an error. */
   depType: boolean;
 
-  /**
-   * If a dependency version is a source control URL, emit an error.
-   */
+  /** If a dependency version is a source control URL, emit an error. */
   scm: boolean;
 }

@@ -10,38 +10,22 @@ const _path = 'PATH' in process.env ? process.env.PATH : '';
 const _vendor = resolve('node_modules/.bin');
 if (!_path.includes(_vendor)) process.env.PATH = `${_vendor}${delimiter}${_path}`;
 
-/**
- * The file patterns providing the list of source files.
- * @type {string[]}
- */
+/** @type {string[]} The file patterns providing the list of source files. */
 const sources = ['*.js', 'example/*.ts', 'src/**/*.ts', 'test/**/*.ts'];
 
-/**
- * Builds the project.
- */
+/** Builds the project. */
 task('build', () => _exec('tsc'));
 
-/**
- * Deletes all generated files and reset any saved state.
- */
+/** Deletes all generated files and reset any saved state. */
 task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
 
-/**
- * Uploads the results of the code coverage.
- */
+/** Uploads the results of the code coverage. */
 task('coverage', () => _exec('coveralls', ['var/lcov.info']));
 
-/**
- * Checks the package dependencies.
- */
-task('deps', () => {
-  const {david} = require('./lib');
-  return src('package.json').pipe(david());
-});
+/** Checks the package dependencies. */
+task('deps', () => src('package.json').pipe(require('./lib').david()));
 
-/**
- * Builds the documentation.
- */
+/** Builds the documentation. */
 task('doc', async () => {
   for (const path of ['CHANGELOG.md', 'LICENSE.md']) await promises.copyFile(path, `doc/about/${path.toLowerCase()}`);
   await _exec('typedoc', ['--options', 'doc/typedoc.js']);
@@ -49,19 +33,13 @@ task('doc', async () => {
   return del(['doc/about/changelog.md', 'doc/about/license.md', 'web/mkdocs.yml', 'web/typedoc.js']);
 });
 
-/**
- * Fixes the coding standards issues.
- */
+/** Fixes the coding standards issues. */
 task('fix', () => _exec('tslint', ['--fix', ...sources]));
 
-/**
- * Performs the static analysis of source code.
- */
+/** Performs the static analysis of source code. */
 task('lint', () => _exec('tslint', sources));
 
-/**
- * Runs the test suites.
- */
+/** Runs the test suites. */
 task('test', () => _exec('nyc', [
   '--nycrc-path=test/nycrc.json',
   normalize('node_modules/.bin/mocha'),
@@ -69,9 +47,7 @@ task('test', () => _exec('nyc', [
   '"test/**/*_test.ts"'
 ]));
 
-/**
- * Upgrades the project to the latest revision.
- */
+/** Upgrades the project to the latest revision. */
 task('upgrade', async () => {
   await _exec('git', ['reset', '--hard']);
   await _exec('git', ['fetch', '--all', '--prune']);
@@ -80,17 +56,13 @@ task('upgrade', async () => {
   return _exec('npm', ['update', '--dev']);
 });
 
-/**
- * Watches for file changes.
- */
+/** Watches for file changes. */
 task('watch', () => {
   watch('src/**/*.ts', {ignoreInitial: false}, task('build'));
   watch('test/**/*.ts', task('test'));
 });
 
-/**
- * Runs the default tasks.
- */
+/** Runs the default tasks. */
 task('default', task('build'));
 
 /**
