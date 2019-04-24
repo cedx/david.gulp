@@ -8,7 +8,7 @@
     "removeComments": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es2018",
+    "target": "esnext",
     "typeRoots" : ["node_modules/@types", "src/types"]
   }
 }
