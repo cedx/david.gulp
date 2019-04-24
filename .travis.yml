@@ -1,6 +1,6 @@
 dist: xenial
 language: node_js
-node_js: [lts/*, node]
+node_js: [node]
 notifications: {email: false}
 
 install: npm install
