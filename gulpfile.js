@@ -46,7 +46,7 @@ task('lint', () => _exec('tslint', ['--config', 'etc/tslint.yaml', ...sources]))
 task('test', () => _exec('nyc', [
   '--nycrc-path=etc/nyc.yaml',
   normalize('node_modules/.bin/mocha'),
-  '--config=etc/mocha.json',
+  '--config=etc/mocha.yaml',
   '"test/**/*_test.ts"'
 ]));
 
