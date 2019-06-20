@@ -19,10 +19,9 @@
     "vinyl": "^2.2.0"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^8.6.0",
+    "@cedx/coveralls": "^9.0.0",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
-    "@types/node": "^11.13.7",
     "@types/vinyl": "^2.0.3",
     "chai": "^4.2.0",
     "del": "^4.1.0",
