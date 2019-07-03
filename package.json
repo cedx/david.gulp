@@ -21,18 +21,18 @@
   "devDependencies": {
     "@cedx/coveralls": "^9.0.0",
     "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.6",
+    "@types/mocha": "^5.2.7",
     "@types/vinyl": "^2.0.3",
     "chai": "^4.2.0",
-    "del": "^4.1.0",
-    "gulp": "^4.0.1",
+    "del": "^5.0.0",
+    "gulp": "^4.0.2",
     "mocha": "^6.1.4",
     "nyc": "^14.1.0",
     "source-map-support": "^0.5.12",
-    "ts-node": "^8.1.0",
-    "tslint": "^5.16.0",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
     "typedoc": "^0.14.2",
-    "typescript": "^3.4.5"
+    "typescript": "^3.5.2"
   },
   "engines": {
     "node": ">=12.0.0",
@@ -50,7 +50,7 @@
   },
   "scripts": {
     "coverage": "gulp coverage",
-    "prepare": "gulp build",
+    "prepack": "gulp build",
     "start": "gulp watch",
     "test": "gulp test"
   }
