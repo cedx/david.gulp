@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "name": "@cedx/gulp-david",
   "repository": "github:cedx/gulp-david",
-  "types": "lib/index.d.ts",
+  "type": "module",
   "version": "12.0.0",
   "author": {
     "email": "cedric@belin.io",
@@ -19,20 +19,17 @@
     "vinyl": "^2.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
     "@cedx/coveralls": "^9.0.0",
-    "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.7",
-    "@types/vinyl": "^2.0.3",
+    "babel-eslint": "^10.0.2",
     "chai": "^4.2.0",
     "del": "^5.0.0",
+    "eslint": "^6.0.1",
+    "esm": "^3.2.25",
     "gulp": "^4.0.2",
-    "mocha": "^6.1.4",
-    "nyc": "^14.1.0",
-    "source-map-support": "^0.5.12",
-    "ts-node": "^8.3.0",
-    "tslint": "^5.18.0",
-    "typedoc": "^0.14.2",
-    "typescript": "^3.5.2"
+    "jsdoc": "^3.6.3",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1"
   },
   "engines": {
     "node": ">=12.6.0",
@@ -41,6 +38,7 @@
   "keywords": [
     "david",
     "dependencies",
+    "esm",
     "gulp",
     "gulpplugin",
     "npm"
@@ -50,7 +48,6 @@
   },
   "scripts": {
     "coverage": "gulp coverage",
-    "prepack": "gulp build",
     "start": "gulp watch",
     "test": "gulp test"
   }
