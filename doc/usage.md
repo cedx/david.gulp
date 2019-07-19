@@ -6,10 +6,10 @@ Once you're familiar with that process, you may install the plug-in.
 The plug-in takes a [`package.json`](https://docs.npmjs.com/files/package.json) file as input, and scans its dependencies to check whether any one is outdated:
 
 ```js
-const {david} = require('@cedx/gulp-david');
-const {src, task} = require('gulp');
+import {david} from '@cedx/gulp-david';
+import gulp from 'gulp';
 
-task('checkDependencies', () => src('package.json')
+gulp.task('checkDependencies', () => gulp.src('package.json')
   .pipe(david())
   .on('error', function(err) {
     console.error(err);
@@ -48,23 +48,23 @@ By default, the plug-in prints to the standard output the list of outdated packa
 You can disable this output by setting the `reporter` option to `false`.
 
 ```js
-const {david} = require('@cedx/gulp-david');
-const {src, task} = require('gulp');
+import {david} from '@cedx/gulp-david';
+import gulp from 'gulp';
 
-task('checkDependencies', () =>
-  src('package.json').pipe(david({reporter: false}))
+gulp.task('checkDependencies', () =>
+  gulp.src('package.json').pipe(david({reporter: false}))
 );
 ```
 
 You can also replace this reporter by your own implementation.
-Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david/blob/master/src/reporter.ts) for a code sample.
+Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david/blob/master/lib/reporter.js) for a code sample.
 
 ```js
-const {david} = require('@cedx/gulp-david');
-const {src, task} = require('gulp');
+import {david} from '@cedx/gulp-david';
+import gulp from 'gulp';
 
-task('checkDependencies', () =>
-  src('package.json').pipe(david({reporter: new MyReporter}))
+gulp.task('checkDependencies', () =>
+  gulp.src('package.json').pipe(david({reporter: new MyReporter}))
 );
 ```
 
@@ -72,12 +72,12 @@ task('checkDependencies', () =>
 The plug-in lets you update dependencies in the manifest file to latest versions and save them back to the file system:
 
 ```js
-const {david} = require('@cedx/gulp-david');
-const {dest, src, task} = require('gulp');
+import {david} from '@cedx/gulp-david';
+import gulp from 'gulp';
 
-task('updateDependencies', () => src('package.json')
+gulp.task('updateDependencies', () => gulp.src('package.json')
   .pipe(david({update: true}))
-  .pipe(dest('.'))
+  .pipe(gulp.dest('.'))
 );
 ```
 
@@ -92,14 +92,14 @@ gulp.src('package.json').pipe(david({update: '>='}));
 In order to pin your dependencies, just use the equality operator:
 
 ```js
-const {david} = require('@cedx/gulp-david');
-const {src, task} = require('gulp');
+import {david} from '@cedx/gulp-david';
+import gulp from 'gulp';
 
-task('updateDependencies', () =>
-  src('package.json').pipe(david({update: '='}))
+gulp.task('updateDependencies', () =>
+  gulp.src('package.json').pipe(david({update: '='}))
 );
 ```
 
 ## Examples
 You can find a more detailled sample in the `example` folder:  
-[Sample Gulp tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
+[Sample Gulp tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.esm.js)
