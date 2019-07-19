@@ -10,4 +10,7 @@ Install the latest version of **Gulp-David** with [npm](https://www.npmjs.com):
 npm install @cedx/gulp-david
 ```
 
+!!! info
+    This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html).
+
 For detailed instructions, see the [installation guide](installation.md).

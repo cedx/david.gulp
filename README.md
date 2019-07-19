@@ -3,6 +3,8 @@
 
 Check your [npm](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plug-in for [Gulp](https://gulpjs.com), the streaming build system.
 
+> This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html).
+
 ## Documentation
 - [User guide](https://dev.belin.io/gulp-david)
 - [API reference](https://dev.belin.io/gulp-david/api)
