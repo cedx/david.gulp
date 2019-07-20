@@ -1,12 +1,8 @@
 import {Dependency, DependencyMap, getDependencies, GetDependenciesFunction, GetDependenciesOptions, getUpdatedDependencies} from 'david';
 import {Transform, TransformCallback} from 'stream';
 import {promisify} from 'util';
-import * as File from 'vinyl';
-
-// @ts-ignore: disable processing of the imported JSON file.
-import * as pkg from '../package.json';
-import {JsonMap} from './map';
-import {ConsoleReporter, Reporter} from './reporter';
+import File from 'vinyl';
+import {ConsoleReporter, Reporter} from './reporter.js';
 
 /** Checks whether the dependencies of a project are out of date. */
 export class Checker extends Transform {
@@ -39,9 +35,9 @@ export class Checker extends Transform {
 
   /**
    * Creates a new checker.
-   * @param options An object specifying values used to initialize this instance.
+   * @param {object} options An object specifying values used to initialize this instance.
    */
-  constructor(options: Partial<CheckerOptions> = {}) {
+  constructor(options: CheckerOptions = {}) {
     super({objectMode: true});
 
     const {
@@ -113,7 +109,7 @@ export class Checker extends Transform {
 
       if (this.update.length) {
         for (const type of Object.keys(deps))
-          for (const [name, dependency] of Object.entries(deps[type]!) as Array<[string, Partial<Dependency>]>)
+          for (const [name, dependency] of Object.entries(deps[type]!) as Array<[string, Dependency]>)
             manifest[type][name] = this.update + (this.unstable ? dependency.latest : dependency.stable);
 
         file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding as BufferEncoding);
@@ -121,11 +117,11 @@ export class Checker extends Transform {
 
       const count = Object.keys(deps).reduce((previousValue, type) => previousValue + Object.keys(deps[type]!).length, 0);
       if (this.error.depCount > 0 && count >= this.error.depCount) throw new Error(`Outdated dependencies: ${count}`);
-      if (callback) callback(undefined, file);
+      if (callback) callback(null, file);
     }
 
     catch (err) {
-      if (callback) callback(new Error(`[${pkg.name}] ${err.message}`));
+      if (callback) callback(new Error(`[@cedx/gulp-david] ${err.message}`));
       else throw err;
     }
 
@@ -138,8 +134,8 @@ export class Checker extends Transform {
    * @param manifest The manifest providing the list of dependencies.
    * @return An object providing details about the project dependencies.
    */
-  private async _getDependencies(getter: GetDependenciesFunction, manifest: JsonMap): Promise<DependencyReport> {
-    const options: Partial<GetDependenciesOptions> = {
+  async _getDependencies(getter: GetDependenciesFunction, manifest: JsonMap): Promise<DependencyReport> {
+    const options: GetDependenciesOptions = {
       error: {E404: this.error['404'], EDEPTYPE: this.error.depType, ESCM: this.error.scm},
       ignore: this.ignore,
       loose: true,
@@ -150,67 +146,13 @@ export class Checker extends Transform {
       registry: this.registry.href
     };
 
-    const getDeps = promisify<object, Partial<GetDependenciesOptions>, DependencyMap>(getter);
+    const getDeps = promisify<object, GetDependenciesOptions, DependencyMap>(getter);
     const [dependencies, devDependencies, optionalDependencies] = await Promise.all([
-      getDeps(manifest, Object.assign({}, options, {dev: false, optional: false})),
-      getDeps(manifest, Object.assign({}, options, {dev: true, optional: false})),
-      getDeps(manifest, Object.assign({}, options, {dev: false, optional: true}))
+      getDeps(manifest, {...options, dev: false, optional: false}),
+      getDeps(manifest, {...options, dev: true, optional: false}),
+      getDeps(manifest, {...options, dev: false, optional: true})
     ]);
 
     return {dependencies, devDependencies, optionalDependencies};
   }
-}
-
-/** Defines the options of a [[Checker]] instance. */
-export interface CheckerOptions {
-
-  /** The list of dependencies to ignore. */
-  ignore: string[];
-
-  /** The [npm](https://www.npmjs.com) registry URL. */
-  registry: URL;
-
-  /** The instance used to output the report. */
-  reporter: Reporter;
-
-  /** Value indicating whether to use unstable dependencies. */
-  unstable: boolean;
-
-  /** The operator to use in version comparators. */
-  update: string;
-
-  /** Value indicating whether to output the versions of all dependencies instead of only the outdated ones. */
-  verbose: boolean;
-}
-
-/** Provides information about a package dependencies. */
-export interface DependencyReport {
-
-  /** Gets or sets the value for the given key. */
-  [key: string]: DependencyMap | undefined;
-
-  /** Information about the dependencies. */
-  dependencies: DependencyMap;
-
-  /** Information about the development dependencies. */
-  devDependencies: DependencyMap;
-
-  /** Information about the optional dependencies. */
-  optionalDependencies: DependencyMap;
-}
-
-/** Defines the condition indicating that an error occurred. */
-export interface ErrorCondition {
-
-  /** If a dependency is not found, emit an error. */
-  404: boolean;
-
-  /** If greater than `0`, emit an error when the count of outdated dependencies equals or exceeds the specified value. */
-  depCount: number;
-
-  /** If a dependency version is invalid (not a string), emit an error. */
-  depType: boolean;
-
-  /** If a dependency version is a source control URL, emit an error. */
-  scm: boolean;
 }

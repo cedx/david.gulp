@@ -1,12 +1,9 @@
-/* tslint:disable: no-unused-expression */
-import {expect} from 'chai';
-import * as File from 'vinyl';
-import {Checker, ConsoleReporter, david} from '../src';
+import chai from 'chai';
+import File from 'vinyl';
+import {Checker, ConsoleReporter, david} from '../lib/index.js';
 
 /** Tests the features of the factory function. */
 describe('Factory', () => {
-
-  /** Tests the [[david]] function. */
   describe('david()', () => {
     it('should return a `Checker` with a `ConsoleReporter`', () => {
       const checker = david();

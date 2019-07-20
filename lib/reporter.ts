@@ -1,24 +1,11 @@
-/* tslint:disable: no-console */
 import chalk from 'chalk';
 import {Dependency} from 'david';
 import {EOL} from 'os';
-import * as File from 'vinyl';
-
-// @ts-ignore: disable processing of the imported JSON file.
-import * as pkg from '../package.json';
-
-/** Defines the shape of a dependency reporter. */
-export interface Reporter {
-
-  /**
-   * Logs the outdated dependencies provided by the specified file.
-   * @param file The file providing the outdated dependencies.
-   */
-  log(file: File): void;
-}
+import File from 'vinyl';
+import pkg from '../package.json';
 
 /** Prints the checker results to the standard output. */
-export class ConsoleReporter implements Reporter {
+export class ConsoleReporter {
 
   /**
    * Logs to the standard output the outdated dependencies provided by the specified file.
@@ -39,7 +26,7 @@ export class ConsoleReporter implements Reporter {
    * @param file The file providing the outdated dependencies.
    * @return The output of the outdated dependencies.
    */
-  private _report(file: File): string {
+  _report(file: File): string {
     const lines: string[] = [];
     lines.push(chalk.bold(typeof file.path == 'string' ? file.path : 'package.json'));
 
@@ -48,7 +35,7 @@ export class ConsoleReporter implements Reporter {
     else for (const type of types) {
       lines.push(type);
 
-      for (const [name, dependency] of Object.entries(file.david[type]) as Array<[string, Partial<Dependency>]>) {
+      for (const [name, dependency] of Object.entries(file.david[type]) as Array<[string, Dependency]>) {
         const requiredVersion = chalk.red(dependency.required || '*');
         const stableVersion = chalk.green(dependency.stable || '*');
         const latestVersion = chalk.yellow(dependency.latest || '*');

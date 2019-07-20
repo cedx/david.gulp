@@ -1,12 +1,9 @@
-/* tslint:disable: no-unused-expression */
-import {expect} from 'chai';
-import * as File from 'vinyl';
-import {ConsoleReporter} from '../src';
+import chai from 'chai';
+import File from 'vinyl';
+import {ConsoleReporter} from '../lib/index.js';
 
-/** Tests the features of the [[ConsoleReporter]] class. */
+/** Tests the features of the {@link ConsoleReporter} class. */
 describe('ConsoleReporter', () => {
-
-  /** Tests the `ConsoleReporter#log` method. */
   describe('#log()', () => {
     const file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});
     file.david = {};

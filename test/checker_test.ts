@@ -1,17 +1,13 @@
-/* tslint:disable: no-unused-expression */
-import {expect} from 'chai';
+import chai from 'chai';
 import {Readable} from 'stream';
-import * as File from 'vinyl';
+import File from 'vinyl';
+import pkg from '../package.json';
+import {Checker, ConsoleReporter} from '../lib/index.js';
 
-// @ts-ignore: disable processing of the imported JSON file.
-import * as pkg from '../package.json';
-import {Checker, ConsoleReporter} from '../src';
-
-/** Tests the features of the [[Checker]] class. */
+/** Tests the features of the {@link Checker} class. */
 describe('Checker', function() {
   this.timeout(15000);
 
-  /** Tests the [[Checker]] constructor. */
   describe('constructor', () => {
     it('should return a `Checker` with a `ConsoleReporter`', () => {
       const checker = new Checker;
@@ -50,7 +46,6 @@ describe('Checker', function() {
     });
   });
 
-  /** Tests the `Checker#getDependencies` method. */
   describe('#getDependencies()', () => {
     it('should return an object with 3 dependency properties', async () => {
       const deps = await (new Checker).getDependencies({name: '@cedx/gulp-david'});
@@ -69,7 +64,6 @@ describe('Checker', function() {
     });
   });
 
-  /** Tests the `Checker#getUpdatedDependencies` method. */
   describe('#getUpdatedDependencies()', () => {
     it('should return an object with 3 dependency properties', async () => {
       const deps = await (new Checker).getUpdatedDependencies({name: '@cedx/gulp-david'});
@@ -82,7 +76,6 @@ describe('Checker', function() {
     });
   });
 
-  /** Tests the `Checker#parseManifest` method. */
   describe('#parseManifest()', () => {
     it('should throw an error if the file is null', () => {
       expect(() => (new Checker).parseManifest(new File)).to.throw();
@@ -102,7 +95,6 @@ describe('Checker', function() {
     });
   });
 
-  /** Tests the `Checker#_transform` method. */
   describe('#_transform()', () => {
     it('should throw an error if the manifest is invalid', async () => {
       try {
