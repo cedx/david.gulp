@@ -7,6 +7,7 @@
   "name": "@cedx/gulp-david",
   "repository": "github:cedx/gulp-david",
   "type": "module",
+  "types": "lib/index.d.ts",
   "version": "12.0.0",
   "author": {
     "email": "cedric@belin.io",
@@ -19,12 +20,12 @@
     "vinyl": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
+    "@babel/core": "^7.5.5",
     "@cedx/coveralls": "^9.0.0",
     "babel-eslint": "^10.0.2",
     "chai": "^4.2.0",
     "del": "^5.0.0",
-    "eslint": "^6.0.1",
+    "eslint": "^6.1.0",
     "esm": "^3.2.25",
     "gulp": "^4.0.2",
     "jsdoc": "^3.6.3",
@@ -32,8 +33,8 @@
     "nyc": "^14.1.1"
   },
   "engines": {
-    "node": ">=12.6.0",
-    "npm": ">=6.9.0"
+    "node": ">=12.7.0",
+    "npm": ">=6.10.0"
   },
   "keywords": [
     "david",
