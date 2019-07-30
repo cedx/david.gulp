@@ -1,7 +1,9 @@
 dist: xenial
+notifications: {email: false}
+
+env: [NODE_OPTIONS="--experimental-modules --no-warnings"]
 language: node_js
 node_js: node
-notifications: {email: false}
 
 install: npm install
 script: npm test
