@@ -84,8 +84,8 @@
 - Breaking change: replaced the test classes by plain tests.
 - Added a build task for fixing the coding standards issues.
 - Added the `verbose` option.
-- Replaced [JSDoc](http://usejsdoc.org) documentation generator by [ESDoc](https://esdoc.org).
-- Replaced [JSHint](http://jshint.com) linter by [ESLint](http://eslint.org).
+- Replaced the [JSDoc](http://usejsdoc.org) documentation generator by [ESDoc](https://esdoc.org).
+- Replaced the [JSHint](http://jshint.com) linter by [ESLint](http://eslint.org).
 - Updated the package dependencies.
 
 ## Version [2.0.4](https://github.com/cedx/gulp-david/compare/v2.0.3...v2.0.4)
@@ -109,7 +109,7 @@
 
 ## Version [1.0.0](https://github.com/cedx/gulp-david/compare/v0.4.3...v1.0.0)
 - First stable release.
-- Replaced [SonarQube](http://www.sonarqube.org) code analyzer by [Codacy](https://www.codacy.com) service.
+- Replaced the [SonarQube](http://www.sonarqube.org) code analyzer by [Codacy](https://www.codacy.com) service.
 
 ## Version [0.4.3](https://github.com/cedx/gulp-david/compare/v0.4.2...v0.4.3)
 - Fixed some bugs.
