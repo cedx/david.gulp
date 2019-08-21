@@ -1,24 +1,24 @@
-import chai from 'chai';
+import * as chai from 'chai';
 import File from 'vinyl';
-import {ConsoleReporter} from '../lib/index.js';
+import {ConsoleReporter} from '../src/index';
 
-/** Tests the features of the {@link ConsoleReporter} class. */
+/** Tests the features of the [[ConsoleReporter]] class. */
 describe('ConsoleReporter', () => {
   describe('#log()', () => {
     const file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});
     file.david = {};
 
     it('should throw an error if the "david" property is not found on the file object', () => {
-      expect(() => (new ConsoleReporter).log(new File)).to.throw();
+      expect(() => new ConsoleReporter().log(new File)).to.throw();
     });
 
     it('should output the file path', () => {
-      const output = (new ConsoleReporter).log(file, true);
+      const output = new ConsoleReporter().log(file, true);
       expect(output).to.contain(file.path);
     });
 
     it('should output "All dependencies up to date." if there is no outdated dependencies', () => {
-      const output = (new ConsoleReporter).log(file, true);
+      const output = new ConsoleReporter().log(file, true);
       expect(output).to.contain(file.path).and.contain('All dependencies up to date.');
     });
 
@@ -29,7 +29,7 @@ describe('ConsoleReporter', () => {
         }
       };
 
-      const output = (new ConsoleReporter).log(file, true);
+      const output = new ConsoleReporter().log(file, true);
       expect(output).to.contain('dependencies')
         .and.contain('foobar')
         .and.contain('required:')

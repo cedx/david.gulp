@@ -1,6 +1,6 @@
-import chai from 'chai';
+import * as chai from 'chai';
 import File from 'vinyl';
-import {Checker, ConsoleReporter, david} from '../lib/index.js';
+import {Checker, ConsoleReporter, david} from '../src/index';
 
 /** Tests the features of the factory function. */
 describe('Factory', () => {
