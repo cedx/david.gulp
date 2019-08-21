@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [13.0.0](https://github.com/cedx/gulp-david/compare/v12.0.0...v13.0.0)
+- Updated the package dependencies.
+
 ## Version [12.0.0](https://github.com/cedx/gulp-david/compare/v11.0.0...v12.0.0)
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).

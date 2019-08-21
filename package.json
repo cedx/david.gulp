@@ -8,7 +8,7 @@
   "repository": "github:cedx/gulp-david",
   "type": "module",
   "types": "lib/index.d.ts",
-  "version": "12.0.0",
+  "version": "13.0.0",
   "author": {
     "email": "cedric@belin.io",
     "name": "Cédric Belin",
