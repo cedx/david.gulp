@@ -2,7 +2,7 @@ import {Dependency, DependencyMap, getDependencies, GetDependenciesFunction, Get
 import {Transform, TransformCallback} from 'stream';
 import {promisify} from 'util';
 import File from 'vinyl';
-import {ConsoleReporter, Reporter} from './reporter.js';
+import {ConsoleReporter, Reporter} from './reporter';
 
 /** Checks whether the dependencies of a project are out of date. */
 export class Checker extends Transform {

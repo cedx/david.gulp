@@ -1,5 +1,5 @@
-import {Checker} from './checker.js';
-import {ConsoleReporter, Reporter} from './reporter.js';
+import {Checker} from './checker';
+import {ConsoleReporter, Reporter} from './reporter';
 
 /**
  * Create a new checker.
