@@ -28,7 +28,7 @@ task('updateManifest', () => src('package.json')
 );
 
 /** Upgrades the packages to latest versions. */
-task('upgradePackages:npmInstall', () => _exec('npm', ['install']));
+task('upgradePackages:npmInstall', () => _exec('npm', ['install', '--ignore-scripts']));
 task('upgradePackages:npmUpdate', () => _exec('npm', ['update', '--dev']));
 task('upgradePackages', series('updateManifest', 'upgradePackages:npmInstall'));
 
