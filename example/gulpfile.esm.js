@@ -1,10 +1,9 @@
 import {david} from '@cedx/gulp-david';
-const {spawn} = require('child_process');
-const {dest, series, src, task} = require('gulp');
-const {normalize} = require('path');
+import {exec} from 'child_process';
+import * as gulp from 'gulp';
 
 /** Checks the package dependencies, and emits an error if some of them are outdated. */
-task('checkDependencies', () => src('package.json')
+gulp.task('checkDependencies', () => gulp.src('package.json')
   .pipe(david({
     error404: true,
     errorDepCount: 1,
@@ -17,33 +16,20 @@ task('checkDependencies', () => src('package.json')
 );
 
 /** Prints a detailled report about the dependencies. */
-task('printDependencyReport', () => src('package.json')
+gulp.task('printDependencyReport', () => gulp.src('package.json')
   .pipe(david({verbose: true}))
 );
 
 /** Updates the package manifest using the tilde operator. */
-task('updateManifest', () => src('package.json')
+gulp.task('updateManifest', () => gulp.src('package.json')
   .pipe(david({update: '~'}))
-  .pipe(dest('.'))
+  .pipe(gulp.dest('.'))
 );
 
 /** Upgrades the packages to latest versions. */
-task('upgradePackages:npmInstall', () => _exec('npm', ['install', '--ignore-scripts']));
-task('upgradePackages:npmUpdate', () => _exec('npm', ['update', '--dev']));
-task('upgradePackages', series('updateManifest', 'upgradePackages:npmInstall'));
+gulp.task('upgradePackages:npmInstall', () => exec('npm install --ignore-scripts'));
+gulp.task('upgradePackages:npmUpdate', () => exec('npm update --dev'));
+gulp.task('upgradePackages', gulp.series('updateManifest', 'upgradePackages:npmInstall'));
 
 /** Runs the default tasks. */
-task('default', task('upgradePackages'));
-
-/**
- * Spawns a new process using the specified command.
- * @param {string} command The command to run.
- * @param {string[]} [args] The command arguments.
- * @param {SpawnOptions} [options] The settings to customize how the process is spawned.
- * @return {Promise} Completes when the command is finally terminated.
- */
-function _exec(command, args = [], options = {}) {
-  return new Promise((fulfill, reject) => spawn(normalize(command), args, {shell: true, stdio: 'inherit', ...options})
-    .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : fulfill())
-  );
-}
+gulp.task('default', gulp.task('upgradePackages'));
