@@ -5,7 +5,7 @@ Once you're familiar with that process, you may install the plug-in.
 ## Programming interface
 The plug-in takes a [`package.json`](https://docs.npmjs.com/files/package.json) file as input, and scans its dependencies to check whether any one is outdated:
 
-```ts
+```js
 import {david} from '@cedx/gulp-david';
 import gulp from 'gulp';
 
@@ -35,7 +35,7 @@ The plug-in can be customized using these settings:
 ### Results
 The plug-in adds the following properties to the `file` object:
 
-```ts
+```js
 file.david = {
   dependencies: {}, // Details about the required dependencies needing an update.
   devDependencies: {}, // Details about the development dependencies needing an update.
@@ -47,7 +47,7 @@ file.david = {
 By default, the plug-in prints to the standard output the list of outdated packages.
 You can disable this output by setting the `reporter` option to `false`.
 
-```ts
+```js
 import {david} from '@cedx/gulp-david';
 import gulp from 'gulp';
 
@@ -59,7 +59,7 @@ gulp.task('checkDependencies', () =>
 You can also replace this reporter by your own implementation.
 Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david/blob/master/lib/reporter.js) for a code sample.
 
-```ts
+```js
 import {david} from '@cedx/gulp-david';
 import gulp from 'gulp';
 
@@ -71,7 +71,7 @@ gulp.task('checkDependencies', () =>
 ## Updating dependencies
 The plug-in lets you update dependencies in the manifest file to latest versions and save them back to the file system:
 
-```ts
+```js
 import {david} from '@cedx/gulp-david';
 import gulp from 'gulp';
 
@@ -84,14 +84,14 @@ gulp.task('updateDependencies', () => gulp.src('package.json')
 By default, the plug-in will use the caret operator (e.g. `^`) to specifiy the version comparators in the manifest file.
 You can use a different operator by providing a string indicating the wanted one:
 
-```ts
+```js
 gulp.src('package.json').pipe(david({update: '~'}));
 gulp.src('package.json').pipe(david({update: '>='}));
 ```
 
 In order to pin your dependencies, just use the equality operator:
 
-```ts
+```js
 import {david} from '@cedx/gulp-david';
 import gulp from 'gulp';
 
