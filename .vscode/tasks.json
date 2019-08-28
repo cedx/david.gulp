@@ -24,6 +24,11 @@
     },
     {
       "problemMatcher": [],
+      "task": "deps",
+      "type": "gulp"
+    },
+    {
+      "problemMatcher": [],
       "task": "doc",
       "type": "gulp"
     },
