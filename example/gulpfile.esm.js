@@ -1,6 +1,6 @@
 import {david} from '@cedx/gulp-david';
 import {exec} from 'child_process';
-import * as gulp from 'gulp';
+import gulp from 'gulp';
 
 /** Checks the package dependencies, and emits an error if some of them are outdated. */
 gulp.task('checkDependencies', () => gulp.src('package.json')

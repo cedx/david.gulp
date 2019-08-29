@@ -47,6 +47,7 @@ task('lint', () => _exec('eslint', ['--config=etc/eslint.json', ...sources]));
 
 /** Runs the test suites. */
 task('test', () => {
+  process.env.TS_NODE_FILES = 'true';
   process.env.TS_NODE_PROJECT = 'test/tsconfig.json';
   return _exec('nyc', ['--nycrc-path=etc/nyc.json', 'node_modules/.bin/mocha', '--config=etc/mocha.json', '"test/**/*.ts"']);
 });
