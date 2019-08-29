@@ -1,6 +1,9 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["../src/**/*.d.ts"],
+  "include": [
+    "**/*.ts",
+    "../src/**/*.d.ts"
+  ],
   "compilerOptions": {
     "esModuleInterop": true,
     "sourceMap": true

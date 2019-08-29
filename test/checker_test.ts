@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 import {Readable} from 'stream';
-import * as File from 'vinyl';
+import File from 'vinyl';
 import * as pkg from '../package.json';
 import {Checker, ConsoleReporter} from '../src/index';
 

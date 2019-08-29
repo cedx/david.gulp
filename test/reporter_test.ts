@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import * as File from 'vinyl';
+import File from 'vinyl';
 import {ConsoleReporter} from '../src/index';
 
 /** Tests the features of the [[ConsoleReporter]] class. */
