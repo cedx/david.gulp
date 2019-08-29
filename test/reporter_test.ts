@@ -1,9 +1,11 @@
 import * as chai from 'chai';
-import File from 'vinyl';
+import * as File from 'vinyl';
 import {ConsoleReporter} from '../src/index';
 
 /** Tests the features of the [[ConsoleReporter]] class. */
 describe('ConsoleReporter', () => {
+  const {expect} = chai;
+
   describe('#log()', () => {
     const file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});
     file.david = {};
@@ -35,6 +37,6 @@ describe('ConsoleReporter', () => {
         .and.contain('required:')
         .and.contain('stable:')
         .and.contain('latest:');
-      });
+    });
   });
 });

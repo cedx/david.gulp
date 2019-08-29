@@ -1,12 +1,13 @@
 import * as chai from 'chai';
 import {Readable} from 'stream';
-import File from 'vinyl';
-import pkg from '../package.json';
+import * as File from 'vinyl';
+import * as pkg from '../package.json';
 import {Checker, ConsoleReporter} from '../src/index';
 
 /** Tests the features of the [[Checker]] class. */
 describe('Checker', function() {
-  this.timeout(15000);
+  const {expect} = chai;
+  this.timeout(15000); // eslint-disable-line no-invalid-this
 
   describe('constructor', () => {
     it('should return a `Checker` with a `ConsoleReporter`', () => {
@@ -19,7 +20,7 @@ describe('Checker', function() {
       const checker = new Checker({
         ignore: ['@cedx/gulp-david'],
         registry: new URL('https://dev.belin.io/gulp-david'),
-        reporter: {log(file: File) { /* Noop */ }},
+        reporter: {log() { /* Noop */ }},
         unstable: true,
         update: '='
       });

@@ -1,9 +1,10 @@
 import * as chai from 'chai';
-import File from 'vinyl';
 import {Checker, ConsoleReporter, david} from '../src/index';
 
 /** Tests the features of the factory function. */
 describe('Factory', () => {
+  const {expect} = chai;
+
   describe('david()', () => {
     it('should return a `Checker` with a `ConsoleReporter`', () => {
       const checker = david();
@@ -19,7 +20,7 @@ describe('Factory', () => {
         errorSCM: true,
         ignore: ['@cedx/gulp-david'],
         registry: 'https://dev.belin.io/gulp-david',
-        reporter: {log(file: File) { /* Noop */ }},
+        reporter: {log() { /* Noop */ }},
         unstable: true,
         update: '='
       });
