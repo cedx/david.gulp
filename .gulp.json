@@ -1,0 +1,5 @@
+{
+  "flags": {
+    "nodeFlags": ["--require=esm"]
+  }
+}
