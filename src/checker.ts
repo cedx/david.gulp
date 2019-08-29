@@ -24,7 +24,7 @@ export class Checker extends Transform {
   registry: URL;
 
   /** The instance used to output the report. */
-  reporter: Reporter|null;
+  reporter?: Reporter;
 
   /** Value indicating whether to use unstable dependencies. */
   unstable: boolean;
@@ -45,7 +45,7 @@ export class Checker extends Transform {
     const {
       ignore = [],
       registry = new URL('https://registry.npmjs.org/'),
-      reporter = new ConsoleReporter,
+      reporter,
       unstable = false,
       update = '',
       verbose = false
