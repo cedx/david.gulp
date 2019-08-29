@@ -18,7 +18,7 @@ declare module 'david' {
   }
 
   /** A dictionary that maps dependency names to their metrics. */
-  export type DependencyMap = Record<string, Partial<Dependency>|undefined>
+  export type DependencyMap = Record<string, Partial<Dependency>|undefined>;
 
   /** A function that gets a list of dependencies for the passed manifest. */
   export type GetDependenciesCallback = (error: Error|null, result: DependencyMap) => void;
@@ -34,9 +34,9 @@ declare module 'david' {
 
     /** Trigger an error on specific condition. */
     error: Partial<{
-      E404: boolean,
-      EDEPTYPE: boolean,
-      ESCM: boolean
+      E404: boolean;
+      EDEPTYPE: boolean;
+      ESCM: boolean;
     }>;
 
     /** List of dependency names to ignore. */

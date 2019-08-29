@@ -4,7 +4,7 @@ import {promisify} from 'util';
 import File from 'vinyl';
 
 import {JsonObject} from './json_object';
-import {ConsoleReporter, Reporter} from './reporter';
+import {Reporter} from './reporter';
 
 /** Checks whether the dependencies of a project are out of date. */
 export class Checker extends Transform {
@@ -101,20 +101,20 @@ export class Checker extends Transform {
    * @return The transformed chunk.
    */
   async _transform(file: File, encoding: string = 'utf8', callback?: TransformCallback): Promise<File> {
-    const getDeps = (mf: JsonObject) => this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
+    const getDeps = (mf: JsonObject): Promise<DependencyReport> => this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
 
     try {
       const manifest = this.parseManifest(file);
       const deps = await getDeps(manifest);
-      file.david = deps;
+      file.david = deps; // eslint-disable-line require-atomic-updates
       if (this.reporter) this.reporter.log(file);
 
       if (this.update.length) {
         for (const type of Object.keys(deps))
           for (const [name, dependency] of Object.entries(deps[type]!))
-            manifest[type][name] = this.update + (this.unstable ? dependency!.latest : dependency!.stable);
+            manifest[type][name] = `${this.update}${this.unstable ? dependency!.latest : dependency!.stable}`;
 
-        file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding as BufferEncoding);
+        file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding as BufferEncoding); // eslint-disable-line require-atomic-updates
       }
 
       const count = Object.keys(deps).reduce((previousValue, type) => previousValue + Object.keys(deps[type]!).length, 0);
