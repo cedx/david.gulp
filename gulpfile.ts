@@ -4,6 +4,7 @@ import {promises} from 'fs';
 import * as gulp from 'gulp';
 import * as replace from 'gulp-replace';
 import {delimiter, normalize, resolve} from 'path';
+import {Checker, DavidOptions} from './src/index';
 
 /** The file patterns providing the list of source files. */
 const sources: string[] = ['*.ts', 'example/*.{js,ts}', 'src/**/*.ts', 'test/**/*.ts'];
@@ -29,7 +30,11 @@ task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
 task('coverage', () => _exec('coveralls', ['var/lcov.info']));
 
 /** Checks the package dependencies. */
-task('deps', () => src('package.json').pipe(require('./lib').david()));
+let david: (options?: Partial<DavidOptions>) => Checker;
+const davidModule = './lib/index.js';
+task('deps:check', () => src('package.json').pipe(david()));
+task('deps:import', () => import(davidModule));
+task('deps', series('deps:import', 'deps:check'));
 
 /** Builds the documentation. */
 task('doc', async () => {

@@ -11,7 +11,7 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
   }))
   .on('error', function(this: NodeJS.ReadWriteStream, err: Error) {
     console.error(err);
-    this.emit('end');
+    this.emit('end'); // eslint-disable-line no-invalid-this
   })
 );
 
