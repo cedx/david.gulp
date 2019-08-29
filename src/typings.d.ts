@@ -18,25 +18,15 @@ declare module 'david' {
   }
 
   /** A dictionary that maps dependency names to their metrics. */
-  export interface DependencyMap {
-
-    /** Gets metrics for the given dependency name. */
-    [key: string]: Partial<Dependency> | undefined;
-  }
+  export type DependencyMap = Record<string, Partial<Dependency>|undefined>
 
   /** A function that gets a list of dependencies for the passed manifest. */
-  export interface GetDependenciesCallback {
-    // tslint:disable:next-line: callable-types
-    (error: Error | null, result: DependencyMap): void;
-  }
+  export type GetDependenciesCallback = (error: Error|null, result: DependencyMap) => void;
 
   /** A function that gets a list of dependencies for the passed manifest. */
-  export interface GetDependenciesFunction {
-    // tslint:disable:next-line: callable-types
-    (manifest: object, opts: Partial<GetDependenciesOptions>, cb: GetDependenciesCallback): void;
-  }
+  export type GetDependenciesFunction = (manifest: object, opts: Partial<GetDependenciesOptions>, cb: GetDependenciesCallback) => void;
 
-  /** Provides options for a `GetDependenciesFunction` function. */
+  /** Provides options for a [[GetDependenciesFunction]] function. */
   export interface GetDependenciesOptions {
 
     /** Consider the `devDependencies` section. */
