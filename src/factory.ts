@@ -7,24 +7,35 @@ import {ConsoleReporter, Reporter} from './reporter';
  * @return The newly created instance.
  */
 export function david(options: Partial<DavidOptions> = {}): Checker {
+  const {
+    error404 = false,
+    errorDepCount = 0,
+    errorDepType = false,
+    errorSCM = false,
+    ignore = [],
+    registry = 'https://registry.npmjs.org/',
+    reporter = true,
+    unstable = false,
+    update = false,
+    verbose = false
+  } = options;
+
   const checker = new Checker({
-    ignore: Array.isArray(options.ignore) ? options.ignore : [],
-    registry: new URL(typeof options.registry == 'string' && options.registry.length ? options.registry : 'https://registry.npmjs.org/'),
-    reporter: typeof options.reporter == 'object' && options.reporter ? options.reporter : new ConsoleReporter,
-    unstable: typeof options.unstable == 'boolean' ? options.unstable : false,
-    update: typeof options.update == 'string' ? options.update : '',
-    verbose: typeof options.verbose == 'boolean' ? options.verbose : false
+    ignore,
+    registry: registry instanceof URL ? registry : new URL(registry),
+    reporter: typeof reporter == 'boolean' ? (reporter ? new ConsoleReporter : undefined) : reporter,
+    unstable,
+    update: typeof update == 'boolean' ? (update ? '^' : '') : update,
+    verbose
   });
 
   checker.error = {
-    404: typeof options.error404 == 'boolean' ? options.error404 : false,
-    depCount: typeof options.errorDepCount == 'number' ? Math.max(0, options.errorDepCount) : 0,
-    depType: typeof options.errorDepType == 'boolean' ? options.errorDepType : false,
-    scm: typeof options.errorSCM == 'boolean' ? options.errorSCM : false
+    404: error404,
+    depCount: Math.max(0, errorDepCount),
+    depType: errorDepType,
+    scm: errorSCM
   };
 
-  if (typeof options.reporter == 'boolean' && !options.reporter) checker.reporter = null;
-  if (typeof options.update == 'boolean' && options.update) checker.update = '^';
   return checker;
 }
 

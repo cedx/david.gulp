@@ -2,50 +2,12 @@ import * as chai from 'chai';
 import {Readable} from 'stream';
 import File from 'vinyl';
 import * as pkg from '../package.json';
-import {Checker, ConsoleReporter} from '../src/index';
+import {Checker} from '../src/index';
 
 /** Tests the features of the [[Checker]] class. */
 describe('Checker', function() {
   const {expect} = chai;
   this.timeout(15000); // eslint-disable-line no-invalid-this
-
-  describe('constructor', () => {
-    it('should return a `Checker` with a `ConsoleReporter`', () => {
-      const checker = new Checker;
-      expect(checker).to.be.an.instanceof(Checker);
-      expect(checker.reporter).to.be.an.instanceof(ConsoleReporter);
-    });
-
-    it('should properly initialize the instance properties', () => {
-      const checker = new Checker({
-        ignore: ['@cedx/gulp-david'],
-        registry: new URL('https://dev.belin.io/gulp-david'),
-        reporter: {log() { /* Noop */ }},
-        unstable: true,
-        update: '='
-      });
-
-      checker.error = {
-        404: true,
-        depCount: 123,
-        depType: true,
-        scm: true
-      };
-
-      expect(checker.error).to.deep.equal({
-        404: true,
-        depCount: 123,
-        depType: true,
-        scm: true
-      });
-
-      expect(checker.ignore).to.include('@cedx/gulp-david');
-      expect(checker.registry).to.be.instanceOf(URL).and.have.property('href').that.equal('https://dev.belin.io/gulp-david');
-      expect(checker.reporter).to.be.an('object').and.have.property('log');
-      expect(checker.unstable).to.be.true;
-      expect(checker.update).to.equal('=');
-    });
-  });
 
   describe('#getDependencies()', () => {
     it('should return an object with 3 dependency properties', async () => {
