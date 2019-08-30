@@ -9,7 +9,7 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
     errorDepCount: 1,
     errorDepType: true
   }))
-  .on('error', function(this: NodeJS.ReadWriteStream, err: Error) {
+  .on('error', function(this: NodeJS.WritableStream, err: Error) {
     console.error(err);
     this.emit('end'); // eslint-disable-line no-invalid-this
   })
@@ -29,7 +29,7 @@ gulp.task('updateManifest', () => gulp.src('package.json')
 /** Upgrades the packages to latest versions. */
 gulp.task('upgradePackages:npmInstall', () => exec('npm install --ignore-scripts'));
 gulp.task('upgradePackages:npmUpdate', () => exec('npm update --dev'));
-gulp.task('upgradePackages', gulp.series('updateManifest', 'upgradePackages:npmInstall'));
+gulp.task('upgradePackages', gulp.series('updateManifest', 'upgradePackages:npmInstall', 'upgradePackages:npmUpdate'));
 
 /** Runs the default tasks. */
 gulp.task('default', gulp.task('upgradePackages'));

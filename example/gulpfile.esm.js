@@ -29,7 +29,7 @@ gulp.task('updateManifest', () => gulp.src('package.json')
 /** Upgrades the packages to latest versions. */
 gulp.task('upgradePackages:npmInstall', () => exec('npm install --ignore-scripts'));
 gulp.task('upgradePackages:npmUpdate', () => exec('npm update --dev'));
-gulp.task('upgradePackages', gulp.series('updateManifest', 'upgradePackages:npmInstall'));
+gulp.task('upgradePackages', gulp.series('updateManifest', 'upgradePackages:npmInstall', 'upgradePackages:npmUpdate'));
 
 /** Runs the default tasks. */
 gulp.task('default', gulp.task('upgradePackages'));
