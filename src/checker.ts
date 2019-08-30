@@ -136,7 +136,7 @@ export class Checker extends Transform {
    * @param manifest The manifest providing the list of dependencies.
    * @return An object providing details about the project dependencies.
    */
-  async _getDependencies(getter: GetDependenciesFunction, manifest: JsonObject): Promise<DependencyReport> {
+  private async _getDependencies(getter: GetDependenciesFunction, manifest: JsonObject): Promise<DependencyReport> {
     const options: Partial<GetDependenciesOptions> = {
       error: {E404: this.error['404'], EDEPTYPE: this.error.depType, ESCM: this.error.scm},
       ignore: this.ignore,

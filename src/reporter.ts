@@ -34,7 +34,7 @@ export class ConsoleReporter implements Reporter {
    * @param file The file providing the outdated dependencies.
    * @return The output of the outdated dependencies.
    */
-  _report(file: File): string {
+  private _report(file: File): string {
     const lines: string[] = [];
     lines.push(chalk.bold(file.path ? file.path : 'package.json'));
 
