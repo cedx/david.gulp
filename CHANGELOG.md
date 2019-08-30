@@ -1,8 +1,12 @@
 # Changelog
 
 ## Version [13.0.0](https://github.com/cedx/gulp-david/compare/v12.0.0...v13.0.0)
+- Breaking change: dropped support for [CommonJS modules](https://nodejs.org/api/modules.html).
+- Breaking change: extracted the `Checker.factory()` method into the `david()` function.
 - Breaking change: ported the source code to [TypeScript](https://www.typescriptlang.org).
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
+- Breaking change: renamed the `Reporter` class to `ConsoleReporter`.
+- Added support for [ECMAScript modules](https://nodejs.org/api/esm.html).
 - Replaced the [ESDoc](https://esdoc.org) documentation generator by [TypeDoc](https://typedoc.org).
 - Updated the package dependencies.
 
