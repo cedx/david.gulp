@@ -110,7 +110,7 @@ export class Checker extends Transform {
       if (this.update.length) {
         for (const type of Object.keys(deps))
           for (const [name, dependency] of Object.entries(deps[type]!))
-            manifest[type][name] = `${this.update}${this.unstable ? dependency!.latest : dependency!.stable}`;
+            manifest[type][name] = `${this.update}${this.unstable ? dependency.latest : dependency.stable}`;
 
         file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding as BufferEncoding); // eslint-disable-line require-atomic-updates
       }
@@ -180,7 +180,7 @@ export interface CheckerOptions {
 }
 
 /** Provides information about a package dependencies. */
-export interface DependencyReport extends Record<string, DependencyMap|undefined> {
+export interface DependencyReport extends Record<string, DependencyMap> {
 
   /** Information about the dependencies. */
   dependencies: DependencyMap;

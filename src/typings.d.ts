@@ -18,7 +18,7 @@ declare module 'david' {
   }
 
   /** A dictionary that maps dependency names to their metrics. */
-  export type DependencyMap = Record<string, Partial<Dependency>|undefined>;
+  export type DependencyMap = Record<string, Partial<Dependency>>;
 
   /** A function that gets a list of dependencies for the passed manifest. */
   export type GetDependenciesCallback = (error: Error|null, result: DependencyMap) => void;
