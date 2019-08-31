@@ -115,7 +115,7 @@ export class Checker extends Transform {
         file.contents = Buffer.from(JSON.stringify(manifest, null, 2), encoding as BufferEncoding); // eslint-disable-line require-atomic-updates
       }
 
-      const count = Object.keys(deps).reduce((previousValue, type) => previousValue + Object.keys(deps[type]!).length, 0);
+      const count = Object.keys(deps).reduce((accumulator, type) => accumulator + Object.keys(deps[type]!).length, 0);
       if (this.error.depCount > 0 && count >= this.error.depCount) throw new Error(`Outdated dependencies: ${count}`);
       if (callback) callback(null, file);
     }
