@@ -148,7 +148,7 @@ export class Checker extends Transform {
       registry: this.registry.href
     };
 
-    const getDeps = promisify<object, Partial<GetDependenciesOptions>, DependencyMap>(getter);
+    const getDeps = promisify<Record<string, any>, Partial<GetDependenciesOptions>, DependencyMap>(getter);
     const [dependencies, devDependencies, optionalDependencies] = await Promise.all([
       getDeps(manifest, {...options, dev: false, optional: false}),
       getDeps(manifest, {...options, dev: true, optional: false}),

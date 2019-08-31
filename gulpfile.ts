@@ -29,7 +29,7 @@ task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
 task('coverage', () => _exec('coveralls', ['var/lcov.info']));
 
 /** Checks the package dependencies. */
-let david: (options?: object) => NodeJS.WritableStream;
+let david: (options?: Record<string, any>) => NodeJS.WritableStream;
 const davidModule = './lib/index.js';
 task('deps:check', () => src('package.json').pipe(david()));
 task('deps:import', () => import(davidModule).then(mod => david = mod.david)); // eslint-disable-line prefer-destructuring
