@@ -2,8 +2,6 @@ import {DependencyMap, getDependencies, GetDependenciesFunction, GetDependencies
 import {Transform, TransformCallback} from 'stream';
 import {promisify} from 'util';
 import File from 'vinyl';
-
-import {JsonObject} from './json_object';
 import {Reporter} from './reporter';
 
 /** Checks whether the dependencies of a project are out of date. */
@@ -64,7 +62,7 @@ export class Checker extends Transform {
    * @param manifest The manifest providing the dependencies.
    * @return An object providing details about the dependencies.
    */
-  async getDependencies(manifest: JsonObject): Promise<DependencyReport> {
+  async getDependencies(manifest: object): Promise<DependencyReport> {
     return this._getDependencies(getDependencies, manifest);
   }
 
@@ -73,7 +71,7 @@ export class Checker extends Transform {
    * @param manifest The manifest providing the dependencies.
    * @return An object providing details about the dependencies that are outdated.
    */
-  async getUpdatedDependencies(manifest: JsonObject): Promise<DependencyReport> {
+  async getUpdatedDependencies(manifest: object): Promise<DependencyReport> {
     return this._getDependencies(getUpdatedDependencies, manifest);
   }
 
@@ -84,13 +82,13 @@ export class Checker extends Transform {
    * @return A manifest providing a list of dependencies.
    * @throws [[Error]] The file is a stream, or the manifest is invalid.
    */
-  parseManifest(file: File, encoding: string = 'utf8'): JsonObject {
+  parseManifest(file: File, encoding: string = 'utf8'): Record<string, any> {
     if (file.isNull()) throw new Error(`Empty manifest: ${file.path}`);
     if (file.isStream()) throw new Error('Streams are not supported.');
 
     const manifest = JSON.parse(file.contents!.toString(encoding));
     if (typeof manifest != 'object' || !manifest) throw new Error('Invalid manifest format.');
-    return manifest;
+    return manifest as Record<string, any>;
   }
 
   /**
@@ -101,7 +99,7 @@ export class Checker extends Transform {
    * @return The transformed chunk.
    */
   async _transform(file: File, encoding: string = 'utf8', callback?: TransformCallback): Promise<File> {
-    const getDeps = (mf: JsonObject): Promise<DependencyReport> => this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
+    const getDeps = (mf: object): Promise<DependencyReport> => this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
 
     try {
       const manifest = this.parseManifest(file);
@@ -136,7 +134,7 @@ export class Checker extends Transform {
    * @param manifest The manifest providing the list of dependencies.
    * @return An object providing details about the project dependencies.
    */
-  private async _getDependencies(getter: GetDependenciesFunction, manifest: JsonObject): Promise<DependencyReport> {
+  private async _getDependencies(getter: GetDependenciesFunction, manifest: object): Promise<DependencyReport> {
     const options: Partial<GetDependenciesOptions> = {
       error: {E404: this.error['404'], EDEPTYPE: this.error.depType, ESCM: this.error.scm},
       ignore: this.ignore,
@@ -148,7 +146,7 @@ export class Checker extends Transform {
       registry: this.registry.href
     };
 
-    const getDeps = promisify<Record<string, any>, Partial<GetDependenciesOptions>, DependencyMap>(getter);
+    const getDeps = promisify<object, Partial<GetDependenciesOptions>, DependencyMap>(getter);
     const [dependencies, devDependencies, optionalDependencies] = await Promise.all([
       getDeps(manifest, {...options, dev: false, optional: false}),
       getDeps(manifest, {...options, dev: true, optional: false}),

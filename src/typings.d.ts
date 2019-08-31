@@ -24,7 +24,7 @@ declare module 'david' {
   export type GetDependenciesCallback = (error: Error|null, result: DependencyMap) => void;
 
   /** A function that gets a list of dependencies for the passed manifest. */
-  export type GetDependenciesFunction = (manifest: Record<string, any>, opts: Partial<GetDependenciesOptions>, cb: GetDependenciesCallback) => void;
+  export type GetDependenciesFunction = (manifest: object, opts: Partial<GetDependenciesOptions>, cb: GetDependenciesCallback) => void;
 
   /** Provides options for a [[GetDependenciesFunction]] function. */
   export interface GetDependenciesOptions {
@@ -46,7 +46,7 @@ declare module 'david' {
     loose: boolean;
 
     /** The `npm` configuration options. */
-    npm: Record<string, any>;
+    npm: object;
 
     /** Consider the `optionalDependencies` section. */
     optional: boolean;
@@ -70,7 +70,7 @@ declare module 'david' {
    * @param opts The options passed to the underlying invoked function.
    * @param cb The function that receives the results.
    */
-  export function getDependencies(manifest: Record<string, any>, opts: Partial<GetDependenciesOptions>, cb: GetDependenciesCallback): void;
+  export function getDependencies(manifest: object, opts: Partial<GetDependenciesOptions>, cb: GetDependenciesCallback): void;
 
   /**
    * Gets a list of updated dependencies for the passed manifest.
@@ -78,5 +78,5 @@ declare module 'david' {
    * @param opts The options passed to the underlying invoked function.
    * @param cb The function that receives the results.
    */
-  export function getUpdatedDependencies(manifest: Record<string, any>, opts: Partial<GetDependenciesOptions>, cb: GetDependenciesCallback): void;
+  export function getUpdatedDependencies(manifest: object, opts: Partial<GetDependenciesOptions>, cb: GetDependenciesCallback): void;
 }
