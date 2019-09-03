@@ -26,7 +26,7 @@ export class ConsoleReporter implements Reporter {
   log(file: File, returnOutput: boolean = false): string|void {
     if (!('david' in file)) throw new Error('[@cedx/david] Dependencies not found.');
     const report = this._report(file);
-    return returnOutput ? report : console.log(report);
+    return returnOutput ? report : console.log(report); // eslint-disable-line no-console
   }
 
   /**
