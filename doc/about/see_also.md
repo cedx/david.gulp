@@ -6,5 +6,5 @@
 - [Gulp API docs](https://gulpjs.com/docs/en/api/concepts)
 
 ## Testing
-- [Continuous integration](https://travis-ci.com/cedx/gulp-david)
+- [Continuous integration](https://github.com/cedx/gulp-david/actions)
 - [Code coverage](https://coveralls.io/github/cedx/gulp-david)
