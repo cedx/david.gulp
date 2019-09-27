@@ -87,7 +87,7 @@ export class Checker extends Transform {
     if (file.isStream()) throw new Error('Streams are not supported.');
 
     const manifest = JSON.parse(file.contents!.toString(encoding));
-    if (typeof manifest != 'object' || !manifest) throw new Error('Invalid manifest format.');
+    if (!manifest || typeof manifest != 'object') throw new Error('Invalid manifest format.');
     return manifest as Record<string, any>;
   }
 
