@@ -1,13 +1,16 @@
 import * as chai from 'chai';
+import {promises} from 'fs';
 import {Readable} from 'stream';
 import File from 'vinyl';
-import * as pkg from '../package.json';
 import {Checker} from '../src/index';
 
 /** Tests the features of the [[Checker]] class. */
 describe('Checker', function() {
   const {expect} = chai;
   this.timeout(15000); // eslint-disable-line no-invalid-this
+
+  let pkg: Record<string, any>;
+  before(async () => pkg = JSON.parse(await promises.readFile('package.json', 'utf8')));
 
   describe('#getDependencies()', () => {
     it('should return an object with 3 dependency properties', async () => {
