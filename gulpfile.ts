@@ -30,8 +30,9 @@ task('coverage', () => _exec('coveralls', ['var/lcov.info']));
 
 /** Checks the package dependencies. */
 let david: (options?: object) => NodeJS.WritableStream;
+const davidModule = './lib/index.js';
 task('deps:check', () => src('package.json').pipe(david()));
-task('deps:import', () => import('./lib/index.js').then(mod => david = mod.david)); // eslint-disable-line prefer-destructuring
+task('deps:import', () => import(davidModule).then(mod => david = mod.david)); // eslint-disable-line prefer-destructuring
 task('deps', series('deps:import', 'deps:check'));
 
 /** Builds the documentation. */
