@@ -8,7 +8,7 @@
   "repository": "github:cedx/gulp-david",
   "type": "module",
   "types": "lib/index.d.ts",
-  "version": "13.0.0",
+  "version": "13.0.1",
   "author": {
     "email": "cedric@belin.io",
     "name": "Cédric Belin",
@@ -24,6 +24,7 @@
     "@types/chai": "^4.2.7",
     "@types/mocha": "^5.2.7",
     "@types/node": "^13.1.6",
+    "@types/vinyl": "^2.0.4",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
     "chai": "^4.2.0",
