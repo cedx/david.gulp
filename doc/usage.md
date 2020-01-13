@@ -1,5 +1,5 @@
 # Usage
-If you haven't used [Gulp](https://gulpjs.com) before, be sure to check out the [related documentation](https://gulpjs.com/docs/en/getting-started/quick-start), as it explains how to create a `gulpfile.esm.js` or `gulpfile.ts`, as well as install and use plug-ins.
+If you haven't used [Gulp](https://gulpjs.com) before, be sure to check out the [related documentation](https://gulpjs.com/docs/en/getting-started/quick-start), as it explains how to create a `gulpfile.js`, as well as install and use plug-ins.
 Once you're familiar with that process, you may install the plug-in.
 
 ## Requirements
@@ -16,10 +16,17 @@ You have two possibles choices:
 - Continue to use version 12: as long as ES modules are marked as experimental, this is the recommended solution.
 - Upgrade your Gulp script to use ES modules.
 
-If you choose the second option, read the dedicated instructions:
+If you choose the second option, you must load this package using an [`import` expression](https://nodejs.org/api/esm.html#esm_import_expressions):
 
-- For [JavaScript](esm/javascript.md) (i.e. `gulpfile.js`).
-- For [TypeScript](esm/typescript.md) (i.e. `gulpfile.ts`).
+```js
+const {series, src, task} = require('gulp');
+
+let david;
+task('david:import', () => import('@cedx/gulp-david').then(mod => david = mod.david));
+task('david:run', () => src('package.json').pipe(david()));
+task('david', series('david:import', 'david:run'));
+
+```
 
 ## Programming interface
 The plug-in takes a [`package.json`](https://docs.npmjs.com/files/package.json) file as input, and scans its dependencies to check whether any one is outdated:
@@ -121,4 +128,4 @@ gulp.task('updateDependencies', () =>
 
 ## Examples
 You can find a more detailled sample in the `example` folder:  
-[Sample Gulp tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.esm.js)
+[Sample Gulp tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
