@@ -16,7 +16,7 @@ You have two possibles choices:
 - Continue to use version 12: as long as ES modules are marked as experimental, this is the recommended solution.
 - Upgrade your Gulp script to use ES modules.
 
-If you choose the second option, you must load this package using an [`import` expression](https://nodejs.org/api/esm.html#esm_import_expressions), because Gulp still does not natively support ES modules:
+If you choose the second option, you must load this package using an [`import` expression](https://nodejs.org/api/esm.html#esm_import_expressions):
 
 ```js
 const {series, src, task} = require('gulp');
@@ -24,7 +24,7 @@ const {series, src, task} = require('gulp');
 let david;
 task('david:import', () => import('@cedx/gulp-david').then(mod => david = mod.david));
 task('david:run', () => src('package.json').pipe(david()));
-task('david', series('david:import', 'david:run'));
+task('checkDependencies', series('david:import', 'david:run'));
 
 ```
 
