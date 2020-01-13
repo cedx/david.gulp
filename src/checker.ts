@@ -1,4 +1,4 @@
-import {DependencyMap, getDependencies, GetDependenciesFunction, GetDependenciesOptions, getUpdatedDependencies} from 'david';
+import david, {DependencyMap, GetDependenciesFunction, GetDependenciesOptions} from 'david';
 import {Transform, TransformCallback} from 'stream';
 import {promisify} from 'util';
 import File from 'vinyl';
@@ -63,7 +63,7 @@ export class Checker extends Transform {
    * @return An object providing details about the dependencies.
    */
   async getDependencies(manifest: object): Promise<DependencyReport> {
-    return this._getDependencies(getDependencies, manifest);
+    return this._getDependencies(david.getDependencies, manifest);
   }
 
   /**
@@ -72,7 +72,7 @@ export class Checker extends Transform {
    * @return An object providing details about the dependencies that are outdated.
    */
   async getUpdatedDependencies(manifest: object): Promise<DependencyReport> {
-    return this._getDependencies(getUpdatedDependencies, manifest);
+    return this._getDependencies(david.getUpdatedDependencies, manifest);
   }
 
   /**

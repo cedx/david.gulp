@@ -1,19 +1,18 @@
-import {spawn, SpawnOptions} from 'child_process';
-import * as del from 'del';
-import {promises} from 'fs';
-import * as gulp from 'gulp';
-import * as replace from 'gulp-replace';
-import {delimiter, normalize, resolve} from 'path';
+const {spawn} = require('child_process');
+const del = require('del');
+const {promises} = require('fs');
+const {dest, series, src, task, watch} = require('gulp');
+const replace = require('gulp-replace');
+const {delimiter, normalize, resolve} = require('path');
 
-/** The file patterns providing the list of source files. */
-const sources: string[] = ['*.ts', 'src/**/*.ts', 'test/**/*.ts'];
-
-// Shortcuts.
-const {dest, series, src, task, watch} = gulp;
-const {copyFile} = promises;
+/**
+ * The file patterns providing the list of source files.
+ * @type {string[]}
+ */
+const sources = ['src/**/*.ts', 'test/**/*.ts'];
 
 // Initialize the build system.
-const _path = process.env.PATH ?? '';
+const _path = 'PATH' in process.env ? process.env.PATH : '';
 const _vendor = resolve('node_modules/.bin');
 if (!_path.includes(_vendor)) process.env.PATH = `${_vendor}${delimiter}${_path}`;
 
@@ -29,16 +28,15 @@ task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
 task('coverage', () => _exec('coveralls', ['var/lcov.info']));
 
 /** Checks the package dependencies. */
-let david: (options?: object) => NodeJS.WritableStream;
-const davidModule = './lib/index.js';
+let david;
 task('deps:check', () => src('package.json').pipe(david()));
-task('deps:import', () => import(davidModule).then(mod => david = mod.david)); // eslint-disable-line prefer-destructuring
+task('deps:import', () => import('./lib/index.js').then(mod => david = mod.david));
 task('deps', series('deps:import', 'deps:check'));
 
 /** Builds the documentation. */
 task('doc', async () => {
-  for (const path of ['CHANGELOG.md', 'LICENSE.md']) await copyFile(path, `doc/about/${path.toLowerCase()}`);
-  await _exec('typedoc', ['--gaID', process.env.GOOGLE_ANALYTICS_ID!, '--options', 'etc/typedoc.json', '--tsconfig', 'src/tsconfig.json']);
+  for (const path of ['CHANGELOG.md', 'LICENSE.md']) await promises.copyFile(path, `doc/about/${path.toLowerCase()}`);
+  await _exec('typedoc', ['--gaID', process.env.GOOGLE_ANALYTICS_ID, '--options', 'etc/typedoc.json', '--tsconfig', 'src/tsconfig.json']);
   await _exec('mkdocs', ['build', '--config-file=doc/mkdocs.yaml']);
   return del(['doc/about/changelog.md', 'doc/about/license.md', 'web/mkdocs.yaml']);
 });
@@ -81,12 +79,12 @@ task('default', task('build'));
 
 /**
  * Spawns a new process using the specified command.
- * @param command The command to run.
- * @param args The command arguments.
- * @param options The settings to customize how the process is spawned.
- * @return Completes when the command is finally terminated.
+ * @param {string} command The command to run.
+ * @param {string[]} args The command arguments.
+ * @param {object} options The settings to customize how the process is spawned.
+ * @return {Promise<void>} Completes when the command is finally terminated.
  */
-function _exec(command: string, args: string[] = [], options: SpawnOptions = {}): Promise<void> {
+function _exec(command, args = [], options = {}) {
   return new Promise((fulfill, reject) => spawn(normalize(command), args, {shell: true, stdio: 'inherit', ...options})
     .on('close', code => code ? reject(new Error(`${command}: ${code}`)) : fulfill())
   );
