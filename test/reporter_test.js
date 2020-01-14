@@ -2,7 +2,7 @@ import chai from 'chai';
 import File from 'vinyl';
 import {ConsoleReporter} from '../lib/index.js';
 
-/** Tests the features of the [[ConsoleReporter]] class. */
+/** Tests the features of the {@link ConsoleReporter} class. */
 describe('ConsoleReporter', () => {
   const {expect} = chai;
 
