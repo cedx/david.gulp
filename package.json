@@ -20,9 +20,7 @@
     "vinyl": "^2.2.0"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^9.3.0",
-    "@types/chai": "^4.2.7",
-    "@types/mocha": "^5.2.7",
+    "@cedx/coveralls": "^9.4.0",
     "@types/node": "^13.1.6",
     "@types/vinyl": "^2.0.4",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
@@ -30,13 +28,9 @@
     "chai": "^4.2.0",
     "del": "^5.1.0",
     "eslint": "^6.8.0",
-    "esm": "^3.2.25",
     "gulp": "^4.0.2",
     "gulp-replace": "^1.0.0",
-    "mocha": "^7.0.0",
-    "nyc": "^15.0.0",
-    "source-map-support": "^0.5.16",
-    "ts-node": "^8.6.2",
+    "mocha": "7.0.0-esm1",
     "typedoc": "^0.16.2",
     "typescript": "^3.7.4"
   },

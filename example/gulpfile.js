@@ -11,7 +11,7 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
   }))
   .on('error', function(err) {
     console.error(err);
-    this.emit('end'); // eslint-disable-line no-invalid-this
+    this.emit('end');
   })
 );
 

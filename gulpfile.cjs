@@ -5,24 +5,19 @@ const {dest, series, src, task, watch} = require('gulp');
 const replace = require('gulp-replace');
 const {delimiter, normalize, resolve} = require('path');
 
-/**
- * The file patterns providing the list of source files.
- * @type {string[]}
- */
-const sources = ['src/**/*.ts', 'test/**/*.ts'];
-
 // Initialize the build system.
 const _path = 'PATH' in process.env ? process.env.PATH : '';
 const _vendor = resolve('node_modules/.bin');
 if (!_path.includes(_vendor)) process.env.PATH = `${_vendor}${delimiter}${_path}`;
 
 /** Builds the project. */
-task('build:fix', () => src('lib/**/*.js').pipe(replace(/(export|import)\s+(.+)\s+from\s+'(\.[^']+)'/g, "$1 $2 from '$3.js'")).pipe(dest('lib')));
+const esmRegex = /(export|import)\s+(.+)\s+from\s+'(\.[^']+)'/g;
+task('build:fix', () => src('lib/**/*.js').pipe(replace(esmRegex, "$1 $2 from '$3.js'")).pipe(dest('lib')));
 task('build:js', () => _exec('tsc', ['--project', 'src/tsconfig.json']));
 task('build', series('build:js', 'build:fix'));
 
 /** Deletes all generated files and reset any saved state. */
-task('clean', () => del(['.nyc_output', 'doc/api', 'lib', 'var/**/*', 'web']));
+task('clean', () => del(['doc/api', 'lib', 'var/**/*', 'web']));
 
 /** Uploads the results of the code coverage. */
 task('coverage', () => _exec('coveralls', ['var/lcov.info']));
@@ -31,7 +26,7 @@ task('coverage', () => _exec('coveralls', ['var/lcov.info']));
 let david;
 task('deps:check', () => src('package.json').pipe(david()));
 task('deps:import', () => import('./lib/index.js').then(mod => david = mod.david));
-task('deps', series('deps:import', 'deps:check'));
+task('deps', series('build', 'deps:import', 'deps:check'));
 
 /** Builds the documentation. */
 task('doc', async () => {
@@ -42,10 +37,10 @@ task('doc', async () => {
 });
 
 /** Fixes the coding standards issues. */
-task('fix', () => _exec('eslint', ['--config=etc/eslint.yaml', '--fix', ...sources]));
+task('fix', () => _exec('eslint', ['--config=etc/eslint.yaml', '--fix', 'src/**/*.ts']));
 
 /** Performs the static analysis of source code. */
-task('lint', () => _exec('eslint', ['--config=etc/eslint.yaml', ...sources]));
+task('lint', () => _exec('eslint', ['--config=etc/eslint.yaml', 'src/**/*.ts']));
 
 /** Publishes the package to the registry. */
 task('publish:github', () => _exec('npm', ['publish', '--registry=https://npm.pkg.github.com']));
@@ -53,11 +48,9 @@ task('publish:npm', () => _exec('npm', ['publish', '--registry=https://registry.
 task('publish', series('clean', 'publish:github', 'publish:npm'));
 
 /** Runs the test suites. */
-task('test', () => {
-  process.env.TS_NODE_FILES = 'true';
-  process.env.TS_NODE_PROJECT = 'test/tsconfig.json';
-  return _exec('nyc', ['--nycrc-path=etc/nyc.yaml', 'node_modules/.bin/mocha', '--config=etc/mocha.yaml', '"test/**/*.ts"']);
-});
+const mocha = ['node_modules/.bin/mocha', '--recursive'];
+task('test:run', () => _exec('c8', ['--all', '--include=lib/**/*.js', '--report-dir=var', '--reporter=lcovonly', ...mocha]));
+task('test', series('build', 'test:run'));
 
 /** Upgrades the project to the latest revision. */
 task('upgrade', async () => {
