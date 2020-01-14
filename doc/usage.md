@@ -25,7 +25,6 @@ let david;
 task('david:import', () => import('@cedx/gulp-david').then(mod => david = mod.david));
 task('david:run', () => src('package.json').pipe(david()));
 task('checkDependencies', series('david:import', 'david:run'));
-
 ```
 
 ## Programming interface
