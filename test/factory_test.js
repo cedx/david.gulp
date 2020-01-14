@@ -1,5 +1,5 @@
-import * as chai from 'chai';
-import {Checker, ConsoleReporter, david} from '../src/index';
+import chai from 'chai';
+import {Checker, ConsoleReporter, david} from '../lib/index.js';
 
 /** Tests the features of the factory function. */
 describe('Factory', () => {

@@ -1,6 +1,6 @@
-import * as chai from 'chai';
+import chai from 'chai';
 import File from 'vinyl';
-import {ConsoleReporter} from '../src/index';
+import {ConsoleReporter} from '../lib/index.js';
 
 /** Tests the features of the [[ConsoleReporter]] class. */
 describe('ConsoleReporter', () => {

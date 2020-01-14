@@ -1,15 +1,15 @@
-import * as chai from 'chai';
+import chai from 'chai';
 import {promises} from 'fs';
 import {Readable} from 'stream';
 import File from 'vinyl';
-import {Checker} from '../src/index';
+import {Checker} from '../lib/index.js';
 
 /** Tests the features of the [[Checker]] class. */
 describe('Checker', function() {
   const {expect} = chai;
-  this.timeout(15000); // eslint-disable-line no-invalid-this
+  this.timeout(15000);
 
-  let pkg: Record<string, any>;
+  let pkg;
   before(async () => pkg = JSON.parse(await promises.readFile('package.json', 'utf8')));
 
   describe('#getDependencies()', () => {
