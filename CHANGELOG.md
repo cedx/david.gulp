@@ -27,11 +27,11 @@
 
 ## Version [10.0.0](https://github.com/cedx/gulp-david/compare/v9.0.0...v10.0.0)
 - Breaking change: converted the [`Observable`](http://reactivex.io/intro.html)-based API to an `async/await`-based one.
-- Added the [`#[Symbol.toStringTag]`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag) property to all classes.
+- Added the [`[Symbol.toStringTag]`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag) property to all classes.
 - Changed licensing for the [MIT License](https://opensource.org/licenses/MIT).
 
 ## Version [9.0.0](https://github.com/cedx/gulp-david/compare/v8.1.0...v9.0.0)
-- Breaking change: changed the `factory()` function to the `Checker.factory` method.
+- Breaking change: changed the `factory()` function to the `Checker.factory()` method.
 - Updated the package dependencies.
 
 ## Version [8.1.0](https://github.com/cedx/gulp-david/compare/v8.0.0...v8.1.0)
@@ -48,7 +48,7 @@
 
 ## Version [7.0.0](https://github.com/cedx/gulp-david/compare/v6.3.0...v7.0.0)
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
-- Breaking change: the `Checker#registry` property is now an instance of the [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) class.
+- Breaking change: the `Checker.registry` property is now an instance of the [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) class.
 - Updated the package dependencies.
 
 ## Version [6.3.0](https://github.com/cedx/gulp-david/compare/v6.2.0...v6.3.0)
@@ -63,7 +63,7 @@
 ## Version [6.0.0](https://github.com/cedx/gulp-david/compare/v5.0.0...v6.0.0)
 - Breaking change: changed the signature of the `Checker` constructor.
 - Checker options are now exposed as public properties.
-- Turned the `Checker#_transform` method into an async function.
+- Turned the `Checker._transform()` method into an async function.
 
 ## Version [5.0.0](https://github.com/cedx/gulp-david/compare/v4.1.0...v5.0.0)
 - Breaking change: raised the required [Node.js](https://nodejs.org) version.
