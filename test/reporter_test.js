@@ -6,7 +6,7 @@ import {ConsoleReporter} from '../lib/index.js';
 describe('ConsoleReporter', () => {
   const {expect} = chai;
 
-  describe('#log()', () => {
+  describe('.log()', () => {
     const file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});
     file.david = {};
 

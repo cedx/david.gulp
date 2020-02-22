@@ -12,7 +12,7 @@ describe('Checker', function() {
   let pkg;
   before(async () => pkg = JSON.parse(await promises.readFile('package.json', 'utf8')));
 
-  describe('#getDependencies()', () => {
+  describe('.getDependencies()', () => {
     it('should return an object with 3 dependency properties', async () => {
       const deps = await new Checker().getDependencies({name: '@cedx/gulp-david'});
       expect(deps).to.contain.all.keys('dependencies', 'devDependencies', 'optionalDependencies');
@@ -30,7 +30,7 @@ describe('Checker', function() {
     });
   });
 
-  describe('#getUpdatedDependencies()', () => {
+  describe('.getUpdatedDependencies()', () => {
     it('should return an object with 3 dependency properties', async () => {
       const deps = await new Checker().getUpdatedDependencies({name: '@cedx/gulp-david'});
       expect(deps).to.contain.all.keys('dependencies', 'devDependencies', 'optionalDependencies');
@@ -42,7 +42,7 @@ describe('Checker', function() {
     });
   });
 
-  describe('#parseManifest()', () => {
+  describe('.parseManifest()', () => {
     it('should throw an error if the file is null', () => {
       expect(() => new Checker().parseManifest(new File)).to.throw();
     });
@@ -61,7 +61,7 @@ describe('Checker', function() {
     });
   });
 
-  describe('#_transform()', () => {
+  describe('._transform()', () => {
     it('should throw an error if the manifest is invalid', async () => {
       try {
         const input = new File({contents: Buffer.from('FooBar')});
