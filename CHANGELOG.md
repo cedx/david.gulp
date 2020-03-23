@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [13.2.0](https://github.com/cedx/gulp-david/compare/v13.1.0...v13.2.0)
+- Updated the package dependencies.
+
 ## Version [13.1.0](https://github.com/cedx/gulp-david/compare/v13.0.0...v13.1.0)
 - Fixed the [issue #16](https://github.com/cedx/gulp-david/issues/16): only the "default export" is supported for CommonJS files or packages
 - Updated the package dependencies.
