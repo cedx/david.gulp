@@ -1,6 +1,6 @@
 {
   "bugs": "https://github.com/cedx/gulp-david/issues",
-  "description": "David plug-in for Gulp, the streaming build system. Tells you when your npm dependencies are out of date",
+  "description": "David plug-in for Gulp, the streaming build system. Tells you when your npm dependencies are out of date.",
   "homepage": "https://dev.belin.io/gulp-david",
   "license": "MIT",
   "main": "lib/index.js",
