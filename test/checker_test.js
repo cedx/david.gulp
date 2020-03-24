@@ -45,15 +45,15 @@ describe('Checker', function() {
 
   describe('.parseManifest()', () => {
     it('should throw an error if the file is null', () => {
-      assert.throws(() => new Checker().parseManifest(new File));
+      assert.throws(() => new Checker().parseManifest(new File), Error);
     });
 
     it('should throw an error if the file is a stream', () => {
-      assert.throws(() => new Checker().parseManifest(new File({contents: new Readable})));
+      assert.throws(() => new Checker().parseManifest(new File({contents: new Readable})), Error);
     });
 
     it('should throw an error if the manifest is invalid', () => {
-      assert.throws(() => new Checker().parseManifest(new File({contents: Buffer.from('FooBar')})));
+      assert.throws(() => new Checker().parseManifest(new File({contents: Buffer.from('FooBar')})), SyntaxError);
     });
 
     it('should return an object if the manifest is valid', () => {
@@ -65,7 +65,7 @@ describe('Checker', function() {
   describe('._transform()', () => {
     it('should reject if the manifest is invalid', () => {
       const input = new File({contents: Buffer.from('FooBar')});
-      assert.rejects(new Checker()._transform(input));
+      assert.rejects(new Checker()._transform(input), SyntaxError);
     });
 
     it('should add a "david" property to the file object', async () => {
