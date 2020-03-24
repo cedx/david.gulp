@@ -63,7 +63,7 @@ describe('Checker', function() {
   });
 
   describe('._transform()', () => {
-    it('should rejects if the manifest is invalid', () => {
+    it('should reject if the manifest is invalid', () => {
       const input = new File({contents: Buffer.from('FooBar')});
       assert.rejects(new Checker()._transform(input));
     });
