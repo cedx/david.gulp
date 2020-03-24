@@ -41,7 +41,8 @@ export declare class Checker extends Transform {
      * @param file The file to read.
      * @param encoding The file encoding.
      * @return A manifest providing a list of dependencies.
-     * @throws [[Error]] The file is a stream, or the manifest is invalid.
+     * @throws [[Error]] The file is a stream or is empty.
+     * @throws [[SyntaxError]] The manifest has an invalid format.
      */
     parseManifest(file: File, encoding?: string): Record<string, any>;
     /**

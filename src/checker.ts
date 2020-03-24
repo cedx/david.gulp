@@ -80,14 +80,15 @@ export class Checker extends Transform {
    * @param file The file to read.
    * @param encoding The file encoding.
    * @return A manifest providing a list of dependencies.
-   * @throws [[Error]] The file is a stream, or the manifest is invalid.
+   * @throws [[Error]] The file is a stream or is empty.
+   * @throws [[SyntaxError]] The manifest has an invalid format.
    */
   parseManifest(file: File, encoding: string = 'utf8'): Record<string, any> {
-    if (file.isNull()) throw new Error(`Empty manifest: ${file.path}`);
+    if (file.isNull()) throw new Error('Empty manifest.');
     if (file.isStream()) throw new Error('Streams are not supported.');
 
     const manifest = JSON.parse(file.contents!.toString(encoding));
-    if (!manifest || typeof manifest != 'object') throw new Error('Invalid manifest format.');
+    if (!manifest || typeof manifest != 'object') throw new SyntaxError('Invalid manifest format.');
     return manifest as Record<string, any>;
   }
 
