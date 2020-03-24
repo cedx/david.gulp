@@ -1,15 +1,13 @@
-import chai from 'chai';
+import {strict as assert} from 'assert';
 import {Checker, ConsoleReporter, david} from '../lib/index.js';
 
 /** Tests the features of the factory function. */
 describe('Factory', () => {
-  const {expect} = chai;
-
   describe('david()', () => {
     it('should return a `Checker` with a `ConsoleReporter`', () => {
       const checker = david();
-      expect(checker).to.be.an.instanceof(Checker);
-      expect(checker.reporter).to.be.an.instanceof(ConsoleReporter);
+      assert(checker instanceof Checker);
+      assert(checker.reporter instanceof ConsoleReporter);
     });
 
     it('should properly initialize the instance properties', () => {
@@ -25,18 +23,20 @@ describe('Factory', () => {
         update: '='
       });
 
-      expect(checker.error).to.deep.equal({
+      assert.deepEqual(checker.error, {
         404: true,
         depCount: 123,
         depType: true,
         scm: true
       });
 
-      expect(checker.ignore).to.include('@cedx/gulp-david');
-      expect(checker.registry).to.be.instanceOf(URL).and.have.property('href').that.equal('https://dev.belin.io/gulp-david');
-      expect(checker.reporter).to.be.an('object').and.have.property('log');
-      expect(checker.unstable).to.be.true;
-      expect(checker.update).to.equal('=');
+      assert(checker.ignore.includes('@cedx/gulp-david'));
+      assert(checker.registry instanceof URL);
+      assert.equal(checker.registry.href, 'https://dev.belin.io/gulp-david');
+      assert.ok(checker.reporter);
+      assert.equal(typeof checker.reporter.log, 'function');
+      assert(checker.unstable);
+      assert.equal(checker.update, '=');
     });
   });
 });
