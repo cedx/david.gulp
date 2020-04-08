@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@cedx/coveralls": "^9.4.0",
-    "@types/node": "^13.11.0",
+    "@types/node": "^13.11.1",
     "@types/vinyl": "^2.0.4",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
