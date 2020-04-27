@@ -6,14 +6,13 @@ Check your [npm](https://www.npmjs.com) dependencies with the [David](https://da
 > This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html).
 
 ## Documentation
-- [User guide](https://dev.belin.io/gulp-david)
-- [API reference](https://dev.belin.io/gulp-david/api)
+- [User guide](https://docs.belin.io/gulp-david)
+- [API reference](https://api.belin.io/gulp-david)
 
 ## Development
-- [Git repository](https://github.com/cedx/gulp-david)
-- [GitHub package](https://github.com/cedx/gulp-david/packages)
+- [Git repository](https://git.belin.io/cedx/gulp-david)
 - [npm package](https://www.npmjs.com/package/@cedx/gulp-david)
-- [Submit an issue](https://github.com/cedx/gulp-david/issues)
+- [Submit an issue](https://git.belin.io/cedx/gulp-david/issues)
 
 ## License
-[Gulp-David](https://dev.belin.io/gulp-david) is distributed under the MIT License.
+[Gulp-David](https://docs.belin.io/gulp-david) is distributed under the MIT License.

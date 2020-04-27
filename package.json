@@ -1,11 +1,10 @@
 {
-  "bugs": "https://github.com/cedx/gulp-david/issues",
+  "bugs": "https://git.belin.io/cedx/gulp-david/issues",
   "description": "David plug-in for Gulp, the streaming build system. Tells you when your npm dependencies are out of date.",
-  "homepage": "https://dev.belin.io/gulp-david",
+  "homepage": "https://docs.belin.io/gulp-david",
   "license": "MIT",
   "main": "lib/index.js",
   "name": "@cedx/gulp-david",
-  "repository": "github:cedx/gulp-david",
   "type": "module",
   "types": "lib/index.d.ts",
   "version": "13.2.0",
@@ -54,6 +53,10 @@
   ],
   "peerDependencies": {
     "gulp": ">=4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.belin.io/cedx/gulp-david.git"
   },
   "scripts": {
     "coverage": "gulp coverage",

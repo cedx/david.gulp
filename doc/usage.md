@@ -82,7 +82,7 @@ gulp.task('checkDependencies', () =>
 ```
 
 You can also replace this reporter by your own implementation.
-Look at the source of the [built-in reporter](https://github.com/cedx/gulp-david/blob/master/src/reporter.ts) for a code sample.
+Look at the source of the [built-in reporter](https://git.belin.io/cedx/gulp-david/src/branch/master/src/reporter.ts) for a code sample.
 
 ```js
 import {david} from '@cedx/gulp-david';
@@ -127,4 +127,4 @@ gulp.task('updateDependencies', () =>
 
 ## Examples
 You can find a more detailled sample in the `example` folder:  
-[Sample Gulp tasks](https://github.com/cedx/gulp-david/blob/master/example/gulpfile.js)
+[Sample Gulp tasks](https://git.belin.io/cedx/gulp-david/src/branch/master/example/gulpfile.js)
