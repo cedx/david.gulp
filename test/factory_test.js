@@ -17,7 +17,7 @@ describe('Factory', () => {
         errorDepType: true,
         errorSCM: true,
         ignore: ['@cedx/gulp-david'],
-        registry: 'https://dev.belin.io/gulp-david',
+        registry: 'https://docs.belin.io/gulp-david',
         reporter: {log() { /* Noop */ }},
         unstable: true,
         update: '='
@@ -32,7 +32,7 @@ describe('Factory', () => {
 
       assert(checker.ignore.includes('@cedx/gulp-david'));
       assert(checker.registry instanceof URL);
-      assert.equal(checker.registry.href, 'https://dev.belin.io/gulp-david');
+      assert.equal(checker.registry.href, 'https://docs.belin.io/gulp-david');
       assert.ok(checker.reporter);
       assert.equal(typeof checker.reporter.log, 'function');
       assert(checker.unstable);
