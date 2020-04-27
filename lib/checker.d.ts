@@ -2,7 +2,7 @@
 import { DependencyMap } from 'david';
 import { Transform, TransformCallback } from 'stream';
 import File from 'vinyl';
-import { Reporter } from './reporter';
+import { Reporter } from './reporter.js';
 /** Checks whether the dependencies of a project are out of date. */
 export declare class Checker extends Transform {
     /** The condition indicating that an error occurred. */

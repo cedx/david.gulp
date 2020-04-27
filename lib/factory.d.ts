@@ -1,5 +1,5 @@
-import { Checker } from './checker';
-import { Reporter } from './reporter';
+import { Checker } from './checker.js';
+import { Reporter } from './reporter.js';
 /**
  * Create a new checker.
  * @param options The checker options.

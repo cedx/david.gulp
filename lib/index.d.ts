@@ -1,3 +1,3 @@
-export * from './checker';
-export * from './factory';
-export * from './reporter';
+export * from './checker.js';
+export * from './factory.js';
+export * from './reporter.js';
