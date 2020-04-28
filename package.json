@@ -19,7 +19,7 @@
     "vinyl": "^2.2.0"
   },
   "devDependencies": {
-    "@cedx/coveralls": "^9.4.0",
+    "@cedx/coveralls": "^10.0.0",
     "@types/node": "^13.13.4",
     "@types/vinyl": "^2.0.4",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
