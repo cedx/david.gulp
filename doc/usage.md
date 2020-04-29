@@ -37,7 +37,7 @@ import gulp from 'gulp';
 gulp.task('checkDependencies', () => gulp.src('package.json')
   .pipe(david())
   .on('error', function(err) {
-    console.error(err);
+    console.error(err.message);
     this.emit('end');
   })
 );

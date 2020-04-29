@@ -10,7 +10,7 @@ gulp.task('checkDependencies', () => gulp.src('package.json')
     errorDepType: true
   }))
   .on('error', function(err) {
-    console.error(err);
+    console.error(err.message);
     this.emit('end');
   })
 );
