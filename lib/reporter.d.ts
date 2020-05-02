@@ -14,7 +14,7 @@ export declare class ConsoleReporter implements Reporter {
      * @param file The file providing the outdated dependencies.
      * @param returnOutput Value indicating whether to return the output of the outdated dependencies, rather than print it.
      * @return The output of the outdated dependencies.
-     * @throws [[Error]] The dependencies were not found in the file.
+     * @throws `Error` The dependencies were not found in the file.
      */
     log(file: File, returnOutput?: boolean): string | void;
     /**

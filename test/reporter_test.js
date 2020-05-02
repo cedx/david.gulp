@@ -2,7 +2,7 @@ import {strict as assert} from 'assert';
 import File from 'vinyl';
 import {ConsoleReporter} from '../lib/index.js';
 
-/** Tests the features of the {@link ConsoleReporter} class. */
+/** Tests the features of the `ConsoleReporter` class. */
 describe('ConsoleReporter', () => {
   describe('.log()', () => {
     const file = new File({contents: Buffer.from('{"name": "@cedx/gulp-david"}'), path: '/foo.js'});

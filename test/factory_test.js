@@ -1,7 +1,7 @@
 import {strict as assert} from 'assert';
 import {Checker, ConsoleReporter, david} from '../lib/index.js';
 
-/** Tests the features of the factory function. */
+/** Tests the features of the `david()` function. */
 describe('Factory', () => {
   describe('david()', () => {
     it('should return a `Checker` with a `ConsoleReporter`', () => {

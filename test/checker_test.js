@@ -4,7 +4,7 @@ import {Readable} from 'stream';
 import File from 'vinyl';
 import {Checker} from '../lib/index.js';
 
-/** Tests the features of the {@link Checker} class. */
+/** Tests the features of the `Checker` class. */
 describe('Checker', function() {
   this.timeout(15000);
   const pkg = JSON.parse(readFileSync('package.json', 'utf8'));

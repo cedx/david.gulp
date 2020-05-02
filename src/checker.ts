@@ -80,8 +80,8 @@ export class Checker extends Transform {
    * @param file The file to read.
    * @param encoding The file encoding.
    * @return A manifest providing a list of dependencies.
-   * @throws [[Error]] The file is a stream or is empty.
-   * @throws [[SyntaxError]] The manifest has an invalid format.
+   * @throws `Error` The file is a stream or is empty.
+   * @throws `SyntaxError` The manifest has an invalid format.
    */
   parseManifest(file: File, encoding: string = 'utf8'): Record<string, any> {
     if (file.isNull()) throw new Error('Empty manifest.');
