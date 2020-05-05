@@ -5,13 +5,13 @@ Before installing **Gulp-David**, you need to make sure you have [Node.js](https
 You also need the [Command Line Utility for Gulp](https://www.npmjs.com/package/gulp-cli).
 
 !!! warning
-    Gulp-David requires Node.js >= **14.0.0** and Gulp >= **4.0.0**.
+    Gulp-David requires Node.js >= **14.1.0** and Gulp >= **4.0.0**.
    
 You can verify if you're already good to go with the following commands:
 
 ```shell
 node --version
-# v14.0.0
+# v14.1.0
 
 npm --version
 # 6.14.4
