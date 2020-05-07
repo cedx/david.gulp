@@ -20,7 +20,7 @@ task('coverage', () => _exec('coveralls', ['var/lcov.info']));
 /** Checks the package dependencies. */
 let david;
 task('deps:check', () => src('package.json').pipe(david()));
-task('deps:import', () => import('./lib/index.js').then(mod => david = mod.david));
+task('deps:import', () => import('../lib/index.js').then(mod => david = mod.david));
 task('deps', series('build', 'deps:import', 'deps:check'));
 
 /** Builds the documentation. */
