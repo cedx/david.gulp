@@ -100,7 +100,7 @@ export class Checker extends Transform {
    * @return The transformed chunk.
    */
   async _transform(file: File, encoding: string = 'utf8', callback?: TransformCallback): Promise<File> {
-    const getDeps = (mf: object): Promise<DependencyReport> => this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
+    const getDeps = (mf: object): Promise<DependencyReport> => (this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf));
 
     try {
       const manifest = this.parseManifest(file);
@@ -140,11 +140,8 @@ export class Checker extends Transform {
       error: {E404: this.error['404'], EDEPTYPE: this.error.depType, ESCM: this.error.scm},
       ignore: this.ignore,
       loose: true,
+      npm: {registry: this.registry.href},
       stable: !this.unstable
-    };
-
-    if (this.registry) options.npm = {
-      registry: this.registry.href
     };
 
     const getDeps = promisify<object, Partial<GetDependenciesOptions>, DependencyMap>(getter);

@@ -5,7 +5,7 @@ export interface Reporter {
      * Logs the outdated dependencies provided by the specified file.
      * @param file The file providing the outdated dependencies.
      */
-    log(file: File): void;
+    log: (file: File) => void;
 }
 /** Prints the checker results to the standard output. */
 export declare class ConsoleReporter implements Reporter {
@@ -16,7 +16,7 @@ export declare class ConsoleReporter implements Reporter {
      * @return The output of the outdated dependencies.
      * @throws `Error` The dependencies were not found in the file.
      */
-    log(file: File, returnOutput?: boolean): string | void;
+    log(file: File, returnOutput?: boolean): string | undefined;
     /**
      * Builds the output of the outdated dependencies provided by the specified file.
      * @param file The file providing the outdated dependencies.

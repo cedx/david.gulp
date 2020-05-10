@@ -46,7 +46,7 @@ declare module 'david' {
     loose: boolean;
 
     /** The `npm` configuration options. */
-    npm: object;
+    npm: {registry: string};
 
     /** Consider the `optionalDependencies` section. */
     optional: boolean;

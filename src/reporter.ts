@@ -10,7 +10,7 @@ export interface Reporter {
    * Logs the outdated dependencies provided by the specified file.
    * @param file The file providing the outdated dependencies.
    */
-  log(file: File): void;
+  log: (file: File) => void;
 }
 
 /** Prints the checker results to the standard output. */
@@ -23,10 +23,12 @@ export class ConsoleReporter implements Reporter {
    * @return The output of the outdated dependencies.
    * @throws `Error` The dependencies were not found in the file.
    */
-  log(file: File, returnOutput: boolean = false): string|void {
+  log(file: File, returnOutput: boolean = false): string|undefined {
     if (!('david' in file)) throw new Error('[@cedx/david] Dependencies not found.');
     const report = this._report(file);
-    return returnOutput ? report : console.log(report); // eslint-disable-line no-console
+    if (returnOutput) return report;
+    console.log(report); // eslint-disable-line no-console
+    return undefined;
   }
 
   /**
@@ -43,10 +45,10 @@ export class ConsoleReporter implements Reporter {
     else for (const type of types) {
       lines.push(type);
 
-      for (const [name, dependency] of Object.entries<Dependency>(file.david[type])) {
-        const requiredVersion = chalk.red(dependency.required || '*');
-        const stableVersion = chalk.green(dependency.stable || '*');
-        const latestVersion = chalk.yellow(dependency.latest || '*');
+      for (const [name, dependency] of Object.entries<Partial<Dependency>>(file.david[type])) {
+        const requiredVersion = chalk.red(dependency.required ?? '*');
+        const stableVersion = chalk.green(dependency.stable ?? '*');
+        const latestVersion = chalk.yellow(dependency.latest ?? '*');
         lines.push(`  ${chalk.magenta(name)} { required: ${requiredVersion}, stable: ${stableVersion}, latest: ${latestVersion} }`);
       }
     }
