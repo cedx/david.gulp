@@ -100,7 +100,7 @@ export class Checker extends Transform {
    * @return The transformed chunk.
    */
   async _transform(file: File, encoding: string = 'utf8', callback?: TransformCallback): Promise<File> {
-    const getDeps = (mf: object): Promise<DependencyReport> => (this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf));
+    const getDeps = (mf: object): Promise<DependencyReport> => this.verbose ? this.getDependencies(mf) : this.getUpdatedDependencies(mf);
 
     try {
       const manifest = this.parseManifest(file);
