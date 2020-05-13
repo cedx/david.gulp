@@ -1,7 +1,7 @@
 # Gulp-David
-![Runtime](https://img.shields.io/node/v/@cedx/gulp-david.svg) ![Release](https://img.shields.io/npm/v/@cedx/gulp-david.svg) ![License](https://img.shields.io/npm/l/@cedx/gulp-david.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/gulp-david.svg) ![Dependencies](https://david-dm.org/cedx/gulp-david.svg) ![Coverage](https://coveralls.io/repos/github/cedx/gulp-david/badge.svg) ![Build](https://github.com/cedx/gulp-david/workflows/build/badge.svg)
+![Runtime](https://badgen.net/npm/node/@cedx/gulp-david) ![Release](https://badgen.net/npm/v/@cedx/gulp-david) ![License](https://badgen.net/npm/license/@cedx/gulp-david) ![Downloads](https://badgen.net/npm/dt/@cedx/gulp-david) ![Dependencies](https://badgen.net/david/dep/cedx/gulp-david) ![Coverage](https://badgen.net/coveralls/c/github/cedx/gulp-david) ![Build](https://badgen.net/github/checks/cedx/gulp-david)
 
-Check your [npm](https://www.npmjs.com) dependencies with the [David](https://david-dm.org) plug-in for [Gulp](https://gulpjs.com), the streaming build system.
+Check your [npm](https://www.npmjs.com) dependencies with the [David](https://badgen.net/david/dep) plug-in for [Gulp](https://gulpjs.com), the streaming build system.
 
 ## Quick start
 Install the latest version of **Gulp-David** with [npm](https://www.npmjs.com):
