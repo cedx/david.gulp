@@ -18,7 +18,7 @@ You have two possibles choices:
 
 If you choose the second option, as long as Gulp does not natively support ES modules, you must load this package using an [`import` expression](https://nodejs.org/api/esm.html#esm_import_expressions):
 
-```js
+``` js
 const {series, src, task} = require('gulp');
 
 let david;
@@ -30,7 +30,7 @@ task('checkDependencies', series('david:import', 'david:run'));
 ## Programming interface
 The plug-in takes a [`package.json`](https://docs.npmjs.com/files/package.json) file as input, and scans its dependencies to check whether any one is outdated:
 
-```js
+``` js
 import {david} from '@cedx/gulp-david';
 import gulp from 'gulp';
 
@@ -60,7 +60,7 @@ The plug-in can be customized using these settings:
 ### Results
 The plug-in adds the following properties to the `file` object:
 
-```js
+``` js
 file.david = {
   dependencies: {}, // Details about the required dependencies needing an update.
   devDependencies: {}, // Details about the development dependencies needing an update.
@@ -72,7 +72,7 @@ file.david = {
 By default, the plug-in prints to the standard output the list of outdated packages.
 You can disable this output by setting the `reporter` option to `false`.
 
-```js
+``` js
 import {david} from '@cedx/gulp-david';
 import gulp from 'gulp';
 
@@ -82,9 +82,9 @@ gulp.task('checkDependencies', () =>
 ```
 
 You can also replace this reporter by your own implementation.
-Look at the source of the [built-in reporter](https://git.belin.io/cedx/gulp-david/src/branch/master/src/reporter.ts) for a code sample.
+Look at the source of the [built-in reporter](https://git.belin.io/cedx/gulp-david/src/branch/main/src/reporter.ts) for a code sample.
 
-```js
+``` js
 import {david} from '@cedx/gulp-david';
 import gulp from 'gulp';
 
@@ -96,7 +96,7 @@ gulp.task('checkDependencies', () =>
 ## Updating dependencies
 The plug-in lets you update dependencies in the manifest file to latest versions and save them back to the file system:
 
-```js
+``` js
 import {david} from '@cedx/gulp-david';
 import gulp from 'gulp';
 
@@ -109,14 +109,14 @@ gulp.task('updateDependencies', () => gulp.src('package.json')
 By default, the plug-in will use the caret operator (e.g. `^`) to specifiy the version comparators in the manifest file.
 You can use a different operator by providing a string indicating the wanted one:
 
-```js
+``` js
 gulp.src('package.json').pipe(david({update: '~'}));
 gulp.src('package.json').pipe(david({update: '>='}));
 ```
 
 In order to pin your dependencies, just use the equality operator:
 
-```js
+``` js
 import {david} from '@cedx/gulp-david';
 import gulp from 'gulp';
 
@@ -127,4 +127,4 @@ gulp.task('updateDependencies', () =>
 
 ## Examples
 You can find a more detailled sample in the `example` folder:  
-[Sample Gulp tasks](https://git.belin.io/cedx/gulp-david/src/branch/master/example/gulpfile.js)
+[Sample Gulp tasks](https://git.belin.io/cedx/gulp-david/src/branch/main/example/gulpfile.js)
